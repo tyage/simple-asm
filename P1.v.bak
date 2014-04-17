@@ -1,0 +1,9 @@
+module P1(
+	input         clk,
+	output [15:0] data);
+
+	reg [15:0] counter;
+   ProgramCounter (.clk(clk), .counter(counter));
+	Memory (.address(counter), .data(data));
+	InstructionRegister(.writeData(data));
+endmodule
