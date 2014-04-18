@@ -1,5 +1,5 @@
 Fitter report for simple-architecture
-Thu Apr 17 17:25:25 2014
+Fri Apr 18 09:51:16 2014
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -17,25 +17,26 @@ Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Ver
   9. Fitter Resource Usage Summary
  10. Fitter Partition Statistics
  11. Input Pins
- 12. I/O Bank Usage
- 13. All Package Pins
- 14. Output Pin Default Load For Reported TCO
- 15. Fitter Resource Utilization by Entity
- 16. Delay Chain Summary
- 17. Pad To Core Delay Chain Fanout
- 18. Control Signals
- 19. Global & Other Fast Signals
- 20. Non-Global High Fan-Out Signals
- 21. Fitter RAM Summary
- 22. Other Routing Usage Summary
- 23. LAB Logic Elements
- 24. LAB-wide Signals
- 25. LAB Signals Sourced
- 26. LAB Signals Sourced Out
- 27. LAB Distinct Inputs
- 28. Fitter Device Options
- 29. Fitter Messages
- 30. Fitter Suppressed Messages
+ 12. Output Pins
+ 13. I/O Bank Usage
+ 14. All Package Pins
+ 15. Output Pin Default Load For Reported TCO
+ 16. Fitter Resource Utilization by Entity
+ 17. Delay Chain Summary
+ 18. Pad To Core Delay Chain Fanout
+ 19. Control Signals
+ 20. Global & Other Fast Signals
+ 21. Non-Global High Fan-Out Signals
+ 22. Fitter RAM Summary
+ 23. Other Routing Usage Summary
+ 24. LAB Logic Elements
+ 25. LAB-wide Signals
+ 26. LAB Signals Sourced
+ 27. LAB Signals Sourced Out
+ 28. LAB Distinct Inputs
+ 29. Fitter Device Options
+ 30. Fitter Messages
+ 31. Fitter Suppressed Messages
 
 
 
@@ -61,15 +62,15 @@ applicable agreement for further details.
 +------------------------------------------------------------------------------+
 ; Fitter Summary                                                               ;
 +---------------------------+--------------------------------------------------+
-; Fitter Status             ; Successful - Thu Apr 17 17:25:25 2014            ;
+; Fitter Status             ; Successful - Fri Apr 18 09:51:15 2014            ;
 ; Quartus II 32-bit Version ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name             ; simple-architecture                              ;
-; Top-level Entity Name     ; P1                                               ;
+; Top-level Entity Name     ; Controller                                       ;
 ; Family                    ; Cyclone                                          ;
 ; Device                    ; EP1C6Q240C8                                      ;
 ; Timing Models             ; Final                                            ;
-; Total logic elements      ; 228 / 5,980 ( 4 % )                              ;
-; Total pins                ; 1 / 185 ( < 1 % )                                ;
+; Total logic elements      ; 258 / 5,980 ( 4 % )                              ;
+; Total pins                ; 18 / 185 ( 10 % )                                ;
 ; Total virtual pins        ; 0                                                ;
 ; Total memory bits         ; 65,536 / 92,160 ( 71 % )                         ;
 ; Total PLLs                ; 0 / 2 ( 0 % )                                    ;
@@ -146,8 +147,8 @@ applicable agreement for further details.
 ; Type                ; Value                  ;
 +---------------------+------------------------+
 ; Placement (by node) ;                        ;
-;     -- Requested    ; 0 / 253 ( 0.00 % )     ;
-;     -- Achieved     ; 0 / 253 ( 0.00 % )     ;
+;     -- Requested    ; 0 / 300 ( 0.00 % )     ;
+;     -- Achieved     ; 0 / 300 ( 0.00 % )     ;
 ;                     ;                        ;
 ; Routing (by net)    ;                        ;
 ;     -- Requested    ; 0 / 0 ( 0.00 % )       ;
@@ -171,8 +172,8 @@ applicable agreement for further details.
 +--------------------------------+---------+-------------------+-------------------------+-------------------+
 ; Partition Name                 ; # Nodes ; # Preserved Nodes ; Preservation Level Used ; Netlist Type Used ;
 +--------------------------------+---------+-------------------+-------------------------+-------------------+
-; Top                            ; 112     ; 0                 ; N/A                     ; Source File       ;
-; sld_hub:auto_hub               ; 139     ; 0                 ; N/A                     ; Post-Synthesis    ;
+; Top                            ; 158     ; 0                 ; N/A                     ; Source File       ;
+; sld_hub:auto_hub               ; 140     ; 0                 ; N/A                     ; Post-Synthesis    ;
 ; hard_block:auto_generated_inst ; 2       ; 0                 ; N/A                     ; Source File       ;
 +--------------------------------+---------+-------------------+-------------------------+-------------------+
 
@@ -188,31 +189,31 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 +---------------------------------------------+--------------------------+
 ; Resource                                    ; Usage                    ;
 +---------------------------------------------+--------------------------+
-; Total logic elements                        ; 228 / 5,980 ( 4 % )      ;
-;     -- Combinational with no register       ; 89                       ;
-;     -- Register only                        ; 21                       ;
-;     -- Combinational with a register        ; 118                      ;
+; Total logic elements                        ; 258 / 5,980 ( 4 % )      ;
+;     -- Combinational with no register       ; 91                       ;
+;     -- Register only                        ; 33                       ;
+;     -- Combinational with a register        ; 134                      ;
 ;                                             ;                          ;
 ; Logic element usage by number of LUT inputs ;                          ;
-;     -- 4 input functions                    ; 72                       ;
-;     -- 3 input functions                    ; 53                       ;
-;     -- 2 input functions                    ; 70                       ;
-;     -- 1 input functions                    ; 10                       ;
+;     -- 4 input functions                    ; 74                       ;
+;     -- 3 input functions                    ; 51                       ;
+;     -- 2 input functions                    ; 85                       ;
+;     -- 1 input functions                    ; 13                       ;
 ;     -- 0 input functions                    ; 2                        ;
 ;                                             ;                          ;
 ; Logic elements by mode                      ;                          ;
-;     -- normal mode                          ; 195                      ;
-;     -- arithmetic mode                      ; 33                       ;
-;     -- qfbk mode                            ; 4                        ;
+;     -- normal mode                          ; 213                      ;
+;     -- arithmetic mode                      ; 45                       ;
+;     -- qfbk mode                            ; 5                        ;
 ;     -- register cascade mode                ; 0                        ;
-;     -- synchronous clear/load mode          ; 51                       ;
+;     -- synchronous clear/load mode          ; 63                       ;
 ;     -- asynchronous clear/load mode         ; 51                       ;
 ;                                             ;                          ;
-; Total registers                             ; 139 / 6,523 ( 2 % )      ;
-; Total LABs                                  ; 30 / 598 ( 5 % )         ;
-; Logic elements in carry chains              ; 38                       ;
+; Total registers                             ; 167 / 6,523 ( 3 % )      ;
+; Total LABs                                  ; 39 / 598 ( 7 % )         ;
+; Logic elements in carry chains              ; 51                       ;
 ; Virtual pins                                ; 0                        ;
-; I/O pins                                    ; 1 / 185 ( < 1 % )        ;
+; I/O pins                                    ; 18 / 185 ( 10 % )        ;
 ;     -- Clock pins                           ; 1 / 2 ( 50 % )           ;
 ;                                             ;                          ;
 ; Global signals                              ; 7                        ;
@@ -224,12 +225,12 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ; JTAGs                                       ; 1 / 1 ( 100 % )          ;
 ; ASMI Blocks                                 ; 0 / 1 ( 0 % )            ;
 ; CRC blocks                                  ; 0 / 1 ( 0 % )            ;
-; Average interconnect usage (total/H/V)      ; 2% / 2% / 3%             ;
-; Peak interconnect usage (total/H/V)         ; 8% / 8% / 9%             ;
+; Average interconnect usage (total/H/V)      ; 2% / 2% / 2%             ;
+; Peak interconnect usage (total/H/V)         ; 6% / 7% / 6%             ;
 ; Maximum fan-out                             ; 179                      ;
 ; Highest non-global fan-out                  ; 29                       ;
-; Total fan-out                               ; 1389                     ;
-; Average fan-out                             ; 5.51                     ;
+; Total fan-out                               ; 1487                     ;
+; Average fan-out                             ; 4.97                     ;
 +---------------------------------------------+--------------------------+
 
 
@@ -240,10 +241,10 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 +---------------------------------------------+-------------------+-------------------+--------------------------------+
 ; Difficulty Clustering Region                ; Low               ; Low               ; Low                            ;
 ;                                             ;                   ;                   ;                                ;
-; Total logic elements                        ; 89                ; 139               ; 0                              ;
-;     -- Combinational with no register       ; 30                ; 59                ; 0                              ;
-;     -- Register only                        ; 4                 ; 17                ; 0                              ;
-;     -- Combinational with a register        ; 55                ; 63                ; 0                              ;
+; Total logic elements                        ; 118               ; 140               ; 0                              ;
+;     -- Combinational with no register       ; 31                ; 60                ; 0                              ;
+;     -- Register only                        ; 17                ; 16                ; 0                              ;
+;     -- Combinational with a register        ; 70                ; 64                ; 0                              ;
 ;                                             ;                   ;                   ;                                ;
 ; Logic element usage by number of LUT inputs ;                   ;                   ;                                ;
 ;     -- 4 input functions                    ; 0                 ; 0                 ; 0                              ;
@@ -260,9 +261,9 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ;     -- synchronous clear/load mode          ; 0                 ; 0                 ; 0                              ;
 ;     -- asynchronous clear/load mode         ; 0                 ; 0                 ; 0                              ;
 ;                                             ;                   ;                   ;                                ;
-; Total registers                             ; 59 / 2990 ( 2 % ) ; 80 / 2990 ( 3 % ) ; 0 / 2990 ( 0 % )               ;
+; Total registers                             ; 87 / 2990 ( 3 % ) ; 80 / 2990 ( 3 % ) ; 0 / 2990 ( 0 % )               ;
 ; Virtual pins                                ; 0                 ; 0                 ; 0                              ;
-; I/O pins                                    ; 1                 ; 0                 ; 0                              ;
+; I/O pins                                    ; 18                ; 0                 ; 0                              ;
 ; DSP block 9-bit elements                    ; 0                 ; 0                 ; 0                              ;
 ; Total memory bits                           ; 65536             ; 0                 ; 0                              ;
 ; Total RAM block bits                        ; 73728             ; 0                 ; 0                              ;
@@ -271,13 +272,13 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ;                                             ;                   ;                   ;                                ;
 ; Connections                                 ;                   ;                   ;                                ;
 ;     -- Input Connections                    ; 133               ; 118               ; 0                              ;
-;     -- Registered Input Connections         ; 81                ; 107               ; 0                              ;
+;     -- Registered Input Connections         ; 81                ; 106               ; 0                              ;
 ;     -- Output Connections                   ; 185               ; 66                ; 0                              ;
 ;     -- Registered Output Connections        ; 5                 ; 65                ; 0                              ;
 ;                                             ;                   ;                   ;                                ;
 ; Internal Connections                        ;                   ;                   ;                                ;
-;     -- Total Connections                    ; 989               ; 645               ; 0                              ;
-;     -- Registered Connections               ; 534               ; 489               ; 0                              ;
+;     -- Total Connections                    ; 1091              ; 650               ; 0                              ;
+;     -- Registered Connections               ; 577               ; 491               ; 0                              ;
 ;                                             ;                   ;                   ;                                ;
 ; External Connections                        ;                   ;                   ;                                ;
 ;     -- Top                                  ; 134               ; 184               ; 0                              ;
@@ -285,8 +286,8 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ;     -- hard_block:auto_generated_inst       ; 0                 ; 0                 ; 0                              ;
 ;                                             ;                   ;                   ;                                ;
 ; Partition Interface                         ;                   ;                   ;                                ;
-;     -- Input Ports                          ; 19                ; 16                ; 0                              ;
-;     -- Output Ports                         ; 7                 ; 34                ; 0                              ;
+;     -- Input Ports                          ; 20                ; 16                ; 0                              ;
+;     -- Output Ports                         ; 23                ; 34                ; 0                              ;
 ;     -- Bidir Ports                          ; 0                 ; 0                 ; 0                              ;
 ;                                             ;                   ;                   ;                                ;
 ; Registered Ports                            ;                   ;                   ;                                ;
@@ -305,25 +306,50 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 +---------------------------------------------+-------------------+-------------------+--------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Input Pins                                                                                                                                                                                                                                                 ;
-+------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
-; Name ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Cell number ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Power Up High ; PCI I/O Enabled ; Bus Hold ; Weak Pull Up ; I/O Standard ; Termination ; Location assigned by ;
-+------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
-; clk  ; 29    ; 1        ; 0            ; 11           ; 0           ; 12                    ; 0                  ; yes    ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
-+------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Input Pins                                                                                                                                                                                                                                                  ;
++-------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
+; Name  ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Cell number ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Power Up High ; PCI I/O Enabled ; Bus Hold ; Weak Pull Up ; I/O Standard ; Termination ; Location assigned by ;
++-------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
+; clock ; 29    ; 1        ; 0            ; 11           ; 0           ; 40                    ; 0                  ; yes    ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
+; in    ; 11    ; 1        ; 0            ; 17           ; 0           ; 0                     ; 0                  ; no     ; no             ; no            ; no              ; no       ; Off          ; 3.3-V LVTTL  ; Off         ; Fitter               ;
++-------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
 
 
-+----------------------------------------------------------+
-; I/O Bank Usage                                           ;
-+----------+----------------+---------------+--------------+
-; I/O Bank ; Usage          ; VCCIO Voltage ; VREF Voltage ;
-+----------+----------------+---------------+--------------+
-; 1        ; 3 / 44 ( 7 % ) ; 3.3V          ; --           ;
-; 2        ; 0 / 48 ( 0 % ) ; 3.3V          ; --           ;
-; 3        ; 0 / 45 ( 0 % ) ; 3.3V          ; --           ;
-; 4        ; 0 / 48 ( 0 % ) ; 3.3V          ; --           ;
-+----------+----------------+---------------+--------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Output Pins                                                                                                                                                                                                                                                                                                                                             ;
++---------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+----------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+-------+----------------------+---------------------+
+; Name    ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Cell number ; Output Register ; Output Enable Register ; Power Up High ; Slow Slew Rate ; PCI I/O Enabled ; Open Drain ; TRI Primitive ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Termination ; Location assigned by ; Load  ; Output Enable Source ; Output Enable Group ;
++---------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+----------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+-------+----------------------+---------------------+
+; out[0]  ; 186   ; 2        ; 32           ; 21           ; 2           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[10] ; 224   ; 2        ; 10           ; 21           ; 2           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[11] ; 222   ; 2        ; 10           ; 21           ; 0           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[12] ; 214   ; 2        ; 16           ; 21           ; 1           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[13] ; 226   ; 2        ; 8            ; 21           ; 1           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[14] ; 221   ; 2        ; 12           ; 21           ; 2           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[15] ; 220   ; 2        ; 12           ; 21           ; 1           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[1]  ; 46    ; 1        ; 0            ; 5            ; 0           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[2]  ; 227   ; 2        ; 8            ; 21           ; 2           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[3]  ; 215   ; 2        ; 16           ; 21           ; 2           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[4]  ; 223   ; 2        ; 10           ; 21           ; 1           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[5]  ; 218   ; 2        ; 14           ; 21           ; 2           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[6]  ; 216   ; 2        ; 14           ; 21           ; 0           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[7]  ; 219   ; 2        ; 12           ; 21           ; 0           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[8]  ; 225   ; 2        ; 8            ; 21           ; 0           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
+; out[9]  ; 217   ; 2        ; 14           ; 21           ; 1           ; no              ; no                     ; no            ; no             ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 10 pF ; -                    ; -                   ;
++---------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+----------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+-------+----------------------+---------------------+
+
+
++------------------------------------------------------------+
+; I/O Bank Usage                                             ;
++----------+------------------+---------------+--------------+
+; I/O Bank ; Usage            ; VCCIO Voltage ; VREF Voltage ;
++----------+------------------+---------------+--------------+
+; 1        ; 5 / 44 ( 11 % )  ; 3.3V          ; --           ;
+; 2        ; 15 / 48 ( 31 % ) ; 3.3V          ; --           ;
+; 3        ; 0 / 45 ( 0 % )   ; 3.3V          ; --           ;
+; 4        ; 0 / 48 ( 0 % )   ; 3.3V          ; --           ;
++----------+------------------+---------------+--------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -341,7 +367,7 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ; 8        ; 7          ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 9        ;            ; 1        ; VCCIO1                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
 ; 10       ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
-; 11       ; 8          ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
+; 11       ; 8          ; 1        ; in                                       ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; N               ; no       ; Off          ;
 ; 12       ; 9          ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 13       ; 10         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 14       ; 11         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
@@ -359,7 +385,7 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ; 26       ; 22         ; 1        ; ^nCONFIG                                 ;        ;              ;         ; --         ;                 ; --       ; --           ;
 ; 27       ;            ;          ; VCCA_PLL1                                ; power  ;              ; 1.5V    ; --         ;                 ; --       ; --           ;
 ; 28       ; 23         ; 1        ; GND+                                     ;        ;              ;         ; Row I/O    ;                 ; --       ; --           ;
-; 29       ; 24         ; 1        ; clk                                      ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; N               ; no       ; Off          ;
+; 29       ; 24         ; 1        ; clock                                    ; input  ; 3.3-V LVTTL  ;         ; Row I/O    ; N               ; no       ; Off          ;
 ; 30       ;            ;          ; GNDA_PLL1                                ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 31       ;            ;          ; GNDG_PLL1                                ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 32       ; 25         ; 1        ; ^nCEO                                    ;        ;              ;         ; --         ;                 ; --       ; --           ;
@@ -376,7 +402,7 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ; 43       ; 35         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 44       ; 36         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 45       ; 37         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
-; 46       ; 38         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
+; 46       ; 38         ; 1        ; out[1]                                   ; output ; 3.3-V LVTTL  ;         ; Row I/O    ; N               ; no       ; Off          ;
 ; 47       ; 39         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 48       ; 40         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
 ; 49       ; 41         ; 1        ; GND*                                     ;        ;              ;         ; Row I/O    ;                 ; no       ; Off          ;
@@ -516,7 +542,7 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ; 183      ; 152        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; 184      ; 153        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; 185      ; 154        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 186      ; 155        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
+; 186      ; 155        ; 2        ; out[0]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
 ; 187      ; 156        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; 188      ; 157        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; 189      ;            ; 2        ; VCCIO2                                   ; power  ;              ; 3.3V    ; --         ;                 ; --       ; --           ;
@@ -544,20 +570,20 @@ The pin-out file can be found in /home/012/a0121573/dev/ex-3a/quartus/output_fil
 ; 211      ;            ;          ; VCCINT                                   ; power  ;              ; 1.5V    ; --         ;                 ; --       ; --           ;
 ; 212      ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
 ; 213      ; 174        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 214      ; 175        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 215      ; 176        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 216      ; 177        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 217      ; 178        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 218      ; 179        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 219      ; 180        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 220      ; 181        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 221      ; 182        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 222      ; 183        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 223      ; 184        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 224      ; 185        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 225      ; 186        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 226      ; 187        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; 227      ; 188        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; --       ; --           ;
+; 214      ; 175        ; 2        ; out[12]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 215      ; 176        ; 2        ; out[3]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 216      ; 177        ; 2        ; out[6]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 217      ; 178        ; 2        ; out[9]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 218      ; 179        ; 2        ; out[5]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 219      ; 180        ; 2        ; out[7]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 220      ; 181        ; 2        ; out[15]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 221      ; 182        ; 2        ; out[14]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 222      ; 183        ; 2        ; out[11]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 223      ; 184        ; 2        ; out[4]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 224      ; 185        ; 2        ; out[10]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 225      ; 186        ; 2        ; out[8]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 226      ; 187        ; 2        ; out[13]                                  ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; 227      ; 188        ; 2        ; out[2]                                   ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
 ; 228      ; 189        ; 2        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; 229      ;            ;          ; VCCINT                                   ; power  ;              ; 1.5V    ; --         ;                 ; --       ; --           ;
 ; 230      ;            ;          ; GND                                      ; gnd    ;              ;         ; --         ;                 ; --       ; --           ;
@@ -597,34 +623,52 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 Note: User assignments will override these defaults. The user specified values are listed in the Output Pins and Bidir Pins tables.
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                                 ;
-+------------------------------------------------------------------------+-------------+--------------+-------------+------+------+--------------+--------------+-------------------+------------------+-----------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; Compilation Hierarchy Node                                             ; Logic Cells ; LC Registers ; Memory Bits ; M4Ks ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name                                                                                                                                              ; Library Name ;
-+------------------------------------------------------------------------+-------------+--------------+-------------+------+------+--------------+--------------+-------------------+------------------+-----------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |P1                                                                    ; 228 (1)     ; 139          ; 65536       ; 16   ; 1    ; 0            ; 89 (1)       ; 21 (0)            ; 118 (0)          ; 38 (0)          ; 4 (0)      ; |P1                                                                                                                                                              ; work         ;
-;    |Memory:comb_4|                                                     ; 76 (0)      ; 47           ; 65536       ; 16   ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |P1|Memory:comb_4                                                                                                                                                ; work         ;
-;       |altsyncram:altsyncram_component|                                ; 76 (0)      ; 47           ; 65536       ; 16   ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |P1|Memory:comb_4|altsyncram:altsyncram_component                                                                                                                ; work         ;
-;          |altsyncram_m3d1:auto_generated|                              ; 76 (0)      ; 47           ; 65536       ; 16   ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |P1|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated                                                                                 ; work         ;
-;             |altsyncram_pi82:altsyncram1|                              ; 0 (0)       ; 0            ; 65536       ; 16   ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |P1|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1                                                     ; work         ;
-;             |sld_mod_ram_rom:mgl_prim2|                                ; 76 (59)     ; 47           ; 0           ; 0    ; 0    ; 0            ; 29 (20)      ; 4 (4)             ; 43 (35)          ; 17 (17)         ; 0 (0)      ; |P1|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2                                                       ; work         ;
-;                |sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr| ; 17 (17)     ; 8            ; 0           ; 0    ; 0    ; 0            ; 9 (9)        ; 0 (0)             ; 8 (8)            ; 0 (0)           ; 0 (0)      ; |P1|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr ; work         ;
-;    |ProgramCounter:comb_3|                                             ; 12 (12)     ; 12           ; 0           ; 0    ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 12 (12)          ; 11 (11)         ; 0 (0)      ; |P1|ProgramCounter:comb_3                                                                                                                                        ; work         ;
-;    |sld_hub:auto_hub|                                                  ; 139 (1)     ; 80           ; 0           ; 0    ; 0    ; 0            ; 59 (1)       ; 17 (0)            ; 63 (0)           ; 10 (0)          ; 4 (0)      ; |P1|sld_hub:auto_hub                                                                                                                                             ; work         ;
-;       |sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|                   ; 138 (97)    ; 80           ; 0           ; 0    ; 0    ; 0            ; 58 (45)      ; 17 (17)           ; 63 (35)          ; 10 (5)          ; 4 (4)      ; |P1|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                ; work         ;
-;          |sld_rom_sr:hub_info_reg|                                     ; 21 (21)     ; 9            ; 0           ; 0    ; 0    ; 0            ; 12 (12)      ; 0 (0)             ; 9 (9)            ; 5 (5)           ; 0 (0)      ; |P1|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg                                                                        ; work         ;
-;          |sld_shadow_jsm:shadow_jsm|                                   ; 20 (20)     ; 19           ; 0           ; 0    ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 19 (19)          ; 0 (0)           ; 0 (0)      ; |P1|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm                                                                      ; work         ;
-+------------------------------------------------------------------------+-------------+--------------+-------------+------+------+--------------+--------------+-------------------+------------------+-----------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                                                                                                                                                                                                                                                                                                                                                                         ;
++------------------------------------------------------------------------+-------------+--------------+-------------+------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                                             ; Logic Cells ; LC Registers ; Memory Bits ; M4Ks ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name                                                                                                                                                      ; Library Name ;
++------------------------------------------------------------------------+-------------+--------------+-------------+------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
+; |Controller                                                            ; 258 (29)    ; 167          ; 65536       ; 16   ; 18   ; 0            ; 91 (1)       ; 33 (13)           ; 134 (15)         ; 51 (12)         ; 5 (0)      ; |Controller                                                                                                                                                              ; work         ;
+;    |ALU:comb_22|                                                       ; 1 (1)       ; 0            ; 0           ; 0    ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 0 (0)            ; 1 (1)           ; 0 (0)      ; |Controller|ALU:comb_22                                                                                                                                                  ; work         ;
+;    |Memory:comb_4|                                                     ; 76 (0)      ; 47           ; 65536       ; 16   ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_4                                                                                                                                                ; work         ;
+;       |altsyncram:altsyncram_component|                                ; 76 (0)      ; 47           ; 65536       ; 16   ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component                                                                                                                ; work         ;
+;          |altsyncram_m3d1:auto_generated|                              ; 76 (0)      ; 47           ; 65536       ; 16   ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated                                                                                 ; work         ;
+;             |altsyncram_pi82:altsyncram1|                              ; 0 (0)       ; 0            ; 65536       ; 16   ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1                                                     ; work         ;
+;             |sld_mod_ram_rom:mgl_prim2|                                ; 76 (59)     ; 47           ; 0           ; 0    ; 0    ; 0            ; 29 (20)      ; 4 (4)             ; 43 (35)          ; 17 (17)         ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2                                                       ; work         ;
+;                |sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr| ; 17 (17)     ; 8            ; 0           ; 0    ; 0    ; 0            ; 9 (9)        ; 0 (0)             ; 8 (8)            ; 0 (0)           ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr ; work         ;
+;    |ProgramCounter:comb_3|                                             ; 12 (12)     ; 12           ; 0           ; 0    ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 12 (12)          ; 11 (11)         ; 0 (0)      ; |Controller|ProgramCounter:comb_3                                                                                                                                        ; work         ;
+;    |sld_hub:auto_hub|                                                  ; 140 (1)     ; 80           ; 0           ; 0    ; 0    ; 0            ; 60 (1)       ; 16 (0)            ; 64 (0)           ; 10 (0)          ; 5 (0)      ; |Controller|sld_hub:auto_hub                                                                                                                                             ; work         ;
+;       |sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|                   ; 139 (98)    ; 80           ; 0           ; 0    ; 0    ; 0            ; 59 (46)      ; 16 (16)           ; 64 (36)          ; 10 (5)          ; 5 (5)      ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                ; work         ;
+;          |sld_rom_sr:hub_info_reg|                                     ; 21 (21)     ; 9            ; 0           ; 0    ; 0    ; 0            ; 12 (12)      ; 0 (0)             ; 9 (9)            ; 5 (5)           ; 0 (0)      ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg                                                                        ; work         ;
+;          |sld_shadow_jsm:shadow_jsm|                                   ; 20 (20)     ; 19           ; 0           ; 0    ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 19 (19)          ; 0 (0)           ; 0 (0)      ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm                                                                      ; work         ;
++------------------------------------------------------------------------+-------------+--------------+-------------+------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+-------------------------------------------------------------------------------+
-; Delay Chain Summary                                                           ;
-+------+----------+---------------+---------------+-----------------------+-----+
-; Name ; Pin Type ; Pad to Core 0 ; Pad to Core 1 ; Pad to Input Register ; TCO ;
-+------+----------+---------------+---------------+-----------------------+-----+
-; clk  ; Input    ; OFF           ; OFF           ; --                    ; --  ;
-+------+----------+---------------+---------------+-----------------------+-----+
++----------------------------------------------------------------------------------+
+; Delay Chain Summary                                                              ;
++---------+----------+---------------+---------------+-----------------------+-----+
+; Name    ; Pin Type ; Pad to Core 0 ; Pad to Core 1 ; Pad to Input Register ; TCO ;
++---------+----------+---------------+---------------+-----------------------+-----+
+; in      ; Input    ; OFF           ; OFF           ; --                    ; --  ;
+; out[0]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[1]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[2]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[3]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[4]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[5]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[6]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[7]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[8]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[9]  ; Output   ; --            ; --            ; --                    ; --  ;
+; out[10] ; Output   ; --            ; --            ; --                    ; --  ;
+; out[11] ; Output   ; --            ; --            ; --                    ; --  ;
+; out[12] ; Output   ; --            ; --            ; --                    ; --  ;
+; out[13] ; Output   ; --            ; --            ; --                    ; --  ;
+; out[14] ; Output   ; --            ; --            ; --                    ; --  ;
+; out[15] ; Output   ; --            ; --            ; --                    ; --  ;
+; clock   ; Input    ; OFF           ; OFF           ; --                    ; --  ;
++---------+----------+---------------+---------------+-----------------------+-----+
 
 
 +---------------------------------------------------+
@@ -632,7 +676,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------+-------------------+---------+
 ; Source Pin / Fanout ; Pad To Core Index ; Setting ;
 +---------------------+-------------------+---------+
-; clk                 ;                   ;         ;
+; in                  ;                   ;         ;
+; clock               ;                   ;         ;
 +---------------------+-------------------+---------+
 
 
@@ -641,38 +686,38 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------+---------+----------------------------+--------+----------------------+------------------+
 ; Name                                                                                                                                                                           ; Location       ; Fan-Out ; Usage                      ; Global ; Global Resource Used ; Global Line Name ;
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------+---------+----------------------------+--------+----------------------+------------------+
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|enable_write~0                                                          ; LC_X16_Y9_N4   ; 16      ; Write enable               ; no     ; --                   ; --               ;
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~1                                                             ; LC_X10_Y11_N2  ; 4       ; Async. clear               ; yes    ; Global Clock         ; GCLK0            ;
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~2                                                             ; LC_X15_Y11_N8  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~4                                                             ; LC_X16_Y9_N2   ; 13      ; Sync. load                 ; no     ; --                   ; --               ;
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[8]~9                                                   ; LC_X16_Y12_N3  ; 12      ; Clock enable               ; no     ; --                   ; --               ;
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[0]~1                                                   ; LC_X14_Y7_N4   ; 16      ; Clock enable               ; no     ; --                   ; --               ;
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[0]~3      ; LC_X16_Y9_N1   ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[1]~4 ; LC_X16_Y9_N9   ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; altera_internal_jtag~TCKUTAP                                                                                                                                                   ; JTAG_X1_Y10_N1 ; 143     ; Clock                      ; yes    ; Global Clock         ; GCLK2            ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|enable_write~0                                                          ; LC_X14_Y12_N9  ; 16      ; Write enable               ; no     ; --                   ; --               ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~1                                                             ; LC_X13_Y12_N6  ; 4       ; Async. clear               ; yes    ; Global Clock         ; GCLK6            ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~2                                                             ; LC_X14_Y12_N2  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~4                                                             ; LC_X16_Y11_N3  ; 13      ; Sync. load                 ; no     ; --                   ; --               ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[8]~9                                                   ; LC_X16_Y11_N1  ; 12      ; Clock enable               ; no     ; --                   ; --               ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[0]~1                                                   ; LC_X16_Y9_N1   ; 16      ; Clock enable               ; no     ; --                   ; --               ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[0]~3      ; LC_X12_Y11_N6  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[1]~4 ; LC_X12_Y11_N5  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; altera_internal_jtag~TCKUTAP                                                                                                                                                   ; JTAG_X1_Y10_N1 ; 143     ; Clock                      ; yes    ; Global Clock         ; GCLK1            ;
 ; altera_internal_jtag~TMSUTAP                                                                                                                                                   ; JTAG_X1_Y10_N1 ; 23      ; Sync. clear                ; no     ; --                   ; --               ;
-; clk                                                                                                                                                                            ; PIN_29         ; 12      ; Clock                      ; yes    ; Global Clock         ; GCLK3            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                                                                                          ; LC_X20_Y11_N1  ; 17      ; Async. clear               ; yes    ; Global Clock         ; GCLK7            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_proc~0                                                                                               ; LC_X11_Y14_N8  ; 4       ; Sync. load                 ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_info_reg_ena                                                                                                 ; LC_X19_Y16_N4  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_info_reg_ena~0                                                                                               ; LC_X21_Y13_N9  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[0]~1                                                                                  ; LC_X12_Y13_N8  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_update_reg[0]~0                                                                                 ; LC_X12_Y13_N1  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]                                                                                                    ; LC_X13_Y14_N2  ; 16      ; Async. clear               ; yes    ; Global Clock         ; GCLK1            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]~0                                                                                                  ; LC_X13_Y14_N8  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][3]                                                                                                    ; LC_X13_Y14_N3  ; 8       ; Async. clear               ; yes    ; Global Clock         ; GCLK5            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[0]~2                                                                                                    ; LC_X19_Y16_N2  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~11                                                                                             ; LC_X11_Y13_N6  ; 5       ; Sync. load                 ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~12                                                                                             ; LC_X19_Y16_N5  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[1]~16                                                                            ; LC_X14_Y12_N4  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~16                                                                       ; LC_X13_Y11_N8  ; 5       ; Sync. clear                ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~17                                                                       ; LC_X14_Y12_N7  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[0]                                                                               ; LC_X20_Y10_N4  ; 15      ; Async. clear               ; yes    ; Global Clock         ; GCLK6            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[11]                                                                              ; LC_X20_Y11_N2  ; 12      ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[3]                                                                               ; LC_X21_Y16_N7  ; 21      ; Sync. load                 ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[8]                                                                               ; LC_X19_Y16_N9  ; 12      ; Async. clear               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_ir_dr_scan_proc~0                                                                                        ; LC_X20_Y11_N7  ; 2       ; Clock enable               ; no     ; --                   ; --               ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_ir_scan_reg                                                                                              ; LC_X19_Y12_N1  ; 22      ; Async. clear, Clock enable ; no     ; --                   ; --               ;
+; clock                                                                                                                                                                          ; PIN_29         ; 40      ; Clock                      ; yes    ; Global Clock         ; GCLK3            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                                                                                          ; LC_X13_Y11_N2  ; 17      ; Async. clear               ; yes    ; Global Clock         ; GCLK7            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_proc~0                                                                                               ; LC_X11_Y14_N6  ; 4       ; Sync. load                 ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_info_reg_ena                                                                                                 ; LC_X11_Y14_N4  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_info_reg_ena~0                                                                                               ; LC_X11_Y13_N6  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[0]~1                                                                                  ; LC_X10_Y14_N6  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_update_reg[0]~0                                                                                 ; LC_X10_Y14_N7  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]                                                                                                    ; LC_X13_Y12_N3  ; 16      ; Async. clear               ; yes    ; Global Clock         ; GCLK0            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]~0                                                                                                  ; LC_X13_Y12_N8  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][3]                                                                                                    ; LC_X13_Y12_N9  ; 8       ; Async. clear               ; yes    ; Global Clock         ; GCLK2            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[0]~2                                                                                                    ; LC_X13_Y11_N4  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~10                                                                                             ; LC_X10_Y15_N8  ; 5       ; Sync. load                 ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~11                                                                                             ; LC_X11_Y12_N5  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[1]~16                                                                            ; LC_X12_Y13_N7  ; 4       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~16                                                                       ; LC_X12_Y14_N4  ; 5       ; Sync. clear                ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~17                                                                       ; LC_X11_Y14_N5  ; 5       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[0]                                                                               ; LC_X11_Y10_N3  ; 15      ; Async. clear               ; yes    ; Global Clock         ; GCLK5            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[11]                                                                              ; LC_X11_Y11_N2  ; 12      ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[3]                                                                               ; LC_X11_Y12_N9  ; 21      ; Sync. load                 ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[8]                                                                               ; LC_X13_Y11_N1  ; 13      ; Async. clear               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_ir_dr_scan_proc~0                                                                                        ; LC_X11_Y11_N8  ; 2       ; Clock enable               ; no     ; --                   ; --               ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_ir_scan_reg                                                                                              ; LC_X10_Y11_N2  ; 23      ; Async. clear, Clock enable ; no     ; --                   ; --               ;
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------+---------+----------------------------+--------+----------------------+------------------+
 
 
@@ -681,13 +726,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------------------------------------------------------------------------------------------------------+----------------+---------+----------------------+------------------+
 ; Name                                                                                                               ; Location       ; Fan-Out ; Global Resource Used ; Global Line Name ;
 +--------------------------------------------------------------------------------------------------------------------+----------------+---------+----------------------+------------------+
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~1 ; LC_X10_Y11_N2  ; 4       ; Global Clock         ; GCLK0            ;
-; altera_internal_jtag~TCKUTAP                                                                                       ; JTAG_X1_Y10_N1 ; 143     ; Global Clock         ; GCLK2            ;
-; clk                                                                                                                ; PIN_29         ; 12      ; Global Clock         ; GCLK3            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                              ; LC_X20_Y11_N1  ; 17      ; Global Clock         ; GCLK7            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]                                        ; LC_X13_Y14_N2  ; 16      ; Global Clock         ; GCLK1            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][3]                                        ; LC_X13_Y14_N3  ; 8       ; Global Clock         ; GCLK5            ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[0]                   ; LC_X20_Y10_N4  ; 15      ; Global Clock         ; GCLK6            ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~1 ; LC_X13_Y12_N6  ; 4       ; Global Clock         ; GCLK6            ;
+; altera_internal_jtag~TCKUTAP                                                                                       ; JTAG_X1_Y10_N1 ; 143     ; Global Clock         ; GCLK1            ;
+; clock                                                                                                              ; PIN_29         ; 40      ; Global Clock         ; GCLK3            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg                                              ; LC_X13_Y11_N2  ; 17      ; Global Clock         ; GCLK7            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]                                        ; LC_X13_Y12_N3  ; 16      ; Global Clock         ; GCLK0            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][3]                                        ; LC_X13_Y12_N9  ; 8       ; Global Clock         ; GCLK2            ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[0]                   ; LC_X11_Y10_N3  ; 15      ; Global Clock         ; GCLK5            ;
 +--------------------------------------------------------------------------------------------------------------------+----------------+---------+----------------------+------------------+
 
 
@@ -697,8 +742,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Name                                                                                                                                                                           ; Fan-Out ;
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[4]                                                                               ; 29      ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_ir_scan_reg                                                                                              ; 23      ;
 ; altera_internal_jtag~TMSUTAP                                                                                                                                                   ; 23      ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_ir_scan_reg                                                                                              ; 22      ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[3]                                                                               ; 21      ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[3]                                                     ; 19      ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[2]                                                     ; 19      ;
@@ -728,21 +773,21 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; ProgramCounter:comb_3|count[1]                                                                                                                                                 ; 17      ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|enable_write~0                                                          ; 16      ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[0]~1                                                   ; 16      ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[8]                                                                               ; 13      ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[3]                                                                                                ; 13      ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[2]                                                                                                ; 13      ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~4                                                             ; 13      ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[8]                                                                               ; 12      ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[2]                                                                                                ; 12      ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]                                                                                                ; 12      ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[11]                                                                              ; 12      ;
 ; altera_internal_jtag~TDIUTAP                                                                                                                                                   ; 12      ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[8]~9                                                   ; 12      ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[1]                                                                                                ; 11      ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[5]                                                                                                      ; 11      ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]                                                                                                ; 10      ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]                                                                                                ; 10      ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[1]                                                                                                ; 10      ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|clear_signal                                                                             ; 8       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[1]                                                                                                      ; 8       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[2]                                                                                                      ; 8       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[0]                                                                                                      ; 8       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|clear_signal                                                                             ; 7       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_dr_scan_reg                                                                                              ; 7       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|node_ena[1]~reg0                                                                                                 ; 7       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[4]~9                                        ; 6       ;
@@ -750,13 +795,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[0]   ; 6       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~17                                                                       ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~16                                                                       ; 5       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~12                                                                                             ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~11                                                                                             ; 5       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~10                                                                                             ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][0]~0                                                                                                  ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_info_reg_ena~0                                                                                               ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[5]                                                                               ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]                                                                          ; 5       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[0]                                                                          ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[2]                                                                          ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[3]                                                                                                      ; 5       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[1]                                          ; 5       ;
@@ -765,6 +809,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[5]~13                                                  ; 5       ;
 ; ProgramCounter:comb_3|count[5]~9                                                                                                                                               ; 5       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[0]~1                                                   ; 5       ;
+; ALU:comb_22|Add0~27                                                                                                                                                            ; 5       ;
+; ALU:comb_22|Add0~2                                                                                                                                                             ; 5       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[1]~16                                                                            ; 4       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[0]~1                                                                                  ; 4       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_update_reg[0]~0                                                                                 ; 4       ;
@@ -772,7 +818,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_proc~0                                                                                               ; 4       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[0]~2                                                                                                    ; 4       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[4]                                                                          ; 4       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[3]                                                                          ; 4       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[0]                                                                          ; 4       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|Equal1~1                                                                ; 4       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[1]~4 ; 4       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[1]~2 ; 4       ;
@@ -780,6 +826,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[0]~3      ; 4       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~2                                                             ; 4       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|tms_cnt[0]                                                                             ; 3       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~4                                                                                                ; 3       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[3]~3                                                                                             ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_mode_reg[0]                                                                                                  ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[15]                                                                              ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|jtag_ir_reg[1]                                                                                                   ; 3       ;
@@ -788,6 +836,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[7]                                                                               ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][2]                                                                                                    ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irf_reg[1][1]                                                                                                    ; 3       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[3]                                                                          ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[2]                                                                               ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm|state[1]                                                                               ; 3       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[4]                                          ; 3       ;
@@ -799,16 +848,13 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|process_0~0                                                             ; 3       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[3]                                                                                    ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[2]                                                                                    ; 2       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~12                                                                                               ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[1]                                                                                    ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~15                                                                       ; 2       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~14                                                                       ; 2       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~8                                                                                                ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[0]~0                                                                                  ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_mode_reg[2]~2                                                                                                ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|Equal3~1                                                                                                         ; 2       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[3]~6                                                                                             ; 2       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[3]~5                                                                                             ; 2       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~1                                                                                                ; 2       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~0                                                                                                ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[2]~1                                                                                                    ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|virtual_ir_dr_scan_proc~0                                                                                        ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|jtag_ir_reg[0]                                                                                                   ; 2       ;
@@ -851,33 +897,52 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR~4         ; 2       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[1]                                                     ; 2       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR~0         ; 2       ;
+; AR[2]                                                                                                                                                                          ; 2       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|bypass_reg_out                                                          ; 2       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[0]                                                     ; 2       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|is_in_use_reg                                                           ; 2       ;
+; registerFile[0][5]                                                                                                                                                             ; 2       ;
+; registerFile[0][2]                                                                                                                                                             ; 2       ;
+; registerFile[0][15]                                                                                                                                                            ; 2       ;
+; registerFile[0][14]                                                                                                                                                            ; 2       ;
+; ALU:comb_22|Add0~52                                                                                                                                                            ; 2       ;
+; registerFile[0][13]                                                                                                                                                            ; 2       ;
+; registerFile[0][12]                                                                                                                                                            ; 2       ;
+; registerFile[0][11]                                                                                                                                                            ; 2       ;
+; registerFile[0][10]                                                                                                                                                            ; 2       ;
+; registerFile[0][9]                                                                                                                                                             ; 2       ;
+; registerFile[0][8]                                                                                                                                                             ; 2       ;
+; registerFile[0][7]                                                                                                                                                             ; 2       ;
+; registerFile[0][6]                                                                                                                                                             ; 2       ;
+; registerFile[0][4]                                                                                                                                                             ; 2       ;
+; registerFile[0][3]                                                                                                                                                             ; 2       ;
 ; altera_reserved_tdi                                                                                                                                                            ; 1       ;
 ; altera_reserved_tck                                                                                                                                                            ; 1       ;
 ; altera_reserved_tms                                                                                                                                                            ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|tdo~_wirecell                                                                                                    ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR~15                                                                               ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[3]~18                                                                                            ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~17                                                                                               ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~16                                                                                               ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~15                                                                                               ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~14                                                                                               ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~13                                                                                               ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_update_reg[3]                                                                                   ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[3]                                                                               ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR~13                                                                               ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR~12                                                                               ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_minor_ver_reg[3]                                                                                             ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~14                                                                                               ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~13                                                                                               ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~12                                                                                               ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~11                                                                                               ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~10                                                                                               ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~9                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR~11                                                                               ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[2]                                                                               ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]~14                                                                       ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_minor_ver_reg[2]                                                                                             ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_update_reg[1]                                                                                   ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~8                                                                                                ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~10                                                                                               ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~9                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~7                                                                                                ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~6                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_shift_reg[0]                                                                                    ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]~10                                                                                             ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~5                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_mode_reg[2]~4                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_mode_reg[1]~1                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_mode_reg[1]~0                                                                                                ; 1       ;
@@ -887,10 +952,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR~9                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR~8                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_minor_ver_reg[1]                                                                                             ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|identity_contrib_update_reg[0]                                                                                   ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~4                                                                                                ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~3                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~2                                                                                                ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~1                                                                                                ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg~0                                                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|jtag_ir_reg[3]                                                                                                   ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|jtag_ir_reg[8]                                                                                                   ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|node_ena_proc~1                                                                                                  ; 1       ;
@@ -917,14 +981,14 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[2]~5COUT1_28                                                                ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[2]~5                                                                        ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[1]                                                                                               ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[3]~7COUT1_25                                                                                      ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[3]~7COUT1_24                                                                                      ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[3]~7                                                                                              ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[2]~5COUT1_23                                                                                      ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[2]~5COUT1_22                                                                                      ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[2]~5                                                                                              ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]~3COUT1_19                                                                                      ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]~3                                                                                              ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[1]~1COUT1_21                                                                                      ; 1       ;
-; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[1]~1                                                                                              ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[1]~3COUT1_20                                                                                      ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[1]~3                                                                                              ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]~1COUT1_18                                                                                      ; 1       ;
+; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[0]~1                                                                                              ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[0]                                                                                               ; 1       ;
 ; altera_internal_jtag~TDO                                                                                                                                                       ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[3]        ; 1       ;
@@ -932,6 +996,19 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR~5         ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|Add0~0            ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[8]~8                                                   ; 1       ;
+; AR[15]                                                                                                                                                                         ; 1       ;
+; AR[14]                                                                                                                                                                         ; 1       ;
+; AR[13]                                                                                                                                                                         ; 1       ;
+; AR[12]                                                                                                                                                                         ; 1       ;
+; AR[11]                                                                                                                                                                         ; 1       ;
+; AR[10]                                                                                                                                                                         ; 1       ;
+; AR[9]                                                                                                                                                                          ; 1       ;
+; AR[8]                                                                                                                                                                          ; 1       ;
+; AR[7]                                                                                                                                                                          ; 1       ;
+; AR[6]                                                                                                                                                                          ; 1       ;
+; AR[5]                                                                                                                                                                          ; 1       ;
+; AR[4]                                                                                                                                                                          ; 1       ;
+; AR[3]                                                                                                                                                                          ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[1]        ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR~1         ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|tdo~1                                                                   ; 1       ;
@@ -1004,6 +1081,25 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[2]~5                                                   ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[1]~3COUT1_36                                           ; 1       ;
 ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[1]~3                                                   ; 1       ;
+; ALU:comb_22|Add0~57COUT1_92                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~57                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~47COUT1_90                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~47                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~42COUT1_88                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~42                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~37COUT1_86                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~37                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~32COUT1_84                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~32                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~22COUT1_82                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~22                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~17COUT1_80                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~17                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~12COUT1_78                                                                                                                                                    ; 1       ;
+; ALU:comb_22|Add0~12                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~10                                                                                                                                                            ; 1       ;
+; ALU:comb_22|Add0~7COUT1_76                                                                                                                                                     ; 1       ;
+; ALU:comb_22|Add0~7                                                                                                                                                             ; 1       ;
 +--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
@@ -1012,7 +1108,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
 ; Name                                                                                                                ; Type ; Mode           ; Clock Mode   ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Port A Input Registers ; Port A Output Registers ; Port B Input Registers ; Port B Output Registers ; Size  ; Implementation Port A Depth ; Implementation Port A Width ; Implementation Port B Depth ; Implementation Port B Width ; Implementation Bits ; M4Ks ; MIF  ; Location                                                                                                                                                                                                ; Mixed Width RDW Mode ; Port A RDW Mode ; Port B RDW Mode ;
 +---------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port ; Single Clock ; 4096         ; 16           ; 4096         ; 16           ; yes                    ; no                      ; yes                    ; no                      ; 65536 ; 4096                        ; 16                          ; 4096                        ; 16                          ; 65536               ; 16   ; None ; M4K_X17_Y7, M4K_X17_Y19, M4K_X17_Y4, M4K_X17_Y11, M4K_X17_Y3, M4K_X17_Y6, M4K_X17_Y12, M4K_X17_Y17, M4K_X17_Y10, M4K_X17_Y13, M4K_X17_Y16, M4K_X17_Y8, M4K_X17_Y5, M4K_X17_Y9, M4K_X17_Y18, M4K_X17_Y20 ; Don't care           ; Don't care      ; Don't care      ;
+; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port ; Single Clock ; 4096         ; 16           ; 4096         ; 16           ; yes                    ; no                      ; yes                    ; no                      ; 65536 ; 4096                        ; 16                          ; 4096                        ; 16                          ; 65536               ; 16   ; None ; M4K_X17_Y8, M4K_X17_Y7, M4K_X17_Y3, M4K_X17_Y6, M4K_X17_Y5, M4K_X17_Y4, M4K_X17_Y9, M4K_X17_Y13, M4K_X17_Y11, M4K_X17_Y18, M4K_X17_Y10, M4K_X17_Y12, M4K_X17_Y15, M4K_X17_Y14, M4K_X17_Y17, M4K_X17_Y16 ; Don't care           ; Don't care      ; Don't care      ;
 +---------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------------+------------------------+-------------------------+------------------------+-------------------------+-------+-----------------------------+-----------------------------+-----------------------------+-----------------------------+---------------------+------+------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+-----------------+-----------------+
 Note: Fitter may spread logical memories into multiple blocks to improve timing. The actual required RAM blocks can be found in the Fitter Resource Usage section.
 
@@ -1022,46 +1118,46 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 +-----------------------------+-----------------------+
 ; Other Routing Resource Type ; Usage                 ;
 +-----------------------------+-----------------------+
-; C4s                         ; 418 / 16,320 ( 3 % )  ;
-; Direct links                ; 17 / 21,944 ( < 1 % ) ;
+; C4s                         ; 329 / 16,320 ( 2 % )  ;
+; Direct links                ; 41 / 21,944 ( < 1 % ) ;
 ; Global clocks               ; 7 / 8 ( 88 % )        ;
-; LAB clocks                  ; 39 / 240 ( 16 % )     ;
+; LAB clocks                  ; 36 / 240 ( 15 % )     ;
 ; LUT chains                  ; 4 / 5,382 ( < 1 % )   ;
-; Local interconnects         ; 660 / 21,944 ( 3 % )  ;
+; Local interconnects         ; 687 / 21,944 ( 3 % )  ;
 ; M4K buffers                 ; 16 / 720 ( 2 % )      ;
-; R4s                         ; 386 / 14,640 ( 3 % )  ;
+; R4s                         ; 355 / 14,640 ( 2 % )  ;
 +-----------------------------+-----------------------+
 
 
 +---------------------------------------------------------------------------+
 ; LAB Logic Elements                                                        ;
 +--------------------------------------------+------------------------------+
-; Number of Logic Elements  (Average = 7.60) ; Number of LABs  (Total = 30) ;
+; Number of Logic Elements  (Average = 6.62) ; Number of LABs  (Total = 39) ;
 +--------------------------------------------+------------------------------+
-; 1                                          ; 3                            ;
-; 2                                          ; 2                            ;
+; 1                                          ; 10                           ;
+; 2                                          ; 3                            ;
 ; 3                                          ; 0                            ;
 ; 4                                          ; 0                            ;
 ; 5                                          ; 0                            ;
-; 6                                          ; 4                            ;
-; 7                                          ; 2                            ;
-; 8                                          ; 1                            ;
-; 9                                          ; 5                            ;
-; 10                                         ; 13                           ;
+; 6                                          ; 3                            ;
+; 7                                          ; 0                            ;
+; 8                                          ; 2                            ;
+; 9                                          ; 2                            ;
+; 10                                         ; 19                           ;
 +--------------------------------------------+------------------------------+
 
 
 +-------------------------------------------------------------------+
 ; LAB-wide Signals                                                  ;
 +------------------------------------+------------------------------+
-; LAB-wide Signals  (Average = 1.97) ; Number of LABs  (Total = 30) ;
+; LAB-wide Signals  (Average = 1.51) ; Number of LABs  (Total = 39) ;
 +------------------------------------+------------------------------+
 ; 1 Async. clear                     ; 10                           ;
-; 1 Clock                            ; 27                           ;
-; 1 Clock enable                     ; 11                           ;
+; 1 Clock                            ; 33                           ;
+; 1 Clock enable                     ; 7                            ;
 ; 1 Sync. clear                      ; 3                            ;
-; 1 Sync. load                       ; 4                            ;
-; 2 Async. clears                    ; 3                            ;
+; 1 Sync. load                       ; 3                            ;
+; 2 Async. clears                    ; 2                            ;
 ; 2 Clock enables                    ; 1                            ;
 +------------------------------------+------------------------------+
 
@@ -1069,20 +1165,20 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 +----------------------------------------------------------------------------+
 ; LAB Signals Sourced                                                        ;
 +---------------------------------------------+------------------------------+
-; Number of Signals Sourced  (Average = 7.67) ; Number of LABs  (Total = 30) ;
+; Number of Signals Sourced  (Average = 6.67) ; Number of LABs  (Total = 39) ;
 +---------------------------------------------+------------------------------+
 ; 0                                           ; 3                            ;
-; 1                                           ; 0                            ;
-; 2                                           ; 2                            ;
+; 1                                           ; 7                            ;
+; 2                                           ; 3                            ;
 ; 3                                           ; 0                            ;
 ; 4                                           ; 0                            ;
 ; 5                                           ; 0                            ;
 ; 6                                           ; 3                            ;
-; 7                                           ; 3                            ;
+; 7                                           ; 0                            ;
 ; 8                                           ; 1                            ;
-; 9                                           ; 5                            ;
-; 10                                          ; 10                           ;
-; 11                                          ; 2                            ;
+; 9                                           ; 2                            ;
+; 10                                          ; 18                           ;
+; 11                                          ; 1                            ;
 ; 12                                          ; 1                            ;
 +---------------------------------------------+------------------------------+
 
@@ -1090,44 +1186,45 @@ Note: Fitter may spread logical memories into multiple blocks to improve timing.
 +--------------------------------------------------------------------------------+
 ; LAB Signals Sourced Out                                                        ;
 +-------------------------------------------------+------------------------------+
-; Number of Signals Sourced Out  (Average = 4.50) ; Number of LABs  (Total = 30) ;
+; Number of Signals Sourced Out  (Average = 3.90) ; Number of LABs  (Total = 39) ;
 +-------------------------------------------------+------------------------------+
 ; 0                                               ; 3                            ;
-; 1                                               ; 2                            ;
-; 2                                               ; 5                            ;
-; 3                                               ; 3                            ;
+; 1                                               ; 8                            ;
+; 2                                               ; 7                            ;
+; 3                                               ; 2                            ;
 ; 4                                               ; 2                            ;
-; 5                                               ; 1                            ;
-; 6                                               ; 8                            ;
-; 7                                               ; 1                            ;
+; 5                                               ; 3                            ;
+; 6                                               ; 7                            ;
+; 7                                               ; 2                            ;
 ; 8                                               ; 2                            ;
-; 9                                               ; 0                            ;
-; 10                                              ; 3                            ;
+; 9                                               ; 1                            ;
+; 10                                              ; 2                            ;
 +-------------------------------------------------+------------------------------+
 
 
 +----------------------------------------------------------------------------+
 ; LAB Distinct Inputs                                                        ;
 +---------------------------------------------+------------------------------+
-; Number of Distinct Inputs  (Average = 7.90) ; Number of LABs  (Total = 30) ;
+; Number of Distinct Inputs  (Average = 6.54) ; Number of LABs  (Total = 39) ;
 +---------------------------------------------+------------------------------+
 ; 0                                           ; 0                            ;
-; 1                                           ; 3                            ;
-; 2                                           ; 1                            ;
-; 3                                           ; 2                            ;
+; 1                                           ; 5                            ;
+; 2                                           ; 7                            ;
+; 3                                           ; 1                            ;
 ; 4                                           ; 2                            ;
 ; 5                                           ; 2                            ;
-; 6                                           ; 2                            ;
-; 7                                           ; 0                            ;
+; 6                                           ; 5                            ;
+; 7                                           ; 1                            ;
 ; 8                                           ; 1                            ;
 ; 9                                           ; 1                            ;
-; 10                                          ; 6                            ;
-; 11                                          ; 3                            ;
-; 12                                          ; 1                            ;
+; 10                                          ; 1                            ;
+; 11                                          ; 0                            ;
+; 12                                          ; 4                            ;
 ; 13                                          ; 1                            ;
-; 14                                          ; 1                            ;
-; 15                                          ; 1                            ;
-; 16                                          ; 2                            ;
+; 14                                          ; 4                            ;
+; 15                                          ; 0                            ;
+; 16                                          ; 0                            ;
+; 17                                          ; 2                            ;
 +---------------------------------------------+------------------------------+
 
 
@@ -1175,14 +1272,31 @@ Info (176444): Device migration not selected. If you intend to use device migrat
 Info (169124): Fitter converted 2 user pins into dedicated programming pins
     Info (169125): Pin ~nCSO~ is reserved at location 24
     Info (169125): Pin ~ASDO~ is reserved at location 37
-Critical Warning (169085): No exact pin location assignment(s) for 1 pins of 1 total pins
-    Info (169086): Pin clk not assigned to an exact location on the device
+Critical Warning (169085): No exact pin location assignment(s) for 18 pins of 18 total pins
+    Info (169086): Pin in not assigned to an exact location on the device
+    Info (169086): Pin out[0] not assigned to an exact location on the device
+    Info (169086): Pin out[1] not assigned to an exact location on the device
+    Info (169086): Pin out[2] not assigned to an exact location on the device
+    Info (169086): Pin out[3] not assigned to an exact location on the device
+    Info (169086): Pin out[4] not assigned to an exact location on the device
+    Info (169086): Pin out[5] not assigned to an exact location on the device
+    Info (169086): Pin out[6] not assigned to an exact location on the device
+    Info (169086): Pin out[7] not assigned to an exact location on the device
+    Info (169086): Pin out[8] not assigned to an exact location on the device
+    Info (169086): Pin out[9] not assigned to an exact location on the device
+    Info (169086): Pin out[10] not assigned to an exact location on the device
+    Info (169086): Pin out[11] not assigned to an exact location on the device
+    Info (169086): Pin out[12] not assigned to an exact location on the device
+    Info (169086): Pin out[13] not assigned to an exact location on the device
+    Info (169086): Pin out[14] not assigned to an exact location on the device
+    Info (169086): Pin out[15] not assigned to an exact location on the device
+    Info (169086): Pin clock not assigned to an exact location on the device
 Info (332164): Evaluating HDL-embedded SDC commands
     Info (332165): Entity sld_jtag_hub
         Info (332166): create_clock -name altera_reserved_tck [get_ports {altera_reserved_tck}] -period 10MHz   
         Info (332166): set_clock_groups -asynchronous -group {altera_reserved_tck}
 Critical Warning (332012): Synopsys Design Constraints File file not found: 'simple-architecture.sdc'. A Synopsys Design Constraints File is required by the TimeQuest Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
-Warning (332060): Node: clk was determined to be a clock but was found without an associated clock assignment.
+Warning (332060): Node: clock was determined to be a clock but was found without an associated clock assignment.
 Info (332129): Detected timing requirements -- optimizing circuit to achieve only the specified requirements
 Info (332111): Found 1 clocks
     Info (332111):   Period   Clock Name
@@ -1190,7 +1304,7 @@ Info (332111): Found 1 clocks
     Info (332111):  100.000 altera_reserved_tck
 Info (186079): Completed User Assigned Global Signals Promotion Operation
 Info (186363): DQS I/O pins require 0 global routing resources
-Info (186215): Automatically promoted signal "clk" to use Global clock in PIN 29
+Info (186215): Automatically promoted signal "clock" to use Global clock in PIN 29
 Info (186215): Automatically promoted signal "altera_internal_jtag~TCKUTAP" to use Global clock
 Info (186216): Automatically promoted some destinations of signal "sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg" to use Global clock
     Info (186217): Destination "sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|clr_reg~_wirecell" may be non-global or may not use global clock
@@ -1213,8 +1327,17 @@ Info (176234): Starting register packing
 Info (186391): Fitter is using Normal packing mode for logic elements with Auto setting for Auto Packed Registers logic option
 Info (176243): Finished moving registers into I/O cells, LUTs, and RAM blocks
 Info (176235): Finished register packing
+Info (176214): Statistics of I/O pins that need to be placed that use the same VCCIO and VREF, before I/O pin placement
+    Info (176211): Number of I/O pins in group: 17 (unused VREF, 3.3V VCCIO, 1 input, 16 output, 0 bidirectional)
+        Info (176212): I/O standards used: 3.3-V LVTTL.
+Info (176215): I/O bank details before I/O pin placement
+    Info (176214): Statistics of I/O banks
+        Info (176213): I/O bank number 1 does not use VREF pins and has undetermined VCCIO pins. 3 total pin(s) used --  41 pins available
+        Info (176213): I/O bank number 2 does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  48 pins available
+        Info (176213): I/O bank number 3 does not use VREF pins and has undetermined VCCIO pins. 4 total pin(s) used --  45 pins available
+        Info (176213): I/O bank number 4 does not use VREF pins and has undetermined VCCIO pins. 0 total pin(s) used --  48 pins available
 Info (176045): Design uses memory blocks. Violating setup or hold times of memory block address registers for either read or write operations could cause memory contents to be corrupted. Make sure that all memory block address registers meet the setup and hold time requirements.
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
 Info (170191): Fitter placement operations beginning
@@ -1222,12 +1345,12 @@ Info (170137): Fitter placement was successful
 Info (170192): Fitter placement operations ending: elapsed time is 00:00:00
 Info (170193): Fitter routing operations beginning
 Info (170195): Router estimated average interconnect usage is 2% of the available device resources
-    Info (170196): Router estimated peak interconnect usage is 8% of the available device resources in the region that extends from location X12_Y11 to location X23_Y21
+    Info (170196): Router estimated peak interconnect usage is 6% of the available device resources in the region that extends from location X12_Y11 to location X23_Y21
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
 Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
-Info (11888): Total time spent on timing analysis during the Fitter is 0.16 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.20 seconds.
 Info (186079): Completed Fixed Delay Chain Operation
 Info (306004): Started post-fitting delay annotation
 Info (306005): Delay annotation completed successfully
@@ -1237,9 +1360,9 @@ Info (176045): Design uses memory blocks. Violating setup or hold times of memor
 Warning (169174): The Reserve All Unused Pins setting has not been specified, and will default to 'As output driving ground'.
 Info (144001): Generated suppressed messages file /home/012/a0121573/dev/ex-3a/quartus/output_files/simple-architecture.fit.smsg
 Info: Quartus II 32-bit Fitter was successful. 0 errors, 20 warnings
-    Info: Peak virtual memory: 435 megabytes
-    Info: Processing ended: Thu Apr 17 17:25:25 2014
-    Info: Elapsed time: 00:00:04
+    Info: Peak virtual memory: 434 megabytes
+    Info: Processing ended: Fri Apr 18 09:51:16 2014
+    Info: Elapsed time: 00:00:05
     Info: Total CPU time (on all processors): 00:00:04
 
 

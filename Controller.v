@@ -1,7 +1,7 @@
 module Controller(
 	input clock,
 	input in,
-	output out);
+	output [15:0] out);
 
 	// P1
 	wire [15:0] counter;
@@ -17,13 +17,30 @@ module Controller(
 	reg V;
 	
 	reg [15:0] registerFile [0:7];
-	reg [15:0] IRData;
+
+	wire [15:0] IRData;
 	reg [15:0] BR;
 	reg [15:0] AR;
-	reg [3:0] flags;
-	reg [15:0] ALUOut;
+	wire [15:0] ALUOut;
 	reg [15:0] DR;
-	InstructionRegister (.loadData(IRData));
+	wire [3:0] flags;
+	InstructionRegister (.loadData(IRData), .clock(clock));
+
+	// FIX for debug
+/*
+	reg [15:0] IRData = 16'b11_001_000_0000_1111;
+	integer i;
+	initial begin
+		for (i = 0; i < 8; i = i + 1)
+			registerFile[i] = 16'b1111_1111_1111_1111;
+		registerFile[0] = 16'b0000_0000_0010_0000;
+		registerFile[1] = 16'b0000_0000_0010_0100;
+	end
+	
+	assign out = registerFile[0];
+*/
+	
+	ALU (.S_ALU(IRData[7:4]), .DATA_A(AR), .DATA_B(BR), .FLAG_OUT(flags), .ALU_OUT(ALUOut));
 
    always @ (posedge clock) begin
 		// op1
@@ -33,7 +50,6 @@ module Controller(
 			AR = registerFile[IRData[10:8]];
 			
 			// P3
-			ALU (.S_ALU(IRData[7:4]), .DATA_A(AR), .DATA_B(BR), .FLAG_OUT(flags), .ALU_OUT(ALUOut));
 			S = flags[0];
 			Z = flags[1];
 			C = flags[2];
@@ -41,21 +57,17 @@ module Controller(
 			DR = ALUOut;
 			
 			case (IRData[7:4])
-				4'b1101: ;
-				4'b1101: ;
-				4'b1101: ;
-			endcase
-			if ( == 4'b0101)
 				// CMP
-			else if (IRData[7:4] == )
+				4'b0101: ;
 				// OUT
-				out = ALUOut;
-			else if (IRData[7:4] == 4'b1111)
+				4'b1101: ;
 				// HALT
-			else 
-				// P5
-				registerFile[IRData[10:8]] = ALUOut;
-			
+				4'b1111: ;
+				// others
+				default:
+					// P5
+					registerFile[IRData[10:8]] = ALUOut;
+			endcase
 	end
 
 endmodule

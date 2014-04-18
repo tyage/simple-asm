@@ -1,2 +1,3 @@
 Info (10281): Verilog HDL Declaration information at SignExtension.v(5): object "I" differs only in case from object "i" in the same scope
 Info (10281): Verilog HDL Declaration information at SignExtension.v(23): object "I" differs only in case from object "i" in the same scope
+Info (10281): Verilog HDL Declaration information at ControlUnit.v(3): object "RESET" differs only in case from object "Reset" in the same scope
