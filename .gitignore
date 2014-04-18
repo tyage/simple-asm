@@ -1,5 +1,6 @@
 *.bak
 *.temp
+output_files
 quartus/db
 quartus/greybox_tmp
 quartus/incremental_db

@@ -43,10 +43,6 @@ module Controller(
 	reg [15:0] MDR;
 	reg [15:0] result;
 
-	// DEBUG
-	initial begin
-	end
-	
 	// P1
 	initial begin
 		PCLoad = GND;
