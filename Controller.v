@@ -1,7 +1,8 @@
 module Controller(
 	input clock,
 	input in,
-	output [15:0] out);
+	output [15:0] out,
+	output [15:0] ir);
 
 	// GND, VCC
 	reg GND = 0;
@@ -9,9 +10,10 @@ module Controller(
 	
 	// Memory
 	reg [15:0] memoryAddress;
-	reg [15:0] memoryData;
+	reg [15:0] memoryWriteData;
 	reg memoryWriteEnable;
-	Memory (.address(memoryAddress), .data(memoryData), .wren(memoryWriteEnable), .clock(clock));
+	wire [15:0] memoryData;
+	Memory (.address(memoryAddress), .data(memoryWriteData), .wren(memoryWriteEnable), .q(memoryData), .clock(clock));
 	
 	// InstructionRegister
 	reg [15:0] IRWriteData;
@@ -43,33 +45,29 @@ module Controller(
 	reg [15:0] MDR;
 	reg [15:0] result;
 
-	// P1
+	// DEBUG
+	integer i;
 	initial begin
+		for (i = 0; i < 8; i = i + 1)
+			registerFile[i] = 16'b0000_0000_0000_0000;
+		registerFile[1] = 16'b0000_0000_0000_0010;
+		registerFile[2] = 16'b0000_0000_0000_0001;
+	end
+	assign ir = IRData;
+
+	always @ (posedge clock) begin
+		result = registerFile[1];
+
+		// P1
 		PCLoad = GND;
 
 		// load memory
 		memoryAddress = PC;
-		memoryWriteEnable = VCC;
+		memoryWriteEnable = GND;
 		
 		// write IR
 		IRWriteData = memoryData;
-	end
 
-	// DEBUG
-/*
-	reg [15:0] IRData = 16'b11_001_000_0000_1111;
-	integer i;
-	initial begin
-		for (i = 0; i < 8; i = i + 1)
-			registerFile[i] = 16'b1111_1111_1111_1111;
-		registerFile[0] = 16'b0000_0000_0000_1010;
-		registerFile[1] = 16'b0000_0000_0000_0001;
-	end
-	
-	result = registerFile[0];
-*/
-
-	always @ (posedge clock) begin
 		// calc, input, output
 		if (IRData[15:14] == 2'b11)
 			// P2
@@ -114,7 +112,7 @@ module Controller(
 				// P4
 				memoryAddress = DR;
 				MDR = memoryData;
-				memoryWriteEnable = VCC;
+				memoryWriteEnable = GND;
 				
 				// P5
 				registerFile[IRData[13:11]] = MDR;
@@ -122,8 +120,8 @@ module Controller(
 				// store
 				// P4
 				memoryAddress = DR;
-				memoryData = registerFile[AR];
-				memoryWriteEnable = GND;
+				memoryWriteData = registerFile[AR];
+				memoryWriteEnable = VCC;
 			end
 		end
 		
