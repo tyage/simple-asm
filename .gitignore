@@ -4,3 +4,4 @@ quartus/db
 quartus/greybox_tmp
 quartus/incremental_db
 quartus/output_files
+quartus/simulation
