@@ -3,27 +3,46 @@ module Controller(
 	input in,
 	output [15:0] out);
 
+	// GND, VCC
+	reg GND = 0;
+	reg VCC = 1;
+	
+	// Memory
+	reg [15:0] memoryAddress;
+	reg [15:0] memoryData;
+	reg memoryWriteEnable;
+	Memory (.address(memoryAddress), .data(memoryData), .wren(memoryWriteEnable), .clock(clock));
+	
+	// InstructionRegister
+	reg [15:0] IRWriteData;
+	wire [15:0] IRData;
+	InstructionRegister (.writeData(IRWriteData), .loadData(IRData), .clock(clock));
+	
+	// ProgramCounter
+	wire [15:0] PC;
+	reg [15:0] PCLoad;
+	ProgramCounter (.clk(clock), .counter(PC), .load(PCLoad));
+	
 	// P1
-	wire [15:0] counter;
 	wire [15:0] data;
-	ProgramCounter (.clk(clock), .counter(counter));
-	Memory (.address(counter), .data(data));
-	InstructionRegister (.writeData(data));
+	initial begin
+		PCLoad = GND;
+
+		// load memory
+		memoryAddress = PC;
+		memoryData = data;
+		memoryWriteEnable = VCC;
+		
+		// write IR
+		IRWriteData = data;
+	end
 
 	// P2 ~ P5
-	reg S;
-	reg Z;
-	reg C;
-	reg V;
 	reg [15:0] registerFile [0:7];
-	wire [15:0] IRData;
 	reg [15:0] BR;
 	reg [15:0] AR;
-	wire [15:0] ALUOut;
 	reg [15:0] DR;
-	wire [3:0] flags;
-
-	InstructionRegister (.loadData(IRData), .clock(clock));
+	reg [15:0] MDR;
 
 	// FIX for debug
 /*
@@ -40,7 +59,16 @@ module Controller(
 */
 
 	// connect to ALU
-	ALU (.S_ALU(IRData[7:4]), .DATA_A(AR), .DATA_B(BR), .FLAG_OUT(flags), .ALU_OUT(ALUOut));
+	reg [3:0] ALUType;
+	reg [15:0] ALUDataA;
+	reg [15:0] ALUDataB;
+	wire [15:0] ALUOut;
+	wire [3:0] ALUFlags;
+	ALU (.S_ALU(ALUType), .DATA_A(ALUDataA), .DATA_B(ALUDataB), .FLAG_OUT(ALUFlags), .ALU_OUT(ALUOut));
+	wire S = ALUFlags[0];
+	wire Z = ALUFlags[1];
+	wire C = ALUFlags[2];
+	wire V = ALUFlags[3];
 
 	always @ (posedge clock) begin
 		// calc, input, output
@@ -50,10 +78,9 @@ module Controller(
 			AR = registerFile[IRData[10:8]];
 
 			// P3
-			S = flags[0];
-			Z = flags[1];
-			C = flags[2];
-			V = flags[3];
+			ALUDataB = BR;
+			ALUDataA = AR;
+			ALUType = IRData[7:4];
 			DR = ALUOut;
 			
 			case (IRData[7:4])
@@ -66,14 +93,38 @@ module Controller(
 				// others
 				default:
 					// P5
-					registerFile[IRData[10:8]] = ALUOut;
+					registerFile[IRData[10:8]] = DR;
 			endcase
 
-		// load
-		if (IRData[15:14] == 2'b00) ;
-		
-		// store
-		if (IRData[15:14] == 2'b01) ;
+		// load and store
+		if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
+			// P2
+			BR = IRData[7:0];
+			AR = registerFile[IRData[10:8]];
+			
+			// P3
+			ALUDataB = BR;
+			ALUDataA = AR;
+			ALUType = 4'b0;
+			DR = ALUOut;
+
+			if (IRData[15:14] == 2'b00) begin
+				// load
+				// P4
+				memoryAddress = DR;
+				MDR = memoryData;
+				memoryWriteEnable = VCC;
+				
+				// P5
+				registerFile[IRData[13:11]] = MDR;
+			end else begin
+				// store
+				// P4
+				memoryAddress = DR;
+				memoryData = registerFile[AR];
+				memoryWriteEnable = GND;
+			end
+		end
 		
 		// load immidiate, branch
 		if (IRData[15:14] == 2'b10) ;
