@@ -2,7 +2,7 @@ module Controller(
 	input clock,
 	input in,
 	output [15:0] out,
-	output [15:0] ir);
+	output [15:0] rf);
 
 	// GND, VCC
 	reg GND = 0;
@@ -49,21 +49,20 @@ module Controller(
 	integer i;
 	initial begin
 		for (i = 0; i < 8; i = i + 1)
-			registerFile[i] = 16'b0000_0000_0000_0000;
-		registerFile[1] = 16'b0000_0000_0000_0010;
-		registerFile[2] = 16'b0000_0000_0000_0001;
+			registerFile[i] <= 16'b0000_0000_0000_0000;
+		registerFile[1] <= 16'b0000_0000_0010_0010;
+		registerFile[2] <= 16'b0000_0000_0000_0011;
 	end
-	assign ir = IRData;
 
 	always @ (posedge clock) begin
-		result = registerFile[1];
-
 		// P1
 		PCLoad = GND;
 
 		// load memory
-		memoryAddress = PC;
-		memoryWriteEnable = GND;
+		begin
+			memoryAddress <= PC;
+			memoryWriteEnable <= GND;
+		end
 		
 		// write IR
 		IRWriteData = memoryData;
@@ -75,14 +74,16 @@ module Controller(
 			AR = registerFile[IRData[10:8]];
 
 			// P3
-			ALUDataB = BR;
-			ALUDataA = AR;
-			ALUType = IRData[7:4];
-			DR = ALUOut;
+			begin
+				ALUDataB <= BR;
+				ALUDataA <= AR;
+				ALUType <= IRData[7:4];
+			end
 			
 			case (IRData[7:4])
-				// CMP (nothing to do)
-				4'b0101: ;
+				// CMP
+				4'b0101:
+					DR = ALUOut;
 				// OUT
 				4'b1101:
 					result = BR;
@@ -90,9 +91,11 @@ module Controller(
 				4'b1111:
 					$stop;
 				// others
-				default:
+				default: begin
 					// P5
+					DR = ALUOut;
 					registerFile[IRData[10:8]] = DR;
+				end
 			endcase
 
 		// load, store
@@ -102,26 +105,30 @@ module Controller(
 			AR = registerFile[IRData[10:8]];
 			
 			// P3
-			ALUDataB = BR;
-			ALUDataA = AR;
-			ALUType = 4'b0;
+			begin
+				ALUDataB <= BR;
+				ALUDataA <= AR;
+				ALUType <= 4'b0;
+			end
 			DR = ALUOut;
 
 			if (IRData[15:14] == 2'b00) begin
 				// load
 				// P4
-				memoryAddress = DR;
+				begin
+					memoryAddress <= DR;
+					memoryWriteEnable <= GND;
+				end
 				MDR = memoryData;
-				memoryWriteEnable = GND;
 				
 				// P5
 				registerFile[IRData[13:11]] = MDR;
 			end else begin
 				// store
 				// P4
-				memoryAddress = DR;
-				memoryWriteData = registerFile[AR];
-				memoryWriteEnable = VCC;
+				memoryAddress <= DR;
+				memoryWriteData <= registerFile[AR];
+				memoryWriteEnable <= VCC;
 			end
 		end
 		
@@ -130,4 +137,5 @@ module Controller(
 	end
 	
 	assign out = result;
+	assign rf = registerFile[1];
 endmodule
