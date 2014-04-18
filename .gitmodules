@@ -1,0 +1,3 @@
+[submodule "simpleArchitecture"]
+	path = simpleArchitecture
+	url = git@github.com:asi1024/simpleArchitecture.git
