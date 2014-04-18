@@ -23,28 +23,43 @@ module Controller(
 	reg [15:0] PCLoad;
 	ProgramCounter (.clk(clock), .counter(PC), .load(PCLoad));
 	
-	// P1
-	wire [15:0] data;
-	initial begin
-		PCLoad = GND;
+	//	ALU
+	reg [3:0] ALUType;
+	reg [15:0] ALUDataA;
+	reg [15:0] ALUDataB;
+	wire [3:0] ALUFlags;
+	wire [15:0] ALUOut;
+	wire S = ALUFlags[0];
+	wire Z = ALUFlags[1];
+	wire C = ALUFlags[2];
+	wire V = ALUFlags[3];
+	ALU (.S_ALU(ALUType), .DATA_A(ALUDataA), .DATA_B(ALUDataB), .FLAG_OUT(ALUFlags), .ALU_OUT(ALUOut));
 
-		// load memory
-		memoryAddress = PC;
-		memoryData = data;
-		memoryWriteEnable = VCC;
-		
-		// write IR
-		IRWriteData = data;
-	end
-
-	// P2 ~ P5
+	// other registers
 	reg [15:0] registerFile [0:7];
 	reg [15:0] BR;
 	reg [15:0] AR;
 	reg [15:0] DR;
 	reg [15:0] MDR;
+	reg [15:0] result;
 
-	// for debug
+	// DEBUG
+	initial begin
+	end
+	
+	// P1
+	initial begin
+		PCLoad = GND;
+
+		// load memory
+		memoryAddress = PC;
+		memoryWriteEnable = VCC;
+		
+		// write IR
+		IRWriteData = memoryData;
+	end
+
+	// DEBUG
 /*
 	reg [15:0] IRData = 16'b11_001_000_0000_1111;
 	integer i;
@@ -55,20 +70,8 @@ module Controller(
 		registerFile[1] = 16'b0000_0000_0000_0001;
 	end
 	
-	assign out = registerFile[0];
+	result = registerFile[0];
 */
-
-	// connect to ALU
-	reg [3:0] ALUType;
-	reg [15:0] ALUDataA;
-	reg [15:0] ALUDataB;
-	wire [15:0] ALUOut;
-	wire [3:0] ALUFlags;
-	ALU (.S_ALU(ALUType), .DATA_A(ALUDataA), .DATA_B(ALUDataB), .FLAG_OUT(ALUFlags), .ALU_OUT(ALUOut));
-	wire S = ALUFlags[0];
-	wire Z = ALUFlags[1];
-	wire C = ALUFlags[2];
-	wire V = ALUFlags[3];
 
 	always @ (posedge clock) begin
 		// calc, input, output
@@ -84,19 +87,21 @@ module Controller(
 			DR = ALUOut;
 			
 			case (IRData[7:4])
-				// CMP
+				// CMP (nothing to do)
 				4'b0101: ;
 				// OUT
-				4'b1101: ;
+				4'b1101:
+					result = BR;
 				// HALT
-				4'b1111: ;
+				4'b1111:
+					$stop;
 				// others
 				default:
 					// P5
 					registerFile[IRData[10:8]] = DR;
 			endcase
 
-		// load and store
+		// load, store
 		if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
 			// P2
 			BR = IRData[7:0];
@@ -129,5 +134,6 @@ module Controller(
 		// load immidiate, branch
 		if (IRData[15:14] == 2'b10) ;
 	end
-
+	
+	assign out = result;
 endmodule
