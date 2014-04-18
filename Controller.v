@@ -44,15 +44,15 @@ module Controller(
 	reg [15:0] DR;
 	reg [15:0] MDR;
 
-	// FIX for debug
+	// for debug
 /*
 	reg [15:0] IRData = 16'b11_001_000_0000_1111;
 	integer i;
 	initial begin
 		for (i = 0; i < 8; i = i + 1)
 			registerFile[i] = 16'b1111_1111_1111_1111;
-		registerFile[0] = 16'b0000_0000_0010_0000;
-		registerFile[1] = 16'b0000_0000_0010_0100;
+		registerFile[0] = 16'b0000_0000_0000_1010;
+		registerFile[1] = 16'b0000_0000_0000_0001;
 	end
 	
 	assign out = registerFile[0];
