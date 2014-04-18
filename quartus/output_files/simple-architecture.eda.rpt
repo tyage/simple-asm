@@ -1,5 +1,5 @@
 EDA Netlist Writer report for simple-architecture
-Fri Apr 18 09:51:26 2014
+Fri Apr 18 10:02:43 2014
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -36,7 +36,7 @@ applicable agreement for further details.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Fri Apr 18 09:51:25 2014 ;
+; EDA Netlist Writer Status ; Successful - Fri Apr 18 10:02:43 2014 ;
 ; Revision Name             ; simple-architecture                   ;
 ; Top-level Entity Name     ; Controller                            ;
 ; Family                    ; Cyclone                               ;
@@ -80,13 +80,13 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 32-bit EDA Netlist Writer
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
-    Info: Processing started: Fri Apr 18 09:51:25 2014
+    Info: Processing started: Fri Apr 18 10:02:43 2014
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off simple-architecture -c simple-architecture
 Info (204019): Generated file simple-architecture.vo in folder "/home/012/a0121573/dev/ex-3a/quartus/simulation/modelsim/" for EDA simulation tool
 Info: Quartus II 32-bit EDA Netlist Writer was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 297 megabytes
-    Info: Processing ended: Fri Apr 18 09:51:26 2014
-    Info: Elapsed time: 00:00:01
+    Info: Processing ended: Fri Apr 18 10:02:43 2014
+    Info: Elapsed time: 00:00:00
     Info: Total CPU time (on all processors): 00:00:01
 
 

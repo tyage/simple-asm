@@ -1,5 +1,5 @@
 Analysis & Synthesis report for simple-architecture
-Fri Apr 18 09:51:09 2014
+Fri Apr 18 10:02:27 2014
 Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -16,18 +16,18 @@ Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Ver
   8. Analysis & Synthesis RAM Summary
   9. Analysis & Synthesis IP Cores Summary
  10. Registers Removed During Synthesis
- 11. Removed Registers Triggering Further Register Optimizations
- 12. General Register Statistics
- 13. Inverted Register Statistics
- 14. Multiplexer Restructuring Statistics (Restructuring Performed)
- 15. Source assignments for Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1
- 16. Parameter Settings for User Entity Instance: Memory:comb_4|altsyncram:altsyncram_component
- 17. Parameter Settings for User Entity Instance: ALU:comb_22
- 18. altsyncram Parameter Settings by Entity Instance
- 19. Port Connectivity Checks: "ALU:comb_22"
- 20. Port Connectivity Checks: "InstructionRegister:comb_5"
- 21. Port Connectivity Checks: "Memory:comb_4"
- 22. Port Connectivity Checks: "ProgramCounter:comb_3"
+ 11. General Register Statistics
+ 12. Inverted Register Statistics
+ 13. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 14. Source assignments for Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1
+ 15. Parameter Settings for User Entity Instance: Memory:comb_5|altsyncram:altsyncram_component
+ 16. Parameter Settings for User Entity Instance: ALU:comb_8
+ 17. altsyncram Parameter Settings by Entity Instance
+ 18. Port Connectivity Checks: "ALU:comb_8"
+ 19. Port Connectivity Checks: "InstructionRegister:comb_7"
+ 20. Port Connectivity Checks: "InstructionRegister:comb_6"
+ 21. Port Connectivity Checks: "Memory:comb_5"
+ 22. Port Connectivity Checks: "ProgramCounter:comb_4"
  23. In-System Memory Content Editor Settings
  24. Elapsed Time Per Partition
  25. Analysis & Synthesis Messages
@@ -57,12 +57,12 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                   ;
 +-----------------------------+--------------------------------------------------+
-; Analysis & Synthesis Status ; Successful - Fri Apr 18 09:51:09 2014            ;
+; Analysis & Synthesis Status ; Successful - Fri Apr 18 10:02:27 2014            ;
 ; Quartus II 32-bit Version   ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name               ; simple-architecture                              ;
 ; Top-level Entity Name       ; Controller                                       ;
 ; Family                      ; Cyclone                                          ;
-; Total logic elements        ; 278                                              ;
+; Total logic elements        ; 231                                              ;
 ; Total pins                  ; 18                                               ;
 ; Total virtual pins          ; 0                                                ;
 ; Total memory bits           ; 65,536                                           ;
@@ -202,34 +202,34 @@ applicable agreement for further details.
 +---------------------------------------------+--------------------------+
 ; Resource                                    ; Usage                    ;
 +---------------------------------------------+--------------------------+
-; Total logic elements                        ; 278                      ;
-;     -- Combinational with no register       ; 111                      ;
-;     -- Register only                        ; 53                       ;
-;     -- Combinational with a register        ; 114                      ;
+; Total logic elements                        ; 231                      ;
+;     -- Combinational with no register       ; 92                       ;
+;     -- Register only                        ; 28                       ;
+;     -- Combinational with a register        ; 111                      ;
 ;                                             ;                          ;
 ; Logic element usage by number of LUT inputs ;                          ;
-;     -- 4 input functions                    ; 74                       ;
-;     -- 3 input functions                    ; 51                       ;
-;     -- 2 input functions                    ; 85                       ;
-;     -- 1 input functions                    ; 13                       ;
+;     -- 4 input functions                    ; 69                       ;
+;     -- 3 input functions                    ; 48                       ;
+;     -- 2 input functions                    ; 74                       ;
+;     -- 1 input functions                    ; 10                       ;
 ;     -- 0 input functions                    ; 2                        ;
 ;                                             ;                          ;
 ; Logic elements by mode                      ;                          ;
-;     -- normal mode                          ; 233                      ;
-;     -- arithmetic mode                      ; 45                       ;
+;     -- normal mode                          ; 198                      ;
+;     -- arithmetic mode                      ; 33                       ;
 ;     -- qfbk mode                            ; 0                        ;
 ;     -- register cascade mode                ; 0                        ;
 ;     -- synchronous clear/load mode          ; 37                       ;
 ;     -- asynchronous clear/load mode         ; 51                       ;
 ;                                             ;                          ;
-; Total registers                             ; 167                      ;
-; Total logic cells in carry chains           ; 51                       ;
+; Total registers                             ; 139                      ;
+; Total logic cells in carry chains           ; 38                       ;
 ; I/O pins                                    ; 18                       ;
 ; Total memory bits                           ; 65536                    ;
 ; Maximum fan-out node                        ; altera_internal_jtag~TDO ;
-; Maximum fan-out                             ; 151                      ;
-; Total fan-out                               ; 1491                     ;
-; Average fan-out                             ; 4.70                     ;
+; Maximum fan-out                             ; 150                      ;
+; Total fan-out                               ; 1369                     ;
+; Average fan-out                             ; 5.07                     ;
 +---------------------------------------------+--------------------------+
 
 
@@ -238,17 +238,16 @@ applicable agreement for further details.
 +------------------------------------------------------------------------+-------------+--------------+-------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                                             ; Logic Cells ; LC Registers ; Memory Bits ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name                                                                                                                                                      ; Library Name ;
 +------------------------------------------------------------------------+-------------+--------------+-------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |Controller                                                            ; 278 (29)    ; 167          ; 65536       ; 18   ; 0            ; 111 (1)      ; 53 (25)           ; 114 (3)          ; 51 (0)          ; 0 (0)      ; |Controller                                                                                                                                                              ; work         ;
-;    |ALU:comb_22|                                                       ; 13 (13)     ; 0            ; 0           ; 0    ; 0            ; 13 (13)      ; 0 (0)             ; 0 (0)            ; 13 (13)         ; 0 (0)      ; |Controller|ALU:comb_22                                                                                                                                                  ; work         ;
-;    |Memory:comb_4|                                                     ; 76 (0)      ; 47           ; 65536       ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_4                                                                                                                                                ; work         ;
-;       |altsyncram:altsyncram_component|                                ; 76 (0)      ; 47           ; 65536       ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component                                                                                                                ; work         ;
-;          |altsyncram_m3d1:auto_generated|                              ; 76 (0)      ; 47           ; 65536       ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated                                                                                 ; work         ;
-;             |altsyncram_pi82:altsyncram1|                              ; 0 (0)       ; 0            ; 65536       ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1                                                     ; work         ;
-;             |sld_mod_ram_rom:mgl_prim2|                                ; 76 (59)     ; 47           ; 0           ; 0    ; 0            ; 29 (20)      ; 4 (4)             ; 43 (35)          ; 17 (17)         ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2                                                       ; work         ;
-;                |sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr| ; 17 (17)     ; 8            ; 0           ; 0    ; 0            ; 9 (9)        ; 0 (0)             ; 8 (8)            ; 0 (0)           ; 0 (0)      ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr ; work         ;
-;    |ProgramCounter:comb_3|                                             ; 12 (12)     ; 12           ; 0           ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 12 (12)          ; 11 (11)         ; 0 (0)      ; |Controller|ProgramCounter:comb_3                                                                                                                                        ; work         ;
-;    |sld_hub:auto_hub|                                                  ; 148 (1)     ; 80           ; 0           ; 0    ; 0            ; 68 (1)       ; 24 (0)            ; 56 (0)           ; 10 (0)          ; 0 (0)      ; |Controller|sld_hub:auto_hub                                                                                                                                             ; work         ;
-;       |sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|                   ; 147 (106)   ; 80           ; 0           ; 0    ; 0            ; 67 (54)      ; 24 (22)           ; 56 (30)          ; 10 (5)          ; 0 (0)      ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                ; work         ;
+; |Controller                                                            ; 231 (1)     ; 139          ; 65536       ; 18   ; 0            ; 92 (1)       ; 28 (0)            ; 111 (0)          ; 38 (0)          ; 0 (0)      ; |Controller                                                                                                                                                              ; work         ;
+;    |Memory:comb_5|                                                     ; 76 (0)      ; 47           ; 65536       ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_5                                                                                                                                                ; work         ;
+;       |altsyncram:altsyncram_component|                                ; 76 (0)      ; 47           ; 65536       ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_5|altsyncram:altsyncram_component                                                                                                                ; work         ;
+;          |altsyncram_m3d1:auto_generated|                              ; 76 (0)      ; 47           ; 65536       ; 0    ; 0            ; 29 (0)       ; 4 (0)             ; 43 (0)           ; 17 (0)          ; 0 (0)      ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated                                                                                 ; work         ;
+;             |altsyncram_pi82:altsyncram1|                              ; 0 (0)       ; 0            ; 65536       ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1                                                     ; work         ;
+;             |sld_mod_ram_rom:mgl_prim2|                                ; 76 (59)     ; 47           ; 0           ; 0    ; 0            ; 29 (20)      ; 4 (4)             ; 43 (35)          ; 17 (17)         ; 0 (0)      ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2                                                       ; work         ;
+;                |sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr| ; 17 (17)     ; 8            ; 0           ; 0    ; 0            ; 9 (9)        ; 0 (0)             ; 8 (8)            ; 0 (0)           ; 0 (0)      ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr ; work         ;
+;    |ProgramCounter:comb_4|                                             ; 12 (12)     ; 12           ; 0           ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 12 (12)          ; 11 (11)         ; 0 (0)      ; |Controller|ProgramCounter:comb_4                                                                                                                                        ; work         ;
+;    |sld_hub:auto_hub|                                                  ; 142 (1)     ; 80           ; 0           ; 0    ; 0            ; 62 (1)       ; 24 (0)            ; 56 (0)           ; 10 (0)          ; 0 (0)      ; |Controller|sld_hub:auto_hub                                                                                                                                             ; work         ;
+;       |sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|                   ; 141 (100)   ; 80           ; 0           ; 0    ; 0            ; 61 (48)      ; 24 (22)           ; 56 (30)          ; 10 (5)          ; 0 (0)      ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst                                                                                                ; work         ;
 ;          |sld_rom_sr:hub_info_reg|                                     ; 21 (21)     ; 9            ; 0           ; 0    ; 0            ; 12 (12)      ; 0 (0)             ; 9 (9)            ; 5 (5)           ; 0 (0)      ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg                                                                        ; work         ;
 ;          |sld_shadow_jsm:shadow_jsm|                                   ; 20 (20)     ; 19           ; 0           ; 0    ; 0            ; 1 (1)        ; 2 (2)             ; 17 (17)          ; 0 (0)           ; 0 (0)      ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_shadow_jsm:shadow_jsm                                                                      ; work         ;
 +------------------------------------------------------------------------+-------------+--------------+-------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
@@ -260,7 +259,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+------+
 ; Name                                                                                                                ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size  ; MIF  ;
 +---------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+------+
-; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port ; 4096         ; 16           ; 4096         ; 16           ; 65536 ; None ;
+; Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port ; 4096         ; 16           ; 4096         ; 16           ; 65536 ; None ;
 +---------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+-------+------+
 
 
@@ -269,53 +268,18 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------+--------------+---------+--------------+--------------+---------------------------+-----------------------------------------------+
 ; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance           ; IP Include File                               ;
 +--------+--------------+---------+--------------+--------------+---------------------------+-----------------------------------------------+
-; Altera ; RAM: 1-PORT  ; N/A     ; N/A          ; N/A          ; |Controller|Memory:comb_4 ; /home/012/a0121573/dev/ex-3a/quartus/Memory.v ;
+; Altera ; RAM: 1-PORT  ; N/A     ; N/A          ; N/A          ; |Controller|Memory:comb_5 ; /home/012/a0121573/dev/ex-3a/quartus/Memory.v ;
 +--------+--------------+---------+--------------+--------------+---------------------------+-----------------------------------------------+
 
 
-+---------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                              ;
-+----------------------------------------+----------------------------------------+
-; Register name                          ; Reason for Removal                     ;
-+----------------------------------------+----------------------------------------+
-; registerFile[1][8]                     ; Merged with registerFile[1][0]         ;
-; registerFile[1][10]                    ; Merged with registerFile[1][0]         ;
-; registerFile[1][4]                     ; Merged with registerFile[1][0]         ;
-; registerFile[1][1]                     ; Merged with registerFile[1][0]         ;
-; registerFile[1][12]                    ; Merged with registerFile[1][0]         ;
-; registerFile[1][9]                     ; Merged with registerFile[1][0]         ;
-; registerFile[1][11]                    ; Merged with registerFile[1][0]         ;
-; registerFile[1][15]                    ; Merged with registerFile[1][0]         ;
-; registerFile[1][13]                    ; Merged with registerFile[1][0]         ;
-; registerFile[1][7]                     ; Merged with registerFile[1][0]         ;
-; registerFile[1][3]                     ; Merged with registerFile[1][0]         ;
-; registerFile[1][6]                     ; Merged with registerFile[1][0]         ;
-; registerFile[1][14]                    ; Merged with registerFile[1][0]         ;
-; registerFile[1][5]                     ; Merged with registerFile[1][2]         ;
-; BR[1,3,4,6..15]                        ; Merged with BR[0]                      ;
-; BR[5]                                  ; Merged with BR[2]                      ;
-; registerFile[1][0]                     ; Stuck at GND due to stuck port data_in ;
-; registerFile[1][2]                     ; Stuck at VCC due to stuck port data_in ;
-; BR[0]                                  ; Stuck at GND due to stuck port data_in ;
-; BR[2]                                  ; Stuck at VCC due to stuck port data_in ;
-; AR[0,1]                                ; Stuck at GND due to stuck port data_in ;
-; registerFile[0][0]                     ; Stuck at GND due to stuck port data_in ;
-; registerFile[0][1]                     ; Stuck at GND due to stuck port data_in ;
-; ProgramCounter:comb_3|count[12..15]    ; Lost fanout                            ;
-; Total Number of Removed Registers = 40 ;                                        ;
-+----------------------------------------+----------------------------------------+
-
-
-+------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                    ;
-+--------------------+---------------------------+-----------------------------------------------+
-; Register name      ; Reason for Removal        ; Registers Removed due to This Register        ;
-+--------------------+---------------------------+-----------------------------------------------+
-; registerFile[1][0] ; Stuck at GND              ; BR[0], registerFile[0][0], registerFile[0][1] ;
-;                    ; due to stuck port data_in ;                                               ;
-; registerFile[1][2] ; Stuck at VCC              ; BR[2]                                         ;
-;                    ; due to stuck port data_in ;                                               ;
-+--------------------+---------------------------+-----------------------------------------------+
++------------------------------------------------------------+
+; Registers Removed During Synthesis                         ;
++---------------------------------------+--------------------+
+; Register name                         ; Reason for Removal ;
++---------------------------------------+--------------------+
+; ProgramCounter:comb_4|count[12..15]   ; Lost fanout        ;
+; Total Number of Removed Registers = 4 ;                    ;
++---------------------------------------+--------------------+
 
 
 +------------------------------------------------------+
@@ -323,7 +287,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 167   ;
+; Total registers                              ; 139   ;
 ; Number of registers using Synchronous Clear  ; 14    ;
 ; Number of registers using Synchronous Load   ; 23    ;
 ; Number of registers using Asynchronous Clear ; 51    ;
@@ -338,11 +302,10 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +------------------------------------------------------------------------------+---------+
 ; Inverted Register                                                            ; Fan out ;
 +------------------------------------------------------------------------------+---------+
-; registerFile[0][5]                                                           ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|tdo            ; 1       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|jtag_ir_reg[2] ; 2       ;
 ; sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|jtag_ir_reg[1] ; 3       ;
-; Total number of inverted registers = 4                                       ;         ;
+; Total number of inverted registers = 3                                       ;         ;
 +------------------------------------------------------------------------------+---------+
 
 
@@ -351,22 +314,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                                                                                               ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[3]                                        ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[0]                                                   ;
-; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[8]                                                   ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[1] ;
-; 16:1               ; 4 bits    ; 40 LEs        ; 24 LEs               ; 16 LEs                 ; Yes        ; |Controller|Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[0]      ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_shift_cntr_reg[3]                                        ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_data_reg[0]                                                   ;
+; 3:1                ; 12 bits   ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|ram_rom_addr_reg[8]                                                   ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|word_counter[1] ;
+; 16:1               ; 4 bits    ; 40 LEs        ; 24 LEs               ; 16 LEs                 ; Yes        ; |Controller|Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr|WORD_SR[0]      ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|hub_minor_ver_reg[0]                                                                                           ;
 ; 4:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|mixer_addr_reg[4]                                                                                              ;
 ; 5:1                ; 5 bits    ; 15 LEs        ; 5 LEs                ; 10 LEs                 ; Yes        ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|word_counter[1]                                                                        ;
 ; 6:1                ; 4 bits    ; 16 LEs        ; 4 LEs                ; 12 LEs                 ; Yes        ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|irsr_reg[2]                                                                                                    ;
-; 34:1               ; 4 bits    ; 88 LEs        ; 64 LEs               ; 24 LEs                 ; Yes        ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[3]                                                                                             ;
+; 34:1               ; 4 bits    ; 88 LEs        ; 56 LEs               ; 32 LEs                 ; Yes        ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|design_hash_reg[3]                                                                                             ;
 ; 20:1               ; 4 bits    ; 52 LEs        ; 32 LEs               ; 20 LEs                 ; Yes        ; |Controller|sld_hub:auto_hub|sld_jtag_hub:\jtag_hub_gen:sld_jtag_hub_inst|sld_rom_sr:hub_info_reg|WORD_SR[1]                                                                             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------------+
-; Source assignments for Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1 ;
+; Source assignments for Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1 ;
 +---------------------------------+--------------------+------+-------------------------------------------------------------------+
 ; Assignment                      ; Value              ; From ; To                                                                ;
 +---------------------------------+--------------------+------+-------------------------------------------------------------------+
@@ -375,7 +338,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 +--------------------------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: Memory:comb_4|altsyncram:altsyncram_component ;
+; Parameter Settings for User Entity Instance: Memory:comb_5|altsyncram:altsyncram_component ;
 +------------------------------------+----------------------+--------------------------------+
 ; Parameter Name                     ; Value                ; Type                           ;
 +------------------------------------+----------------------+--------------------------------+
@@ -435,22 +398,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+----------------------------------------------------------+
-; Parameter Settings for User Entity Instance: ALU:comb_22 ;
-+----------------+-------+---------------------------------+
-; Parameter Name ; Value ; Type                            ;
-+----------------+-------+---------------------------------+
-; IADD           ; 0000  ; Unsigned Binary                 ;
-; ISUB           ; 0001  ; Unsigned Binary                 ;
-; IAND           ; 0010  ; Unsigned Binary                 ;
-; IOR            ; 0011  ; Unsigned Binary                 ;
-; IXOR           ; 0100  ; Unsigned Binary                 ;
-; ISLL           ; 1000  ; Unsigned Binary                 ;
-; ISLR           ; 1001  ; Unsigned Binary                 ;
-; ISRL           ; 1010  ; Unsigned Binary                 ;
-; ISRA           ; 1011  ; Unsigned Binary                 ;
-; INON           ; 1111  ; Unsigned Binary                 ;
-+----------------+-------+---------------------------------+
++---------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ALU:comb_8 ;
++----------------+-------+--------------------------------+
+; Parameter Name ; Value ; Type                           ;
++----------------+-------+--------------------------------+
+; IADD           ; 0000  ; Unsigned Binary                ;
+; ISUB           ; 0001  ; Unsigned Binary                ;
+; IAND           ; 0010  ; Unsigned Binary                ;
+; IOR            ; 0011  ; Unsigned Binary                ;
+; IXOR           ; 0100  ; Unsigned Binary                ;
+; ISLL           ; 1000  ; Unsigned Binary                ;
+; ISLR           ; 1001  ; Unsigned Binary                ;
+; ISRL           ; 1010  ; Unsigned Binary                ;
+; ISRA           ; 1011  ; Unsigned Binary                ;
+; INON           ; 1111  ; Unsigned Binary                ;
++----------------+-------+--------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -460,7 +423,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Name                                      ; Value                                         ;
 +-------------------------------------------+-----------------------------------------------+
 ; Number of entity instances                ; 1                                             ;
-; Entity Instance                           ; Memory:comb_4|altsyncram:altsyncram_component ;
+; Entity Instance                           ; Memory:comb_5|altsyncram:altsyncram_component ;
 ;     -- OPERATION_MODE                     ; SINGLE_PORT                                   ;
 ;     -- WIDTH_A                            ; 16                                            ;
 ;     -- NUMWORDS_A                         ; 4096                                          ;
@@ -475,7 +438,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +--------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "ALU:comb_22"                                                                            ;
+; Port Connectivity Checks: "ALU:comb_8"                                                                             ;
 +----------+--------+----------+-------------------------------------------------------------------------------------+
 ; Port     ; Type   ; Severity ; Details                                                                             ;
 +----------+--------+----------+-------------------------------------------------------------------------------------+
@@ -483,8 +446,18 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "InstructionRegister:comb_7"                                                                                                                              ;
++------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port             ; Type   ; Severity ; Details                                                                                                                                      ;
++------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; loadData[12..15] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                          ;
+; writeData        ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
++------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "InstructionRegister:comb_5"                                                                                                                      ;
+; Port Connectivity Checks: "InstructionRegister:comb_6"                                                                                                                      ;
 +----------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port     ; Type   ; Severity ; Details                                                                                                                                      ;
 +----------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -494,7 +467,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "Memory:comb_4"                                                                                                                                                                        ;
+; Port Connectivity Checks: "Memory:comb_5"                                                                                                                                                                        ;
 +---------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port    ; Type   ; Severity ; Details                                                                                                                                                                            ;
 +---------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -506,7 +479,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "ProgramCounter:comb_3"                                                                                                                                  ;
+; Port Connectivity Checks: "ProgramCounter:comb_4"                                                                                                                                  ;
 +-----------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port            ; Type   ; Severity ; Details                                                                                                                                      ;
 +-----------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -522,7 +495,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+-------------+-------+-------+------------+------------------------------------------------------------------------------+
 ; Instance Index ; Instance ID ; Width ; Depth ; Mode       ; Hierarchy Location                                                           ;
 +----------------+-------------+-------+-------+------------+------------------------------------------------------------------------------+
-; 0              ; NONE        ; 16    ; 4096  ; Read/Write ; Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated ;
+; 0              ; NONE        ; 16    ; 4096  ; Read/Write ; Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated ;
 +----------------+-------------+-------+-------+------------+------------------------------------------------------------------------------+
 
 
@@ -542,7 +515,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 32-bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
-    Info: Processing started: Fri Apr 18 09:51:05 2014
+    Info: Processing started: Fri Apr 18 10:02:23 2014
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off simple-architecture -c simple-architecture
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file Memory.v
@@ -585,19 +558,21 @@ Critical Warning (10846): Verilog HDL Instantiation warning at P1.v(8): instance
 Critical Warning (10846): Verilog HDL Instantiation warning at Controller.v(9): instance has no name
 Critical Warning (10846): Verilog HDL Instantiation warning at Controller.v(10): instance has no name
 Critical Warning (10846): Verilog HDL Instantiation warning at Controller.v(11): instance has no name
-Critical Warning (10846): Verilog HDL Instantiation warning at Controller.v(42): instance has no name
+Critical Warning (10846): Verilog HDL Instantiation warning at Controller.v(27): instance has no name
+Critical Warning (10846): Verilog HDL Instantiation warning at Controller.v(43): instance has no name
 Info (12127): Elaborating entity "Controller" for the top level hierarchy
 Warning (10036): Verilog HDL or VHDL warning at Controller.v(14): object "S" assigned a value but never read
 Warning (10036): Verilog HDL or VHDL warning at Controller.v(15): object "Z" assigned a value but never read
 Warning (10036): Verilog HDL or VHDL warning at Controller.v(16): object "C" assigned a value but never read
 Warning (10036): Verilog HDL or VHDL warning at Controller.v(17): object "V" assigned a value but never read
-Warning (10036): Verilog HDL or VHDL warning at Controller.v(26): object "DR" assigned a value but never read
-Info (12128): Elaborating entity "ProgramCounter" for hierarchy "ProgramCounter:comb_3"
+Warning (10036): Verilog HDL or VHDL warning at Controller.v(25): object "DR" assigned a value but never read
+Warning (10034): Output port "out" at Controller.v(4) has no driver
+Info (12128): Elaborating entity "ProgramCounter" for hierarchy "ProgramCounter:comb_4"
 Warning (10230): Verilog HDL assignment warning at ProgramCounter.v(14): truncated value with size 32 to match size of target (16)
-Info (12128): Elaborating entity "Memory" for hierarchy "Memory:comb_4"
-Info (12128): Elaborating entity "altsyncram" for hierarchy "Memory:comb_4|altsyncram:altsyncram_component"
-Info (12130): Elaborated megafunction instantiation "Memory:comb_4|altsyncram:altsyncram_component"
-Info (12133): Instantiated megafunction "Memory:comb_4|altsyncram:altsyncram_component" with the following parameter:
+Info (12128): Elaborating entity "Memory" for hierarchy "Memory:comb_5"
+Info (12128): Elaborating entity "altsyncram" for hierarchy "Memory:comb_5|altsyncram:altsyncram_component"
+Info (12130): Elaborated megafunction instantiation "Memory:comb_5|altsyncram:altsyncram_component"
+Info (12133): Instantiated megafunction "Memory:comb_5|altsyncram:altsyncram_component" with the following parameter:
     Info (12134): Parameter "address_aclr_a" = "NONE"
     Info (12134): Parameter "indata_aclr_a" = "NONE"
     Info (12134): Parameter "intended_device_family" = "Cyclone"
@@ -614,13 +589,13 @@ Info (12133): Instantiated megafunction "Memory:comb_4|altsyncram:altsyncram_com
     Info (12134): Parameter "wrcontrol_aclr_a" = "NONE"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_m3d1.tdf
     Info (12023): Found entity 1: altsyncram_m3d1
-Info (12128): Elaborating entity "altsyncram_m3d1" for hierarchy "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated"
+Info (12128): Elaborating entity "altsyncram_m3d1" for hierarchy "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_pi82.tdf
     Info (12023): Found entity 1: altsyncram_pi82
-Info (12128): Elaborating entity "altsyncram_pi82" for hierarchy "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1"
-Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2"
-Info (12130): Elaborated megafunction instantiation "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2"
-Info (12133): Instantiated megafunction "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter:
+Info (12128): Elaborating entity "altsyncram_pi82" for hierarchy "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1"
+Info (12128): Elaborating entity "sld_mod_ram_rom" for hierarchy "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2"
+Info (12130): Elaborated megafunction instantiation "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2"
+Info (12133): Instantiated megafunction "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2" with the following parameter:
     Info (12134): Parameter "CVALUE" = "0000000000000000"
     Info (12134): Parameter "IS_DATA_IN_RAM" = "1"
     Info (12134): Parameter "IS_READABLE" = "1"
@@ -629,9 +604,9 @@ Info (12133): Instantiated megafunction "Memory:comb_4|altsyncram:altsyncram_com
     Info (12134): Parameter "SHIFT_COUNT_BITS" = "5"
     Info (12134): Parameter "WIDTH_WORD" = "16"
     Info (12134): Parameter "WIDTHAD" = "12"
-Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr"
-Info (12128): Elaborating entity "InstructionRegister" for hierarchy "InstructionRegister:comb_5"
-Info (12128): Elaborating entity "ALU" for hierarchy "ALU:comb_22"
+Info (12128): Elaborating entity "sld_rom_sr" for hierarchy "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|sld_mod_ram_rom:mgl_prim2|sld_rom_sr:\ram_rom_logic_gen:no_name_gen:info_rom_sr"
+Info (12128): Elaborating entity "InstructionRegister" for hierarchy "InstructionRegister:comb_6"
+Info (12128): Elaborating entity "ALU" for hierarchy "ALU:comb_8"
 Warning (10240): Verilog HDL Always Construct warning at ALU.v(57): inferring latch(es) for variable "Z", which holds its previous value in one or more paths through the always construct
 Warning (10240): Verilog HDL Always Construct warning at ALU.v(57): inferring latch(es) for variable "C", which holds its previous value in one or more paths through the always construct
 Warning (10240): Verilog HDL Always Construct warning at ALU.v(57): inferring latch(es) for variable "S", which holds its previous value in one or more paths through the always construct
@@ -674,10 +649,24 @@ Warning (12011): Net is missing source, defaulting to GND
     Warning (12110): Net "data[2]" is missing source, defaulting to GND
     Warning (12110): Net "data[1]" is missing source, defaulting to GND
     Warning (12110): Net "data[0]" is missing source, defaulting to GND
-Warning (12241): 3 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (12241): 4 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "out[0]" is stuck at GND
     Warning (13410): Pin "out[1]" is stuck at GND
+    Warning (13410): Pin "out[2]" is stuck at GND
+    Warning (13410): Pin "out[3]" is stuck at GND
+    Warning (13410): Pin "out[4]" is stuck at GND
+    Warning (13410): Pin "out[5]" is stuck at GND
+    Warning (13410): Pin "out[6]" is stuck at GND
+    Warning (13410): Pin "out[7]" is stuck at GND
+    Warning (13410): Pin "out[8]" is stuck at GND
+    Warning (13410): Pin "out[9]" is stuck at GND
+    Warning (13410): Pin "out[10]" is stuck at GND
+    Warning (13410): Pin "out[11]" is stuck at GND
+    Warning (13410): Pin "out[12]" is stuck at GND
+    Warning (13410): Pin "out[13]" is stuck at GND
+    Warning (13410): Pin "out[14]" is stuck at GND
+    Warning (13410): Pin "out[15]" is stuck at GND
 Info (17049): 4 registers lost all their fanouts during netlist optimizations.
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "sld_hub:auto_hub|receive[0][0]" is stuck at GND
@@ -685,32 +674,32 @@ Info (18000): Registers with preset signals will power-up high
 Info (144001): Generated suppressed messages file /home/012/a0121573/dev/ex-3a/quartus/output_files/simple-architecture.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a0" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a1" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a2" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a3" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a4" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a5" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a6" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a7" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a8" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a9" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a10" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a11" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a12" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a13" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a14" has a port clk0 that is stuck at VCC
-Warning (15400): WYSIWYG primitive "Memory:comb_4|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a15" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a0" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a1" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a2" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a3" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a4" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a5" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a6" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a7" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a8" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a9" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a10" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a11" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a12" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a13" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a14" has a port clk0 that is stuck at VCC
+Warning (15400): WYSIWYG primitive "Memory:comb_5|altsyncram:altsyncram_component|altsyncram_m3d1:auto_generated|altsyncram_pi82:altsyncram1|ram_block3a15" has a port clk0 that is stuck at VCC
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "in"
-Info (21057): Implemented 317 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 270 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
     Info (21059): Implemented 17 output pins
-    Info (21061): Implemented 278 logic cells
+    Info (21061): Implemented 231 logic cells
     Info (21064): Implemented 16 RAM segments
-Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 76 warnings
-    Info: Peak virtual memory: 375 megabytes
-    Info: Processing ended: Fri Apr 18 09:51:09 2014
+Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 92 warnings
+    Info: Peak virtual memory: 363 megabytes
+    Info: Processing ended: Fri Apr 18 10:02:27 2014
     Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:04
 

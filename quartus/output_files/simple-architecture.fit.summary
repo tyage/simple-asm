@@ -1,11 +1,11 @@
-Fitter Status : Successful - Fri Apr 18 09:51:15 2014
+Fitter Status : Successful - Fri Apr 18 10:02:33 2014
 Quartus II 32-bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version
 Revision Name : simple-architecture
 Top-level Entity Name : Controller
 Family : Cyclone
 Device : EP1C6Q240C8
 Timing Models : Final
-Total logic elements : 258 / 5,980 ( 4 % )
+Total logic elements : 226 / 5,980 ( 4 % )
 Total pins : 18 / 185 ( 10 % )
 Total virtual pins : 0
 Total memory bits : 65,536 / 92,160 ( 71 % )

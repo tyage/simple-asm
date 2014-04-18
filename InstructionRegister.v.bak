@@ -1,5 +1,0 @@
-module InstructionRegister(
-   input [0:15] writeData,
-	output [0:15] loadData);
-
-endmodule

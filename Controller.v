@@ -6,24 +6,23 @@ module Controller(
 	// P1
 	wire [15:0] counter;
 	wire [15:0] data;
-   ProgramCounter (.clk(clock), .counter(counter));
+	ProgramCounter (.clk(clock), .counter(counter));
 	Memory (.address(counter), .data(data));
 	InstructionRegister (.writeData(data));
-	
+
 	// P2 ~ P5
 	reg S;
 	reg Z;
 	reg C;
 	reg V;
-	
 	reg [15:0] registerFile [0:7];
-
 	wire [15:0] IRData;
 	reg [15:0] BR;
 	reg [15:0] AR;
 	wire [15:0] ALUOut;
 	reg [15:0] DR;
 	wire [3:0] flags;
+
 	InstructionRegister (.loadData(IRData), .clock(clock));
 
 	// FIX for debug
@@ -39,16 +38,17 @@ module Controller(
 	
 	assign out = registerFile[0];
 */
-	
+
+	// connect to ALU
 	ALU (.S_ALU(IRData[7:4]), .DATA_A(AR), .DATA_B(BR), .FLAG_OUT(flags), .ALU_OUT(ALUOut));
 
-   always @ (posedge clock) begin
-		// op1
+	always @ (posedge clock) begin
+		// calc, input, output
 		if (IRData[15:14] == 2'b11)
 			// P2
 			BR = registerFile[IRData[13:11]];
 			AR = registerFile[IRData[10:8]];
-			
+
 			// P3
 			S = flags[0];
 			Z = flags[1];
@@ -68,6 +68,15 @@ module Controller(
 					// P5
 					registerFile[IRData[10:8]] = ALUOut;
 			endcase
+
+		// load
+		if (IRData[15:14] == 2'b00) ;
+		
+		// store
+		if (IRData[15:14] == 2'b01) ;
+		
+		// load immidiate, branch
+		if (IRData[15:14] == 2'b10) ;
 	end
 
 endmodule
