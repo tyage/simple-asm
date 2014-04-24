@@ -27,7 +27,7 @@ module Controller(
 	ProgramCounter (.clk(P1Clock), .counter(PC), .load(PCLoad));
 
 	//	ALU
-	reg [3:0] ALUType;
+	wire [3:0] ALUType = IRData[7:4];
 	wire [15:0] ALUDataA = AR;
 	wire [15:0] ALUDataB = BR;
 	wire [3:0] ALUFlags;
@@ -55,8 +55,8 @@ module Controller(
 	initial begin
 		for (i = 0; i < 8; i = i + 1)
 			registerFile[i] <= 16'b0000_0000_0000_0100;
-		registerFile[1] <= 16'b0000_0000_0000_0001;
-		registerFile[2] <= 16'b0000_0000_0000_0100;
+		registerFile[1] <= 16'b0000_0000_0000_0100;
+		registerFile[2] <= 16'b0000_0000_0000_0001;
 	end
 
 	always @ (posedge clock) begin
@@ -80,7 +80,7 @@ module Controller(
 		end
 
 		// P2
-		if (phase == 5'b00010 && PC > 0) begin
+		if (phase == 5'b00010) begin
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
 				// P2
@@ -96,11 +96,9 @@ module Controller(
 		end
 
 		// P3
-		if (phase == 5'b00100 && PC > 0) begin
+		if (phase == 5'b00100) begin
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
-				ALUType <= IRData[7:4];
-				
 				case (IRData[7:4])
 					// CMP
 					4'b0101:
@@ -137,7 +135,7 @@ module Controller(
 		end
 
 		// P4
-		if (phase == 5'b01000 && PC > 0) begin
+		if (phase == 5'b01000) begin
 /*
 			// load, store
 			if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
@@ -168,7 +166,7 @@ module Controller(
 		end
 
 		// P5
-		if (phase == 5'b10000 && PC > 0) begin
+		if (phase == 5'b10000) begin
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
 				begin
