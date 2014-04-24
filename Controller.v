@@ -23,7 +23,8 @@ module Controller(
 	// ProgramCounter
 	wire [15:0] PC;
 	reg [15:0] PCLoad;
-	ProgramCounter (.clk(clock), .counter(PC), .load(PCLoad));
+	reg PCClock;
+	ProgramCounter (.clk(PCClock), .counter(PC), .load(PCLoad));
 	
 	//	ALU
 	reg [3:0] ALUType;
@@ -45,97 +46,171 @@ module Controller(
 	reg [15:0] MDR;
 	reg [15:0] result;
 
+	// PhaseCounter
+	wire [4:0] phase;
+	PhaseCounter (.clock(clock), .phase(phase));
+	
 	// DEBUG
 	integer i;
 	initial begin
 		for (i = 0; i < 8; i = i + 1)
-			registerFile[i] <= 16'b0000_0000_0000_0000;
-		registerFile[1] <= 16'b0000_0000_0010_0010;
-		registerFile[2] <= 16'b0000_0000_0000_0011;
+			registerFile[i] <= 16'b0000_0000_0000_0100;
+		registerFile[1] <= 16'b0000_0000_0000_0001;
+		registerFile[2] <= 16'b0000_0000_0000_0010;
 	end
 
 	always @ (posedge clock) begin
 		// P1
-		PCLoad = GND;
-
-		// load memory
-		begin
-			memoryAddress <= PC;
-			memoryWriteEnable <= GND;
-		end
-		
-		// write IR
-		IRWriteData = memoryData;
-
-		// calc, input, output
-		if (IRData[15:14] == 2'b11)
-			// P2
-			BR = registerFile[IRData[13:11]];
-			AR = registerFile[IRData[10:8]];
-
-			// P3
+		PCClock = phase === 5'b00001;
+		if (phase === 5'b00001) begin
 			begin
+				PCLoad <= GND;
+			end
+
+			// load memory
+			begin
+				memoryAddress <= PC;
+				memoryWriteEnable <= GND;
+			end
+		
+			// write IR
+			begin
+				IRWriteData <= memoryData;
+			end
+		end
+
+		
+		// P2
+		if (phase === 5'b00010) begin
+			// calc, input, output
+			if (IRData[15:14] == 2'b11) begin
+				// P2
+				BR <= registerFile[IRData[13:11]];
+				AR <= registerFile[IRData[10:8]];
+			end
+
+			// load, store
+			if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
+				BR <= IRData[7:0];
+				AR <= registerFile[IRData[10:8]];
+			end
+		end
+
+		// P3
+		if (phase === 5'b00100) begin
+			// calc, input, output
+			if (IRData[15:14] == 2'b11) begin
 				ALUDataB <= BR;
 				ALUDataA <= AR;
 				ALUType <= IRData[7:4];
-			end
-			
-			case (IRData[7:4])
-				// CMP
-				4'b0101:
-					DR = ALUOut;
-				// OUT
-				4'b1101:
-					result = BR;
-				// HALT
-				4'b1111:
-					$stop;
-				// others
-				default: begin
-					// P5
-					DR = ALUOut;
-					registerFile[IRData[10:8]] = DR;
-				end
-			endcase
-
-		// load, store
-		if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
-			// P2
-			BR = IRData[7:0];
-			AR = registerFile[IRData[10:8]];
-			
-			// P3
-			begin
-				ALUDataB <= BR;
-				ALUDataA <= AR;
-				ALUType <= 4'b0;
-			end
-			DR = ALUOut;
-
-			if (IRData[15:14] == 2'b00) begin
-				// load
-				// P4
-				begin
-					memoryAddress <= DR;
-					memoryWriteEnable <= GND;
-				end
-				MDR = memoryData;
 				
-				// P5
-				registerFile[IRData[13:11]] = MDR;
-			end else begin
-				// store
-				// P4
-				memoryAddress <= DR;
-				memoryWriteData <= registerFile[AR];
-				memoryWriteEnable <= VCC;
+				begin
+					case (IRData[7:4])
+						// CMP
+						4'b0101:
+							DR <= ALUOut;
+						// OUT
+						4'b1101:
+							result <= BR;
+						// HALT
+						4'b1111:
+							$stop;
+						// others
+						default: ;
+					endcase
+				end
 			end
-		end
+
+/*
+			// load, store
+			if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
+				// P3
+				begin
+					ALUDataB <= BR;
+					ALUDataA <= AR;
+					ALUType <= 4'b0;
+				end
+				begin
+					DR <= ALUOut;
+				end
+			end
 		
-		// load immidiate, branch
-		if (IRData[15:14] == 2'b10) ;
+			// load immidiate, branch
+			if (IRData[15:14] == 2'b10) ;
+*/
+		end
+
+		// P4
+		if (phase === 5'b01000) begin
+/*
+			// load, store
+			if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
+				if (IRData[15:14] == 2'b00) begin
+					// load
+					// P4
+					begin
+						memoryAddress <= DR;
+						memoryWriteEnable <= GND;
+					end
+					begin
+						MDR <= memoryData;
+					end
+					
+					// P5
+					begin
+						registerFile[IRData[13:11]] <= MDR;
+					end
+				end else begin
+					// store
+					// P4
+					memoryAddress <= DR;
+					memoryWriteData <= registerFile[AR];
+					memoryWriteEnable <= VCC;
+				end
+			end
+*/
+		end
+
+		// P5
+		if (phase === 5'b10000) begin
+			// calc, input, output
+			if (IRData[15:14] == 2'b11) begin
+				begin
+					case (IRData[7:4])
+						// CMP
+						4'b0101: ;
+						// OUT
+						4'b1101: ;
+						// HALT
+						4'b1111: ;
+						// others
+						default: begin
+							// P5
+							begin
+								DR <= ALUOut;
+							end
+							begin
+								registerFile[IRData[10:8]] <= DR;
+							end
+						end
+					endcase
+				end
+			end
+
+/*
+			// load, store
+			if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
+				if (IRData[15:14] == 2'b00) begin
+					// P5
+					begin
+						registerFile[IRData[13:11]] <= MDR;
+					end
+				end
+			end
+*/
+		end
 	end
 	
-	assign out = result;
-	assign rf = registerFile[1];
+	assign out = BR;
+	assign rf = registerFile[IRData[13:11]];
 endmodule
