@@ -1,5 +1,6 @@
 *.bak
 *.temp
+*.qws
 output_files
 quartus/db
 quartus/greybox_tmp
