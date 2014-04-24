@@ -7,6 +7,7 @@ module Controller(
 	// GND, VCC
 	reg GND = 0;
 	reg VCC = 1;
+	reg P1Clock;
 	
 	// Memory
 	reg [15:0] memoryAddress;
@@ -18,18 +19,17 @@ module Controller(
 	// InstructionRegister
 	reg [15:0] IRWriteData;
 	wire [15:0] IRData;
-	InstructionRegister (.writeData(IRWriteData), .loadData(IRData), .clock(clock));
+	InstructionRegister (.writeData(IRWriteData), .loadData(IRData), .clock(P1Clock));
 	
 	// ProgramCounter
 	wire [15:0] PC;
 	reg [15:0] PCLoad;
-	reg PCClock;
-	ProgramCounter (.clk(PCClock), .counter(PC), .load(PCLoad));
-	
+	ProgramCounter (.clk(P1Clock), .counter(PC), .load(PCLoad));
+
 	//	ALU
 	reg [3:0] ALUType;
-	reg [15:0] ALUDataA;
-	reg [15:0] ALUDataB;
+	wire [15:0] ALUDataA = AR;
+	wire [15:0] ALUDataB = BR;
 	wire [3:0] ALUFlags;
 	wire [15:0] ALUOut;
 	wire S = ALUFlags[0];
@@ -37,7 +37,7 @@ module Controller(
 	wire C = ALUFlags[2];
 	wire V = ALUFlags[3];
 	ALU (.S_ALU(ALUType), .DATA_A(ALUDataA), .DATA_B(ALUDataB), .FLAG_OUT(ALUFlags), .ALU_OUT(ALUOut));
-
+	
 	// other registers
 	reg [15:0] registerFile [0:7];
 	reg [15:0] BR;
@@ -56,13 +56,13 @@ module Controller(
 		for (i = 0; i < 8; i = i + 1)
 			registerFile[i] <= 16'b0000_0000_0000_0100;
 		registerFile[1] <= 16'b0000_0000_0000_0001;
-		registerFile[2] <= 16'b0000_0000_0000_0010;
+		registerFile[2] <= 16'b0000_0000_0000_0100;
 	end
 
 	always @ (posedge clock) begin
 		// P1
-		PCClock = phase === 5'b00001;
-		if (phase === 5'b00001) begin
+		P1Clock = phase == 5'b00001;
+		if (phase == 5'b00001) begin
 			begin
 				PCLoad <= GND;
 			end
@@ -79,9 +79,8 @@ module Controller(
 			end
 		end
 
-		
 		// P2
-		if (phase === 5'b00010) begin
+		if (phase == 5'b00010 && PC > 0) begin
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
 				// P2
@@ -97,28 +96,25 @@ module Controller(
 		end
 
 		// P3
-		if (phase === 5'b00100) begin
+		if (phase == 5'b00100 && PC > 0) begin
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
-				ALUDataB <= BR;
-				ALUDataA <= AR;
 				ALUType <= IRData[7:4];
 				
-				begin
-					case (IRData[7:4])
-						// CMP
-						4'b0101:
-							DR <= ALUOut;
-						// OUT
-						4'b1101:
-							result <= BR;
-						// HALT
-						4'b1111:
-							$stop;
-						// others
-						default: ;
-					endcase
-				end
+				case (IRData[7:4])
+					// CMP
+					4'b0101:
+						DR <= ALUOut;
+					// OUT
+					4'b1101:
+						result <= BR;
+					// HALT
+					4'b1111:
+						$stop;
+					// others
+					default:
+						DR <= ALUOut;
+				endcase
 			end
 
 /*
@@ -141,7 +137,7 @@ module Controller(
 		end
 
 		// P4
-		if (phase === 5'b01000) begin
+		if (phase == 5'b01000 && PC > 0) begin
 /*
 			// load, store
 			if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
@@ -172,7 +168,7 @@ module Controller(
 		end
 
 		// P5
-		if (phase === 5'b10000) begin
+		if (phase == 5'b10000 && PC > 0) begin
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
 				begin
@@ -186,12 +182,7 @@ module Controller(
 						// others
 						default: begin
 							// P5
-							begin
-								DR <= ALUOut;
-							end
-							begin
-								registerFile[IRData[10:8]] <= DR;
-							end
+							registerFile[IRData[10:8]] <= DR;
 						end
 					endcase
 				end
@@ -211,6 +202,6 @@ module Controller(
 		end
 	end
 	
-	assign out = BR;
-	assign rf = registerFile[IRData[13:11]];
+	assign out = PC;
+	assign rf = registerFile[1];
 endmodule
