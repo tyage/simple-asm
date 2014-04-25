@@ -6,9 +6,8 @@ module InstructionRegister(
 
 	reg [15:0]    out = 16'b0;
 
-	always @ (write) begin
-		if (write)
-			out = writeData;
+	always @ (clock) begin
+		if (write) out = writeData;
 	end
 
 	assign loadData = out;

@@ -1,8 +1,7 @@
 module Controller(
 	input clock,
 	input in,
-	output [15:0] out,
-	output [15:0] rf);
+	output [15:0] out, rf);
 
 	// GND, VCC
 	reg GND = 0;
@@ -10,12 +9,9 @@ module Controller(
 
 	// registers
 	reg [15:0] registerFile [0:7];
-	reg [15:0] BR;
-	reg [15:0] AR;
-	reg [15:0] DR;
-	reg [15:0] MDR;
-	reg [15:0] result;
+	reg [15:0] BR, AR, DR, MDR, result;
 
+/*
 	// DEBUG
 	integer i;
 	initial begin
@@ -24,6 +20,7 @@ module Controller(
 		registerFile[1] <= 16'b0000_0000_0000_0100;
 		registerFile[2] <= 16'b0000_0000_0000_0001;
 	end
+*/
 
 	// Memory
 	function [15:0] memoryAddress(
@@ -58,7 +55,7 @@ module Controller(
 		.data(memoryWriteData(phase, IRData, registerFile[AR])),
 		.wren(memoryWriteEnable(phase, IRData)),
 		.q(memoryData),
-		.clock(clock)
+		.clock(!clock)
 	);
 
 	// InstructionRegister
@@ -186,6 +183,6 @@ module Controller(
 		end
 	end
 
-	assign out = registerFile[1];
+	assign out = registerFile[0];
 	assign rf = phase;
 endmodule
