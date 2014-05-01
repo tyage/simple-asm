@@ -1,7 +1,7 @@
 module Controller(
 	input clock,
 	input in,
-	output [15:0] out, out2,
+	output [15:0] outResult, outDebug,
 	output [4:0] outPhase);
 
 	// registers
@@ -32,7 +32,8 @@ module Controller(
 	wire [15:0] ALUOut;
 	wire S = ALUFlags[0];
 	wire Z = ALUFlags[1];
-	wire C = ALUFlags[2];
+	// C is unused
+	// wire C = ALUFlags[2];
 	wire V = ALUFlags[3];
 	ALUWrapper ALUModule (.AR(AR), .BR(BR), .IRData(IRData), .flags(ALUFlags), .out(ALUOut));
 
@@ -130,7 +131,7 @@ module Controller(
 		end
 	end
 
-	assign out = IRData;
-	assign out2 = result;
+	assign outResult = result;
+	assign outDebug = registerFile[1];
 	assign outPhase = phase;
 endmodule
