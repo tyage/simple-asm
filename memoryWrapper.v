@@ -1,7 +1,7 @@
 module memoryWrapper (
 	input [4:0] phase,
-	input [15:0] IRData, writeData,
-	input PC, DR, clock,
+	input [15:0] IRData, writeData, PC, DR,
+	input clock,
 	output [15:0] memoryData);
 
 	reg GND = 0;
@@ -14,10 +14,9 @@ module memoryWrapper (
 			// Phase1
 			5'b00001: memoryAddress = PC;
 			// Phase4
-			5'b01000: begin
+			5'b01000:
 				// load, store
 				if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) memoryAddress = DR;
-			end
 		endcase
 	endfunction
 	function [15:0] memoryWriteData(
@@ -34,11 +33,11 @@ module memoryWrapper (
 		else memoryWriteEnable = GND;
 	endfunction
 
-	Memory memoryModule (
+	Memory (
 		.address(memoryAddress(phase, IRData)),
 		.data(memoryWriteData(phase, IRData, writeData)),
 		.wren(memoryWriteEnable(phase, IRData)),
 		.q(memoryData),
-		.clock(!clock)
+		.clock(clock)
 	);
 endmodule

@@ -1,7 +1,8 @@
 module Controller(
 	input clock,
 	input in,
-	output [15:0] out, rf);
+	output [15:0] out, out2,
+	output [4:0] outPhase);
 
 	// GND, VCC
 	reg GND = 0;
@@ -14,11 +15,13 @@ module Controller(
 	integer i;
 	initial begin
 		for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
+		registerFile[0] = 16'b0000_0000_0000_0100;
+		registerFile[1] = 16'b0000_0000_0000_0110;
 	end
 
 	// Memory
 	wire [15:0] memoryData;
-	memoryWrapper (.phase(phase), .IRData(IRData), .writeData(registerFile[AR]), .PC(PC), .DR(DR), .clock(clock), .memoryData(memoryData));
+	memoryWrapper (.phase(phase), .IRData(IRData), .writeData(registerFile[AR]), .PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
 
 	// InstructionRegister
 	wire [15:0] IRData;
@@ -27,7 +30,7 @@ module Controller(
 	// ProgramCounter
 	wire [15:0] PC;
 	reg [15:0] PCLoad;
-	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad));
+	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .notUpdate(GND));
 
 	//	ALU
 	wire [3:0] ALUFlags;
@@ -64,25 +67,19 @@ module Controller(
 			if (IRData[15:14] == 2'b11) begin
 				case (IRData[7:4])
 					// CMP
-					4'b0101:
-						DR <= ALUOut;
+					4'b0101: DR = ALUOut;
 					// OUT
-					4'b1101:
-						result <= BR;
+					4'b1101: result = BR;
 					// HALT
 					4'b1111:
 						$stop;
 					// others
-					default:
-						DR <= ALUOut;
+					default: DR = ALUOut;
 				endcase
 			end
 
 			// load, store
-			else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
-				// P3
-				DR <= ALUOut;
-			end
+			else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) DR = ALUOut;
 
 			// load immidiate, branch
 			else if (IRData[15:14] == 2'b10) ;
@@ -91,9 +88,7 @@ module Controller(
 		// P4
 		if (phase == 5'b01000) begin
 			// load
-			if (IRData[15:14] == 2'b00) begin
-				MDR <= memoryData;
-			end
+			if (IRData[15:14] == 2'b00) MDR = memoryData;
 		end
 
 		// P5
@@ -109,21 +104,17 @@ module Controller(
 						// HALT
 						4'b1111: ;
 						// others
-						default: begin
-							// P5
-							registerFile[IRData[10:8]] <= DR;
-						end
+						default: registerFile[IRData[10:8]] = DR;
 					endcase
 				end
 			end
 
 			// load
-			else if (IRData[15:14] == 2'b00) begin
-				registerFile[IRData[13:11]] <= MDR;
-			end
+			else if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] = MDR;
 		end
 	end
 
-	assign out = registerFile[AR];
-	assign rf = phase;
+	assign out = IRData;
+	assign out2 = registerFile[1];
+	assign outPhase = phase;
 endmodule
