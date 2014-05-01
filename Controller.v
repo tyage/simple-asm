@@ -131,6 +131,6 @@ module Controller(
 	end
 
 	assign out = IRData;
-	assign out2 = registerFile[1];
+	assign out2 = result;
 	assign outPhase = phase;
 endmodule
