@@ -15,7 +15,7 @@ module Controller(
 
 	// Memory
 	wire [15:0] memoryData;
-	memoryWrapper (.phase(phase), .IRData(IRData), .writeData(registerFile[IRData[13:11]]), .PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
+	memoryWrapper memoryModule (.phase(phase), .IRData(IRData), .writeData(registerFile[IRData[13:11]]), .PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
 
 	// InstructionRegister
 	wire [15:0] IRData;
@@ -24,7 +24,8 @@ module Controller(
 	// ProgramCounter
 	wire [15:0] PC;
 	reg [15:0] PCLoad;
-	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .notUpdate(0));
+	reg PCNotUpdate = 0;
+	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .notUpdate(PCNotUpdate));
 
 	//	ALU
 	wire [3:0] ALUFlags;
@@ -33,7 +34,7 @@ module Controller(
 	wire Z = ALUFlags[1];
 	wire C = ALUFlags[2];
 	wire V = ALUFlags[3];
-	ALUWrapper (.AR(AR), .BR(BR), .IRData(IRData), .flags(ALUFlags), .out(ALUOut));
+	ALUWrapper ALUModule (.AR(AR), .BR(BR), .IRData(IRData), .flags(ALUFlags), .out(ALUOut));
 
 	// PhaseCounter
 	wire [4:0] phase;
@@ -69,8 +70,8 @@ module Controller(
 					4'b0101: DR = ALUOut;
 					// OUT
 					4'b1101: result = BR;
-					// HALT(TODO)
-					4'b1111: ;
+					// HALT
+					4'b1111: PCNotUpdate = 1;
 					// others
 					default: DR = ALUOut;
 				endcase

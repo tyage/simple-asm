@@ -33,7 +33,7 @@ module memoryWrapper (
 		else memoryWriteEnable = 0;
 	endfunction
 
-	Memory (
+	Memory memoryModule (
 		.address(memoryAddress(phase, IRData)),
 		.data(memoryWriteData(phase, IRData, writeData)),
 		.wren(memoryWriteEnable(phase, IRData)),
