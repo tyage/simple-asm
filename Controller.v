@@ -4,10 +4,6 @@ module Controller(
 	output [15:0] out, out2,
 	output [4:0] outPhase);
 
-	// GND, VCC
-	reg GND = 0;
-	reg VCC = 1;
-
 	// registers
 	reg [15:0] registerFile [0:7];
 	reg [15:0] BR, AR, DR, MDR, result;
@@ -15,8 +11,8 @@ module Controller(
 	integer i;
 	initial begin
 		for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
-		registerFile[0] = 16'b0000_0000_0000_0100;
-		registerFile[1] = 16'b0000_0000_0000_0110;
+		registerFile[1] = 16'b0000_0000_0000_0100;
+		registerFile[2] = 16'b0000_0000_0000_0110;
 	end
 
 	// Memory
@@ -30,7 +26,7 @@ module Controller(
 	// ProgramCounter
 	wire [15:0] PC;
 	reg [15:0] PCLoad;
-	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .notUpdate(GND));
+	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .notUpdate(0));
 
 	//	ALU
 	wire [3:0] ALUFlags;
@@ -70,9 +66,8 @@ module Controller(
 					4'b0101: DR = ALUOut;
 					// OUT
 					4'b1101: result = BR;
-					// HALT
-					4'b1111:
-						$stop;
+					// HALT(TODO)
+					4'b1111: ;
 					// others
 					default: DR = ALUOut;
 				endcase
@@ -115,6 +110,6 @@ module Controller(
 	end
 
 	assign out = IRData;
-	assign out2 = registerFile[1];
+	assign out2 = registerFile[2];
 	assign outPhase = phase;
 endmodule
