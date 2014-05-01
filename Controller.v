@@ -40,6 +40,11 @@ module Controller(
 	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase));
 
 	always @ (posedge clock) begin
+		// P1
+		if (phase == 5'b00000) begin
+			PCLoad = 0;
+		end
+
 		// P2
 		if (phase == 5'b00010) begin
 			// calc, input, output
@@ -87,23 +92,40 @@ module Controller(
 		// P5
 		if (phase == 5'b10000) begin
 			// calc, input, output
-			if (IRData[15:14] == 2'b11) begin
-				begin
-					case (IRData[7:4])
-						// CMP
-						4'b0101: ;
-						// OUT
-						4'b1101: ;
-						// HALT
-						4'b1111: ;
-						// others
-						default: registerFile[IRData[10:8]] = DR;
-					endcase
-				end
-			end
+			if (IRData[15:14] == 2'b11)
+				case (IRData[7:4])
+					// CMP
+					4'b0101: ;
+					// OUT
+					4'b1101: ;
+					// HALT
+					4'b1111: ;
+					// others
+					default: registerFile[IRData[10:8]] = DR;
+				endcase
 
 			// load
 			else if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] = MDR;
+
+			// load immidiate, branch
+			else if (IRData[15:14] == 2'b10)
+				case (IRData[13:11])
+					// load immidiate
+					3'b000: registerFile[IRData[10:8]] = IRData[7:0];
+					// branch
+					3'b100: PCLoad = PC + IRData[7:0];
+					3'b111:
+						case (IRData[10:8])
+							3'b000:
+								if (Z) PCLoad = PC + IRData[7:0];
+							3'b001:
+								if (S ^ V) PCLoad = PC + IRData[7:0];
+							3'b010:
+								if (Z || (S ^ V)) PCLoad = PC + IRData[7:0];
+							3'b011:
+								if (!Z) PCLoad = PC + IRData[7:0];
+						endcase
+				endcase
 		end
 	end
 
