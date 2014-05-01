@@ -11,13 +11,11 @@ module Controller(
 	integer i;
 	initial begin
 		for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
-		registerFile[1] = 16'b0000_0000_0000_0100;
-		registerFile[2] = 16'b0000_0000_0000_0110;
 	end
 
 	// Memory
 	wire [15:0] memoryData;
-	memoryWrapper (.phase(phase), .IRData(IRData), .writeData(registerFile[AR]), .PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
+	memoryWrapper (.phase(phase), .IRData(IRData), .writeData(registerFile[IRData[13:11]]), .PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
 
 	// InstructionRegister
 	wire [15:0] IRData;
@@ -110,6 +108,6 @@ module Controller(
 	end
 
 	assign out = IRData;
-	assign out2 = registerFile[2];
+	assign out2 = registerFile[1];
 	assign outPhase = phase;
 endmodule
