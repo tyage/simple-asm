@@ -4,9 +4,9 @@ module Controller(
 	output [4:0] outPhase);
 
 	// registers
-	reg started = 0;
+	reg running = 0;
 	reg [15:0] registerFile [0:7];
-	reg [15:0] BR, AR, DR, MDR, result;
+	reg [15:0] BR, AR, DR, MDR, result, stopAfterCurrentPhase;
 
 	integer i;
 	initial begin
@@ -62,16 +62,21 @@ module Controller(
 	// PhaseCounter
 	wire [4:0] phase;
 	reg phaseReset = 0;
-	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .reset(phaseReset), .notUpdate(!started));
+	reg phaseNotUpdate = 1;
+	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .reset(phaseReset), .notUpdate(phaseNotUpdate));
 
 	always @ (posedge clock) begin
 		phaseReset <= 0;
 		PCLoad <= 0;
 		PCReset <= 0;
 		if (exec) begin
-			started <= !started;
-			phaseReset <= !started;
-			PCNotUpdate <= started;
+			if (running) begin
+				stopAfterCurrentPhase <= 1;
+			end else begin
+				phaseNotUpdate <= 0;
+				PCNotUpdate <= 0;
+			end
+			running <= !running;
 		end else if (reset) begin
 			for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
 			phaseReset <= 1;
@@ -85,7 +90,7 @@ module Controller(
 			Z <= 0;
 			C <= 0;
 			V <= 0;
-		end else if (started) begin
+		end else if (running || stopAfterCurrentPhase) begin
 			// P2
 			if (phase == 5'b00010) begin
 				// calc, input, output
@@ -127,7 +132,10 @@ module Controller(
 					case (IRData[7:4])
 						ICMP: DR <= ALUOut;
 						IOUT: result <= AR;
-						IHALT: PCNotUpdate <= 1;
+						IHALT: begin
+							PCNotUpdate <= 1;
+							running <= 0;
+						end
 						default: DR <= ALUOut;
 					endcase
 				end
@@ -147,6 +155,12 @@ module Controller(
 
 			// P5
 			if (phase == 5'b10000) begin
+				if (stopAfterCurrentPhase) begin
+					stopAfterCurrentPhase <= 0;
+					PCNotUpdate <= 1;
+					phaseNotUpdate <= 1;
+				end
+
 				if (ALUFlagsWrite) begin
 					S <= ALUFlags[0];
 					Z <= ALUFlags[1];
