@@ -90,6 +90,9 @@ module Controller(
 			Z <= 0;
 			C <= 0;
 			V <= 0;
+			stopAfterCurrentPhase <= 0;
+			PCNotUpdate <= 0;
+			phaseNotUpdate <= 0;
 		end else if (running || stopAfterCurrentPhase) begin
 			// P2
 			if (phase == 5'b00010) begin
