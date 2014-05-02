@@ -20,11 +20,12 @@ module Controller(
 	// dont update PC at first
 	reg PCNotUpdate = 1;
 	reg PCReset = 0;
-	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .reset(PCReset), .notUpdate(PCNotUpdate));
+	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC),
+		.load(PCLoad), .reset(PCReset), .notUpdate(PCNotUpdate));
 
 	// Memory
 	wire [15:0] memoryData;
-	memoryWrapper memoryModule (.phase(phase), .IRData(IRData), .writeData(registerFile[IRData[13:11]]),
+	MemoryWrapper memoryModule (.phase(phase), .IRData(IRData), .writeData(registerFile[IRData[13:11]]),
 		.PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
 
 	// InstructionRegister
@@ -61,7 +62,8 @@ module Controller(
 
 	// PhaseCounter
 	wire [4:0] phase;
-	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase));
+	reg phaseNotUpdate = 0;
+	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .notUpdate(phaseNotUpdate));
 
 	always @ (posedge clock) begin
 		// P1
@@ -75,7 +77,8 @@ module Controller(
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
 				AR <= registerFile[IRData[10:8]];
-				if (IRData[7:4] == ISLL || IRData[7:4] == ISLR || IRData[7:4] == ISRL || IRData[7:4] == ISRA) BR <= IRData[7:0];
+				if (IRData[7:4] == ISLL || IRData[7:4] == ISLR ||
+					IRData[7:4] == ISRL || IRData[7:4] == ISRA) BR <= IRData[7:0];
 				else if (IRData[7:4] == IIDT) BR <= in;
 				else BR <= registerFile[IRData[13:11]];
 			end

@@ -1,4 +1,4 @@
-module memoryWrapper (
+module MemoryWrapper (
 	input [4:0] phase,
 	input [15:0] IRData, writeData, PC, DR,
 	input clock,
