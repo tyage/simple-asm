@@ -53,6 +53,40 @@ applicable agreement for further details.
 	(text "VCC" (rect 128 7 149 17)(font "Arial" (font_size 6)))
 )
 (pin
+	(input)
+	(rect 256 232 424 248)
+	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
+	(text "exec" (rect 5 0 30 11)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 149 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect 272 272 328 288))
+)
+(pin
+	(input)
+	(rect 256 248 424 264)
+	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
+	(text "reset" (rect 5 0 31 11)(font "Arial" ))
+	(pt 168 8)
+	(drawing
+		(line (pt 84 12)(pt 109 12))
+		(line (pt 84 4)(pt 109 4))
+		(line (pt 113 8)(pt 168 8))
+		(line (pt 84 12)(pt 84 4))
+		(line (pt 109 4)(pt 113 8))
+		(line (pt 109 12)(pt 113 8))
+	)
+	(text "VCC" (rect 128 7 149 17)(font "Arial" (font_size 6)))
+	(annotation_block (location)(rect 176 296 232 312))
+)
+(pin
 	(output)
 	(rect 360 368 536 384)
 	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
@@ -1772,7 +1806,7 @@ applicable agreement for further details.
 (symbol
 	(rect 448 176 632 288)
 	(text "Controller" (rect 5 0 54 11)(font "Arial" ))
-	(text "inst" (rect 8 96 26 107)(font "Arial" ))
+	(text "inst9" (rect 8 96 32 107)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -1786,6 +1820,20 @@ applicable agreement for further details.
 		(text "in" (rect 0 0 10 11)(font "Arial" ))
 		(text "in" (rect 21 43 31 54)(font "Arial" ))
 		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "exec" (rect 0 0 24 11)(font "Arial" ))
+		(text "exec" (rect 21 59 45 70)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "reset" (rect 0 0 25 11)(font "Arial" ))
+		(text "reset" (rect 21 75 46 86)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
 	)
 	(port
 		(pt 184 32)
@@ -2022,4 +2070,12 @@ applicable agreement for further details.
 (connector
 	(pt 448 224)
 	(pt 424 224)
+)
+(connector
+	(pt 448 240)
+	(pt 424 240)
+)
+(connector
+	(pt 424 256)
+	(pt 448 256)
 )

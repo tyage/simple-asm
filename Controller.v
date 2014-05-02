@@ -1,6 +1,5 @@
 module Controller(
-	input clock,
-	input in,
+	input clock, in, exec, reset,
 	output [15:0] outResult, outDebug,
 	output [4:0] outPhase);
 
@@ -62,8 +61,7 @@ module Controller(
 
 	// PhaseCounter
 	wire [4:0] phase;
-	reg phaseNotUpdate = 0;
-	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .notUpdate(phaseNotUpdate));
+	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .notUpdate(!exec));
 
 	always @ (posedge clock) begin
 		// P1
