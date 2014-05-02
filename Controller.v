@@ -31,6 +31,20 @@ module Controller(
 	InstructionRegister IRModule (.writeData(memoryData), .loadData(IRData), .write(phase == 5'b00001), .clock(clock));
 
 	//	ALU
+	localparam IADD = 4'b0000;
+	localparam ISUB = 4'b0001;
+	localparam IAND = 4'b0010;
+	localparam IOR = 4'b0011;
+	localparam IXOR = 4'b0100;
+	localparam ICMP = 4'b0101;
+	localparam IMOV = 4'b0110;
+	localparam ISLL = 4'b1000;
+	localparam ISLR = 4'b1001;
+	localparam ISRL = 4'b1010;
+	localparam ISRA = 4'b1011;
+	localparam IIDT = 4'b1100;
+	localparam IOUT = 4'b1101;
+	localparam IHALT = 4'b1111;
 	wire [3:0] ALUFlags;
 	wire [15:0] ALUOut;
 	wire S = ALUFlags[0];
@@ -55,9 +69,15 @@ module Controller(
 		if (phase == 5'b00010) begin
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
-				// P2
-				BR <= registerFile[IRData[13:11]];
-				AR <= registerFile[IRData[10:8]];
+				if (IRData[7:4] == ISLL || IRData[7:4] == ISLR || IRData[7:4] == ISRL || IRData[7:4] == ISRA) begin
+					AR <= registerFile[IRData[10:8]];
+					BR <= IRData[7:0];
+				end else if (IRData[7:4] == IIDT) begin
+					BR <= in;
+				end else begin
+					AR <= registerFile[IRData[10:8]];
+					BR <= registerFile[IRData[13:11]];
+				end
 			end
 			// load, store
 			else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
@@ -71,13 +91,9 @@ module Controller(
 			// calc, input, output
 			if (IRData[15:14] == 2'b11) begin
 				case (IRData[7:4])
-					// CMP
-					4'b0101: DR <= ALUOut;
-					// OUT
-					4'b1101: result <= BR;
-					// HALT
-					4'b1111: PCNotUpdate <= 1;
-					// others
+					ICMP: DR <= ALUOut;
+					IOUT: result <= BR;
+					IHALT: PCNotUpdate <= 1;
 					default: DR <= ALUOut;
 				endcase
 			end
@@ -107,13 +123,9 @@ module Controller(
 			// calc, input, output
 			if (IRData[15:14] == 2'b11)
 				case (IRData[7:4])
-					// CMP
-					4'b0101: ;
-					// OUT
-					4'b1101: ;
-					// HALT
-					4'b1111: ;
-					// others
+					ICMP: ;
+					IOUT: ;
+					IHALT: ;
 					default: registerFile[IRData[10:8]] <= DR;
 				endcase
 
@@ -142,7 +154,7 @@ module Controller(
 		end
 	end
 
-	assign outResult = IRData;
-	assign outDebug = registerFile[1];
+	assign outResult = result;
+	assign outDebug = IRData;
 	assign outPhase = phase;
 endmodule
