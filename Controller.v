@@ -4,7 +4,7 @@ module Controller(
 	output [4:0] outPhase);
 
 	// registers
-	reg initialization = 1;
+	reg started = 0;
 	reg [15:0] registerFile [0:7];
 	reg [15:0] BR, AR, DR, MDR, result;
 
@@ -16,9 +16,9 @@ module Controller(
 	// ProgramCounter
 	wire [15:0] PC;
 	reg [15:0] PCLoad;
+	reg PCReset;
 	// dont update PC at first
 	reg PCNotUpdate = 1;
-	reg PCReset = 0;
 	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC),
 		.load(PCLoad), .reset(PCReset), .notUpdate(PCNotUpdate));
 
@@ -61,116 +61,126 @@ module Controller(
 
 	// PhaseCounter
 	wire [4:0] phase;
-	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .notUpdate(!exec));
+	reg phaseReset = 0;
+	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .reset(phaseReset), .notUpdate(!started));
 
 	always @ (posedge clock) begin
-		// P1
-		if (phase == 5'b00001) begin
-			PCLoad <= 0;
-			PCReset <= 0;
-		end
+		phaseReset <= 0;
+		PCLoad <= 0;
+		PCReset <= 0;
+		if (exec) begin
+			started <= !started;
+			phaseReset <= !started;
+			PCNotUpdate <= started;
+		end else if (reset) begin
+			for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
+			phaseReset <= 1;
+			PCReset <= 1;
+			BR <= 0;
+			AR <= 0;
+			DR <= 0;
+			MDR <= 0;
+			result <= 0;
+			S <= 0;
+			Z <= 0;
+			C <= 0;
+			V <= 0;
+		end else if (started) begin
+			// P2
+			if (phase == 5'b00010) begin
+				// calc, input, output
+				if (IRData[15:14] == 2'b11) begin
+					AR <= registerFile[IRData[10:8]];
+					if (IRData[7:4] == ISLL || IRData[7:4] == ISLR ||
+						IRData[7:4] == ISRL || IRData[7:4] == ISRA) BR <= IRData[7:0];
+					else if (IRData[7:4] == IIDT) BR <= in;
+					else BR <= registerFile[IRData[13:11]];
+				end
 
-		// P2
-		if (phase == 5'b00010) begin
-			// calc, input, output
-			if (IRData[15:14] == 2'b11) begin
-				AR <= registerFile[IRData[10:8]];
-				if (IRData[7:4] == ISLL || IRData[7:4] == ISLR ||
-					IRData[7:4] == ISRL || IRData[7:4] == ISRA) BR <= IRData[7:0];
-				else if (IRData[7:4] == IIDT) BR <= in;
-				else BR <= registerFile[IRData[13:11]];
-			end
-
-			// load, store
-			else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
-				AR <= registerFile[IRData[10:8]];
-				BR <= IRData[7:0];
-			end
-
-			// load immidiate, branch
-			else if (IRData[15:14] == 2'b10) begin
-				// branch
-				if (IRData[13:11] == 3'b100 || // B
-					(IRData[13:11] == 3'b111 &&
-						(IRData[10:8] == 3'b000) || // BE
-						(IRData[10:8] == 3'b001) || // BLT
-						(IRData[10:8] == 3'b010) || // BLE
-						(IRData[10:8] == 3'b011) // BNE
-					)
-				) begin
-					AR <= PC;
+				// load, store
+				else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
+					AR <= registerFile[IRData[10:8]];
 					BR <= IRData[7:0];
 				end
-			end
-		end
 
-		// P3
-		if (phase == 5'b00100) begin
-			// calc, input, output
-			if (IRData[15:14] == 2'b11) begin
-				case (IRData[7:4])
-					ICMP: DR <= ALUOut;
-					IOUT: result <= AR;
-					IHALT: PCNotUpdate <= 1;
-					default: DR <= ALUOut;
-				endcase
-			end
-
-			// load, store
-			else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) DR <= ALUOut;
-
-			// load immidiate, branch
-			else if (IRData[15:14] == 2'b10) DR <= ALUOut;
-		end
-
-		// P4
-		if (phase == 5'b01000) begin
-			// load
-			if (IRData[15:14] == 2'b00) MDR <= memoryData;
-		end
-
-		// P5
-		if (phase == 5'b10000) begin
-			if (ALUFlagsWrite) begin
-				S <= ALUFlags[0];
-				Z <= ALUFlags[1];
-				C <= ALUFlags[2];
-				V <= ALUFlags[3];
+				// load immidiate, branch
+				else if (IRData[15:14] == 2'b10) begin
+					// branch
+					if (IRData[13:11] == 3'b100 || // B
+						(IRData[13:11] == 3'b111 &&
+							(IRData[10:8] == 3'b000) || // BE
+							(IRData[10:8] == 3'b001) || // BLT
+							(IRData[10:8] == 3'b010) || // BLE
+							(IRData[10:8] == 3'b011) // BNE
+						)
+					) begin
+						AR <= PC;
+						BR <= IRData[7:0];
+					end
+				end
 			end
 
-			// initialization finished
-			if (initialization) begin
-				initialization <= 0;
-				PCNotUpdate <= 0;
-				PCReset <= 1;
+			// P3
+			if (phase == 5'b00100) begin
+				// calc, input, output
+				if (IRData[15:14] == 2'b11) begin
+					case (IRData[7:4])
+						ICMP: DR <= ALUOut;
+						IOUT: result <= AR;
+						IHALT: PCNotUpdate <= 1;
+						default: DR <= ALUOut;
+					endcase
+				end
+
+				// load, store
+				else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) DR <= ALUOut;
+
+				// load immidiate, branch
+				else if (IRData[15:14] == 2'b10) DR <= ALUOut;
 			end
 
-			// calc, input, output
-			if (IRData[15:14] == 2'b11)
-				case (IRData[7:4])
-					ICMP: ;
-					IOUT: ;
-					IHALT: ;
-					default: registerFile[IRData[10:8]] <= DR;
-				endcase
+			// P4
+			if (phase == 5'b01000) begin
+				// load
+				if (IRData[15:14] == 2'b00) MDR <= memoryData;
+			end
 
-			// load (ignore if PC == 0)
-			else if (IRData[15:14] == 2'b00 && !initialization) registerFile[IRData[13:11]] <= MDR;
+			// P5
+			if (phase == 5'b10000) begin
+				if (ALUFlagsWrite) begin
+					S <= ALUFlags[0];
+					Z <= ALUFlags[1];
+					C <= ALUFlags[2];
+					V <= ALUFlags[3];
+				end
 
-			// load immidiate, branch
-			else if (IRData[15:14] == 2'b10) begin
-				// load immidiate
-				if (IRData[13:11] == 3'b000) registerFile[IRData[10:8]] <= IRData[7:0];
-				// branch
-				else if (IRData[13:11] == 3'b100 || // B
-					(IRData[13:11] == 3'b111 &&
-						(IRData[10:8] == 3'b000 && Z) || // BE
-						(IRData[10:8] == 3'b001 && S ^ V) || // BLT
-						(IRData[10:8] == 3'b010 && (Z || (S ^ V))) || // BLE
-						(IRData[10:8] == 3'b011 && !Z) // BNE
-					)
-				) begin
-					PCLoad <= DR;
+				// calc, input, output
+				if (IRData[15:14] == 2'b11)
+					case (IRData[7:4])
+						ICMP: ;
+						IOUT: ;
+						IHALT: ;
+						default: registerFile[IRData[10:8]] <= DR;
+					endcase
+
+				// load (ignore if PC == 0)
+				else if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] <= MDR;
+
+				// load immidiate, branch
+				else if (IRData[15:14] == 2'b10) begin
+					// load immidiate
+					if (IRData[13:11] == 3'b000) registerFile[IRData[10:8]] <= IRData[7:0];
+					// branch
+					else if (IRData[13:11] == 3'b100 || // B
+						(IRData[13:11] == 3'b111 &&
+							(IRData[10:8] == 3'b000 && Z) || // BE
+							(IRData[10:8] == 3'b001 && S ^ V) || // BLT
+							(IRData[10:8] == 3'b010 && (Z || (S ^ V))) || // BLE
+							(IRData[10:8] == 3'b011 && !Z) // BNE
+						)
+					) begin
+						PCLoad <= DR;
+					end
 				end
 			end
 		end
