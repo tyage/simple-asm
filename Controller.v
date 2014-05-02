@@ -5,6 +5,7 @@ module Controller(
 	output [4:0] outPhase);
 
 	// registers
+	reg initialization = 1;
 	reg [15:0] registerFile [0:7];
 	reg [15:0] BR, AR, DR, MDR, result;
 
@@ -13,6 +14,14 @@ module Controller(
 		for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
 	end
 
+	// ProgramCounter
+	wire [15:0] PC;
+	reg [15:0] PCLoad;
+	// dont update PC at first
+	reg PCNotUpdate = 1;
+	reg PCReset = 0;
+	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .reset(PCReset), .notUpdate(PCNotUpdate));
+
 	// Memory
 	wire [15:0] memoryData;
 	memoryWrapper memoryModule (.phase(phase), .IRData(IRData), .writeData(registerFile[IRData[13:11]]), .PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
@@ -20,12 +29,6 @@ module Controller(
 	// InstructionRegister
 	wire [15:0] IRData;
 	InstructionRegister IRModule (.writeData(memoryData), .loadData(IRData), .write(phase == 5'b00001), .clock(clock));
-
-	// ProgramCounter
-	wire [15:0] PC;
-	reg [15:0] PCLoad;
-	reg PCNotUpdate = 0;
-	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC), .load(PCLoad), .notUpdate(PCNotUpdate));
 
 	//	ALU
 	wire [3:0] ALUFlags;
@@ -43,8 +46,9 @@ module Controller(
 
 	always @ (posedge clock) begin
 		// P1
-		if (phase == 5'b00000) begin
-			PCLoad = 0;
+		if (phase == 5'b00001) begin
+			PCLoad <= 0;
+			PCReset <= 0;
 		end
 
 		// P2
@@ -68,18 +72,18 @@ module Controller(
 			if (IRData[15:14] == 2'b11) begin
 				case (IRData[7:4])
 					// CMP
-					4'b0101: DR = ALUOut;
+					4'b0101: DR <= ALUOut;
 					// OUT
-					4'b1101: result = BR;
+					4'b1101: result <= BR;
 					// HALT
-					4'b1111: PCNotUpdate = 1;
+					4'b1111: PCNotUpdate <= 1;
 					// others
-					default: DR = ALUOut;
+					default: DR <= ALUOut;
 				endcase
 			end
 
 			// load, store
-			else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) DR = ALUOut;
+			else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) DR <= ALUOut;
 
 			// load immidiate, branch
 			else if (IRData[15:14] == 2'b10) ;
@@ -88,11 +92,18 @@ module Controller(
 		// P4
 		if (phase == 5'b01000) begin
 			// load
-			if (IRData[15:14] == 2'b00) MDR = memoryData;
+			if (IRData[15:14] == 2'b00) MDR <= memoryData;
 		end
 
 		// P5
 		if (phase == 5'b10000) begin
+			// initialization finished
+			if (initialization) begin
+				initialization <= 0;
+				PCNotUpdate <= 0;
+				PCReset <= 1;
+			end
+
 			// calc, input, output
 			if (IRData[15:14] == 2'b11)
 				case (IRData[7:4])
@@ -103,35 +114,35 @@ module Controller(
 					// HALT
 					4'b1111: ;
 					// others
-					default: registerFile[IRData[10:8]] = DR;
+					default: registerFile[IRData[10:8]] <= DR;
 				endcase
 
-			// load
-			else if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] = MDR;
+			// load (ignore if PC == 0)
+			else if (IRData[15:14] == 2'b00 && !initialization) registerFile[IRData[13:11]] <= MDR;
 
 			// load immidiate, branch
 			else if (IRData[15:14] == 2'b10)
 				case (IRData[13:11])
 					// load immidiate
-					3'b000: registerFile[IRData[10:8]] = IRData[7:0];
+					3'b000: registerFile[IRData[10:8]] <= IRData[7:0];
 					// branch
-					3'b100: PCLoad = PC + IRData[7:0];
+					3'b100: PCLoad <= PC + IRData[7:0];
 					3'b111:
 						case (IRData[10:8])
 							3'b000:
-								if (Z) PCLoad = PC + IRData[7:0];
+								if (Z) PCLoad <= PC + IRData[7:0];
 							3'b001:
-								if (S ^ V) PCLoad = PC + IRData[7:0];
+								if (S ^ V) PCLoad <= PC + IRData[7:0];
 							3'b010:
-								if (Z || (S ^ V)) PCLoad = PC + IRData[7:0];
+								if (Z || (S ^ V)) PCLoad <= PC + IRData[7:0];
 							3'b011:
-								if (!Z) PCLoad = PC + IRData[7:0];
+								if (!Z) PCLoad <= PC + IRData[7:0];
 						endcase
 				endcase
 		end
 	end
 
-	assign outResult = result;
+	assign outResult = IRData;
 	assign outDebug = registerFile[1];
 	assign outPhase = phase;
 endmodule
