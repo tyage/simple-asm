@@ -1,5 +1,6 @@
 module Controller(
-	input clock, in, exec, reset,
+	input clock, exec, reset,
+	input [3:0] in,
 	output [15:0] outResult, outDebug,
 	output [4:0] outPhase);
 
@@ -33,7 +34,7 @@ module Controller(
 	// DataMemory
 	wire [15:0] DMData;
 	// phase4 and load, store
-	wire [15:0] DMAddress = (phase === 5'b01000 && (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01)) ? DR : 0;
+	wire [15:0] DMAddress = (phase === 5'b01000 && (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01)) ? DR : 16'b0;
 	reg DMWren = 0;
 	DataMemory DMModule (
 		.address(DMAddress),
