@@ -34,12 +34,10 @@ module Controller(
 	wire [15:0] DMData;
 	// phase4 and load, store
 	wire [15:0] DMAddress = (phase === 5'b01000 && (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01)) ? DR : 0;
-	// phase4 and store
-	wire DMWren = (phase == 5'b01000 && IRData[15:14] == 2'b01);
-	wire DMWriteData = DMWren ? registerFile[IRData[13:11]] : 0;
+	reg DMWren = 0;
 	DataMemory DMModule (
 		.address(DMAddress),
-		.data(DMWriteData),
+		.data(registerFile[IRData[13:11]]),
 		.wren(DMWren),
 		.q(DMData),
 		.clock(!clock)
@@ -165,7 +163,11 @@ module Controller(
 				end
 
 				// load, store
-				else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) DR <= ALUOut;
+				else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
+					DR <= ALUOut;
+					// store
+					if (IRData[15:14] == 2'b01) DMWren = 1;
+				end
 
 				// load immidiate, branch
 				else if (IRData[15:14] == 2'b10) DR <= ALUOut;
@@ -175,6 +177,8 @@ module Controller(
 			if (phase == 5'b01000) begin
 				// load
 				if (IRData[15:14] == 2'b00) MDR <= DMData;
+				// store
+				else if (IRData[15:14] == 2'b01) DMWren = 0;
 			end
 
 			// P5
