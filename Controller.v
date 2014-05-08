@@ -22,14 +22,32 @@ module Controller(
 	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC),
 		.load(PCLoad), .reset(PCReset), .notUpdate(PCNotUpdate));
 
-	// Memory
-	wire [15:0] memoryData;
-	MemoryWrapper memoryModule (.phase(phase), .IRData(IRData), .writeData(registerFile[IRData[13:11]]),
-		.PC(PC), .DR(DR), .clock(!clock), .memoryData(memoryData));
+	// InstructionMemory
+	wire [15:0] IMData;
+	Memory InstructionMemory (
+		.address(PC),
+		.q(IMData),
+		.clock(!clock)
+	);
+
+	// DataMemory
+	wire [15:0] DMData;
+	// phase4 and load, store
+	wire [15:0] DMAddress = (phase === 5'b01000 && (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01)) ? DR : 0;
+	// phase4 and store
+	wire DMWren = (phase == 5'b01000 && IRData[15:14] == 2'b01);
+	wire DMWriteData = DMWren ? registerFile[IRData[13:11]] : 0;
+	Memory DataMemory (
+		.address(DMAddress),
+		.data(DMWriteData),
+		.wren(DMWren),
+		.q(DMData),
+		.clock(!clock)
+	);
 
 	// InstructionRegister
 	wire [15:0] IRData;
-	InstructionRegister IRModule (.writeData(memoryData), .loadData(IRData), .write(phase == 5'b00001), .clock(clock));
+	InstructionRegister IRModule (.writeData(IMData), .loadData(IRData), .write(phase == 5'b00001), .clock(clock));
 
 	//	ALU
 	localparam IADD = 4'b0000;
@@ -153,7 +171,7 @@ module Controller(
 			// P4
 			if (phase == 5'b01000) begin
 				// load
-				if (IRData[15:14] == 2'b00) MDR <= memoryData;
+				if (IRData[15:14] == 2'b00) MDR <= DMData;
 			end
 
 			// P5
