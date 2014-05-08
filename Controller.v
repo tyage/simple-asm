@@ -87,6 +87,7 @@ module Controller(
 		phaseReset <= 0;
 		PCLoad <= 0;
 		PCReset <= 0;
+		// exec
 		if (exec) begin
 			if (running) begin
 				stopAfterCurrentPhase <= 1;
@@ -95,6 +96,7 @@ module Controller(
 				PCNotUpdate <= 0;
 			end
 			running <= !running;
+		// reset
 		end else if (reset) begin
 			for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
 			phaseReset <= 1;
@@ -111,6 +113,7 @@ module Controller(
 			stopAfterCurrentPhase <= 0;
 			PCNotUpdate <= 0;
 			phaseNotUpdate <= 0;
+			// TODO: reset DM
 		end else if (running || stopAfterCurrentPhase) begin
 			// P2
 			if (phase == 5'b00010) begin
