@@ -24,7 +24,7 @@ module Controller(
 
 	// InstructionMemory
 	wire [15:0] IMData;
-	Memory InstructionMemory (
+	InstructionMemory IMModule (
 		.address(PC),
 		.q(IMData),
 		.clock(!clock)
@@ -37,7 +37,7 @@ module Controller(
 	// phase4 and store
 	wire DMWren = (phase == 5'b01000 && IRData[15:14] == 2'b01);
 	wire DMWriteData = DMWren ? registerFile[IRData[13:11]] : 0;
-	Memory DataMemory (
+	DataMemory DMModule (
 		.address(DMAddress),
 		.data(DMWriteData),
 		.wren(DMWren),
