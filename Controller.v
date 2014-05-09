@@ -14,14 +14,29 @@ module Controller(
 		for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
 	end
 
+	// PhaseCounter
+	wire P1 = phase == 5'b00001;
+	wire P2 = phase == 5'b00010;
+	wire P3 = phase == 5'b00100;
+	wire P4 = phase == 5'b01000;
+	wire P5 = phase == 5'b10000;
+
 	// ProgramCounter
 	wire [15:0] PC;
-	reg [15:0] PCLoad;
-	reg PCReset;
+	wire PCLoad = P5 &&
+		(IRData[15:14] == 2'b10) &&
+		(IRData[13:11] == 3'b100 || // B
+			(IRData[13:11] == 3'b111 &&
+				(IRData[10:8] == 3'b000 && Z) || // BE
+				(IRData[10:8] == 3'b001 && S ^ V) || // BLT
+				(IRData[10:8] == 3'b010 && (Z || (S ^ V))) || // BLE
+				(IRData[10:8] == 3'b011 && !Z) // BNE
+			)
+		);
 	// dont update PC at first
-	reg PCNotUpdate = 1;
-	ProgramCounter PCModule (.clk(phase == 5'b00001), .counter(PC),
-		.load(PCLoad), .reset(PCReset), .notUpdate(PCNotUpdate));
+	reg PCReset = 0, PCNotUpdate = 1;
+	ProgramCounter PCModule (.clk(P1), .counter(PC),
+		.load(PCLoad), .address(DR), .reset(PCReset), .notUpdate(PCNotUpdate));
 
 	// InstructionMemory
 	wire [15:0] IMData;
@@ -34,7 +49,7 @@ module Controller(
 	// DataMemory
 	wire [15:0] DMData;
 	// phase4 and load, store
-	wire [15:0] DMAddress = (phase === 5'b01000 && (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01)) ? DR : 16'b0;
+	wire [15:0] DMAddress = (P4 && (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01)) ? DR : 16'b0;
 	reg DMWren = 0;
 	DataMemory DMModule (
 		.address(DMAddress),
@@ -46,7 +61,7 @@ module Controller(
 
 	// InstructionRegister
 	wire [15:0] IRData;
-	InstructionRegister IRModule (.writeData(IMData), .loadData(IRData), .write(phase == 5'b00001), .clock(clock));
+	InstructionRegister IRModule (.writeData(IMData), .loadData(IRData), .write(P1), .clock(clock));
 
 	//	ALU
 	localparam IADD = 4'b0000;
@@ -83,9 +98,8 @@ module Controller(
 	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .reset(phaseReset), .notUpdate(phaseNotUpdate));
 
 	always @ (posedge clock) begin
-		phaseReset <= 0;
-		PCLoad <= 0;
-		PCReset <= 0;
+		phaseReset <= reset;
+		PCReset <= reset;
 		// exec
 		if (exec) begin
 			if (running) begin
@@ -98,8 +112,6 @@ module Controller(
 		// reset
 		end else if (reset) begin
 			for (i = 0; i < 8; i = i + 1) registerFile[i] <= 16'b0000_0000_0000_0000;
-			phaseReset <= 1;
-			PCReset <= 1;
 			BR <= 0;
 			AR <= 0;
 			DR <= 0;
@@ -114,8 +126,7 @@ module Controller(
 			phaseNotUpdate <= 0;
 			// TODO: reset DM
 		end else if (running || stopAfterCurrentPhase) begin
-			// P2
-			if (phase == 5'b00010) begin
+			if (P2) begin
 				// calc, input, output
 				if (IRData[15:14] == 2'b11) begin
 					AR <= registerFile[IRData[10:8]];
@@ -143,13 +154,12 @@ module Controller(
 						)
 					) begin
 						AR <= PC;
-						BR <= IRData[7:0];
+						BR <= {{16{IRData[7]}}, IRData[7:0]};
 					end
 				end
 			end
 
-			// P3
-			if (phase == 5'b00100) begin
+			else if (P3) begin
 				// calc, input, output
 				if (IRData[15:14] == 2'b11) begin
 					case (IRData[7:4])
@@ -174,16 +184,14 @@ module Controller(
 				else if (IRData[15:14] == 2'b10) DR <= ALUOut;
 			end
 
-			// P4
-			if (phase == 5'b01000) begin
+			else if (P4) begin
 				// load
 				if (IRData[15:14] == 2'b00) MDR <= DMData;
 				// store
 				else if (IRData[15:14] == 2'b01) DMWren = 0;
 			end
 
-			// P5
-			if (phase == 5'b10000) begin
+			else if (P5) begin
 				if (stopAfterCurrentPhase) begin
 					stopAfterCurrentPhase <= 0;
 					PCNotUpdate <= 1;
@@ -213,17 +221,6 @@ module Controller(
 				else if (IRData[15:14] == 2'b10) begin
 					// load immidiate
 					if (IRData[13:11] == 3'b000) registerFile[IRData[10:8]] <= IRData[7:0];
-					// branch
-					else if (IRData[13:11] == 3'b100 || // B
-						(IRData[13:11] == 3'b111 &&
-							(IRData[10:8] == 3'b000 && Z) || // BE
-							(IRData[10:8] == 3'b001 && S ^ V) || // BLT
-							(IRData[10:8] == 3'b010 && (Z || (S ^ V))) || // BLE
-							(IRData[10:8] == 3'b011 && !Z) // BNE
-						)
-					) begin
-						PCLoad <= DR;
-					end
 				end
 			end
 		end
