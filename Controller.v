@@ -53,7 +53,7 @@ module Controller(
 	wire [15:0] IRData;
 	InstructionRegister IRModule (.writeData(IMData), .loadData(IRData), .write(P1), .clock(clock));
 
-	//	ALU
+	// ALU
 	localparam IADD = 4'b0000;
 	localparam ISUB = 4'b0001;
 	localparam IAND = 4'b0010;
