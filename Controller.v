@@ -171,7 +171,7 @@ module Controller(
 				else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
 					DR <= ALUOut;
 					// store
-					if (IRData[15:14] == 2'b01) DMWren = 1;
+					if (IRData[15:14] == 2'b01) DMWren <= 1;
 				end
 
 				// load immidiate, branch
@@ -182,7 +182,7 @@ module Controller(
 				// load
 				if (IRData[15:14] == 2'b00) MDR <= DMData;
 				// store
-				else if (IRData[15:14] == 2'b01) DMWren = 0;
+				else if (IRData[15:14] == 2'b01) DMWren <= 0;
 			end
 
 			else if (P5) begin

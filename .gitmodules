@@ -1,3 +1,6 @@
 [submodule "simpleArchitecture"]
 	path = simpleArchitecture
 	url = git@github.com:asi1024/simpleArchitecture.git
+[submodule "SimpleAsm"]
+	path = SimpleAsm
+	url = https://github.com/tyage/SimpleAsm.git
