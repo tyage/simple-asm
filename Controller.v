@@ -131,7 +131,7 @@ module Controller(
 				if (IRData[15:14] == 2'b11) begin
 					AR <= registerFile[IRData[10:8]];
 					if (IRData[7:4] == ISLL || IRData[7:4] == ISLR ||
-						IRData[7:4] == ISRL || IRData[7:4] == ISRA) BR <= IRData[7:0];
+						IRData[7:4] == ISRL || IRData[7:4] == ISRA) BR <= {{8{IRData[7]}}, IRData[7:0]};
 					else if (IRData[7:4] == IIDT) BR <= in;
 					else BR <= registerFile[IRData[13:11]];
 				end
@@ -139,7 +139,7 @@ module Controller(
 				// load, store
 				else if (IRData[15:14] == 2'b00 || IRData[15:14] == 2'b01) begin
 					AR <= registerFile[IRData[10:8]];
-					BR <= IRData[7:0];
+					BR <= {{8{IRData[7]}}, IRData[7:0]};
 				end
 
 				// load immidiate, branch
@@ -154,7 +154,7 @@ module Controller(
 						)
 					) begin
 						AR <= PC;
-						BR <= {{16{IRData[7]}}, IRData[7:0]};
+						BR <= {{8{IRData[7]}}, IRData[7:0]};
 					end
 				end
 			end
@@ -220,7 +220,7 @@ module Controller(
 				// load immidiate, branch
 				else if (IRData[15:14] == 2'b10) begin
 					// load immidiate
-					if (IRData[13:11] == 3'b000) registerFile[IRData[10:8]] <= IRData[7:0];
+					if (IRData[13:11] == 3'b000) registerFile[IRData[10:8]] <= {{8{IRData[7]}}, IRData[7:0]};
 				end
 			end
 		end
