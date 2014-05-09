@@ -23,19 +23,9 @@ module Controller(
 
 	// ProgramCounter
 	wire [15:0] PC;
-	wire PCLoad = P5 &&
-		(IRData[15:14] == 2'b10) &&
-		(IRData[13:11] == 3'b100 || // B
-			(IRData[13:11] == 3'b111 &&
-				(IRData[10:8] == 3'b000 && Z) || // BE
-				(IRData[10:8] == 3'b001 && S ^ V) || // BLT
-				(IRData[10:8] == 3'b010 && (Z || (S ^ V))) || // BLE
-				(IRData[10:8] == 3'b011 && !Z) // BNE
-			)
-		);
 	// dont update PC at first
-	reg PCReset = 0, PCNotUpdate = 1;
-	ProgramCounter PCModule (.clk(P1), .counter(PC),
+	reg PCReset = 0, PCNotUpdate = 1, PCLoad = 0;
+	ProgramCounter PCModule (.clock(P1), .counter(PC),
 		.load(PCLoad), .address(DR), .reset(PCReset), .notUpdate(PCNotUpdate));
 
 	// InstructionMemory
@@ -122,11 +112,15 @@ module Controller(
 			C <= 0;
 			V <= 0;
 			stopAfterCurrentPhase <= 0;
+			PCLoad <= 0;
 			PCNotUpdate <= 0;
 			phaseNotUpdate <= 0;
 			// TODO: reset DM
 		end else if (running || stopAfterCurrentPhase) begin
-			if (P2) begin
+			if (P1) begin
+				PCLoad <= 0;
+			end
+			else if (P2) begin
 				// calc, input, output
 				if (IRData[15:14] == 2'b11) begin
 					AR <= registerFile[IRData[10:8]];
@@ -221,6 +215,14 @@ module Controller(
 				else if (IRData[15:14] == 2'b10) begin
 					// load immidiate
 					if (IRData[13:11] == 3'b000) registerFile[IRData[10:8]] <= {{8{IRData[7]}}, IRData[7:0]};
+					else if (IRData[13:11] == 3'b100 || // B
+							(IRData[13:11] == 3'b111 &&
+								(IRData[10:8] == 3'b000 && Z) || // BE
+								(IRData[10:8] == 3'b001 && S ^ V) || // BLT
+								(IRData[10:8] == 3'b010 && (Z || (S ^ V))) || // BLE
+								(IRData[10:8] == 3'b011 && !Z) // BNE
+							)
+						) PCLoad <= 1;
 				end
 			end
 		end
