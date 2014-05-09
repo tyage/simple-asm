@@ -13,8 +13,8 @@ Simple.define_function(:swap) do |address_reg0, address_reg1|
   st r0, address_reg1, 0
 end
 
-# 0x00 ~ 0x10までの数字ソート
-# r0, r1: swap, length
+# 0x400 ~ 0x7ffまでのバブルソート
+# r0, r1
 # r2: i
 # r3: j
 # r4
@@ -28,12 +28,17 @@ s = Simple.new do
   # i = 0
   li i, 0
 
-  # size = 0x10
+  # size = 0x7ff
   li size, 1
-  sll size, 4
+  sll size, 11
+  addi size, -1
+  out size
 
   label :for_i
+    # j = 0x401
     li j, 1
+    sll j, 10
+    addi j, 1
 
     label :for_j
       # r7 = A[j-1]
@@ -44,6 +49,8 @@ s = Simple.new do
       addi j, 1
       ld r6, j, 0
 
+      out r7
+      out r6
       sub r7, r6
       blt SWAP_LENGTH + 2
       # r6 = j - 1
@@ -51,19 +58,21 @@ s = Simple.new do
       addi r6, -1
       swap j, r6
 
-    # r1 = size - i
-    mov r1, size
-    sub r1, i
+    # r0 = size - i
+    mov r0, size
+    sub r0, i
 
     addi j, 1
-    cmp j, r1
+    cmp j, r0
     jlt :for_j
 
-  # r1 = size
-  mov r1, size
+  # r0 = 0x3ff
+  li r0, 1
+  sll r0, 10
+  addi r0, -1
 
   addi i, 1
-  cmp i, r1
+  cmp i, r0
   jlt :for_i
 end
 
