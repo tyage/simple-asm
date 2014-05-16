@@ -1,10 +1,6 @@
 $:.push File.expand_path("../../SimpleAsm/lib", __FILE__)
 require 'simple_asm'
 include SimpleAsm
-# アドレスは12ビット
-# r0, r1
-# length: 4
-SWAP_LENGTH = 4
 
 Simple.define_function(:swap) do |address_reg0, address_reg1|
   ld r6, address_reg0, 0
@@ -12,9 +8,28 @@ Simple.define_function(:swap) do |address_reg0, address_reg1|
   st r7, address_reg0, 0
   st r6, address_reg1, 0
 end
+
 Simple.define_function(:pop_left) do |reg, stack_pos|
+  li r7, 0
+  add r7, stack_pos
+  ld reg, r7, 0
 end
 Simple.define_function(:pop_right) do |reg, stack_pos|
+  li r7, 1
+  sll r7, 9
+  add r7, stack_pos
+  ld reg, r7, 0
+end
+Simple.define_function(:push_left) do |stack_pos, reg|
+  li r7, 0
+  add r7, stack_pos
+  st r7, reg, 0
+end
+Simple.define_function(:push_left) do |stack_pos, reg|
+  li r7, 1
+  sll r7, 9
+  add r7, stack_pos
+  st r7, reg, 0
 end
 
 # 0x400 ~ 0x7ffまでのクイックソート
@@ -41,8 +56,8 @@ s = Simple.new do
   li stack_pos, 0
 
   # stack left, right
-  stack_left stack_pos, left
-  stack_right stack_pos, right
+  push_left stack_pos, left
+  push_right stack_pos, right
 
   label :for
     # fetch left, right from stack
@@ -89,7 +104,7 @@ s = Simple.new do
     label :recursive_quicksort
       # stack left, i-1
       addi stack_pos, 1
-      stack_left stack_pos, left
+      push_left stack_pos, left
       mov r6, i
       addi r6, -1
       stack_right stack_pos, r6
@@ -98,7 +113,7 @@ s = Simple.new do
       addi stack_pos, 1
       mov r6, j
       addi j, 1
-      stack_left stack_pos, r6
+      push_left stack_pos, r6
       stack_right stack_pos, right
 
     j :for
