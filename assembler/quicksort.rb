@@ -10,9 +10,7 @@ Simple.define_function(:swap) do |address_reg0, address_reg1|
 end
 
 Simple.define_function(:pop_left) do |reg, stack_pos|
-  li r7, 0
-  add r7, stack_pos
-  ld reg, r7, 0
+  ld reg, stack_pos, 0
 end
 Simple.define_function(:pop_right) do |reg, stack_pos|
   li r7, 1
@@ -20,16 +18,14 @@ Simple.define_function(:pop_right) do |reg, stack_pos|
   add r7, stack_pos
   ld reg, r7, 0
 end
-Simple.define_function(:push_left) do |stack_pos, reg|
-  li r7, 0
-  add r7, stack_pos
-  st r7, reg, 0
+Simple.define_function(:push_left) do |reg, stack_pos|
+  st reg, stack_pos, 0
 end
-Simple.define_function(:push_left) do |stack_pos, reg|
+Simple.define_function(:push_right) do |reg, stack_pos|
   li r7, 1
   sll r7, 9
   add r7, stack_pos
-  st r7, reg, 0
+  st reg, r7, 0
 end
 
 # 0x400 ~ 0x7ffまでのクイックソート
@@ -56,8 +52,8 @@ s = Simple.new do
   li stack_pos, 0
 
   # stack left, right
-  push_left stack_pos, left
-  push_right stack_pos, right
+  push_left left, stack_pos
+  push_right right, stack_pos
 
   label :for
     # fetch left, right from stack
@@ -81,7 +77,7 @@ s = Simple.new do
         cmp pivot, r5
         jlt :less_than_pivot
         addi i, 1
-        j :larger_than_pivot
+        jmp :larger_than_pivot
 
       # while (pivot < a[j]) j++
       label :less_than_pivot
@@ -89,7 +85,7 @@ s = Simple.new do
         cmp r5, pivot
         jlt :check_position
         addi j, -1
-        j :less_than_pivot
+        jmp :less_than_pivot
 
       # if (i >= j) break
       label :check_position
@@ -101,22 +97,24 @@ s = Simple.new do
       addi i, 1
       addi j, -1
 
+      jmp :divide_by_pivot
+
     label :recursive_quicksort
-      # stack left, i-1
       addi stack_pos, 1
-      push_left stack_pos, left
+
+      # stack left, i-1
+      push_left left, stack_pos
       mov r6, i
       addi r6, -1
-      stack_right stack_pos, r6
+      push_right r6, stack_pos
 
       # stack j+1, right
-      addi stack_pos, 1
       mov r6, j
-      addi j, 1
-      push_left stack_pos, r6
-      stack_right stack_pos, right
+      addi r6, 1
+      push_left r6, stack_pos
+      push_right right, stack_pos
 
-    j :for
+    jmp :for
 end
 
 puts s.to_mif(0x400)
