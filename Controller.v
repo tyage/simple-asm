@@ -198,10 +198,10 @@ module Controller(
 				end
 
 				if (ALUFlagsWrite) begin
-					S <= ALUFlags[0];
-					Z <= ALUFlags[1];
-					C <= ALUFlags[2];
-					V <= ALUFlags[3];
+					S <= ALUFlags[3];
+					Z <= ALUFlags[2];
+					C <= ALUFlags[1];
+					V <= ALUFlags[0];
 				end
 
 				// calc, input, output

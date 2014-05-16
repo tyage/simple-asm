@@ -44,13 +44,9 @@ s = Simple.new do
   sll left, 10
 
   # right = 0x7ff
-#  li right, 1
-#  sll right, 11
-#  addi right, -1
-
-  # right = 0x404
-  mov right, left
-  addi right, 4
+  li right, 1
+  sll right, 11
+  addi right, -1
 
   # stack_pos = 0
   li stack_pos, 0
