@@ -128,6 +128,7 @@ s = Simple.new do
     jmp :for
 
   label :exit
+    hlt
 end
 
 puts s.to_mif(0x400)
