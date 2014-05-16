@@ -44,19 +44,23 @@ s = Simple.new do
   sll left, 10
 
   # right = 0x7ff
-  li right, 1
-  sll right, 11
-  addi right, -1
+#  li right, 1
+#  sll right, 11
+#  addi right, -1
 
-  # stack_pos = 1
-  li stack_pos, 1
+  # right = 0x404
+  mov right, left
+  addi right, 4
+
+  # stack_pos = 0
+  li stack_pos, 0
 
   # stack left, right
   push_left left, stack_pos
   push_right right, stack_pos
 
   label :for
-    # if (stack_pos <= 0) exit
+    # if (stack_pos < 0) exit
     li r7, 0
     cmp stack_pos, r7
     jlt :exit
@@ -66,9 +70,11 @@ s = Simple.new do
     pop_right right, stack_pos
     addi stack_pos, -1
 
-    # if (right < left) continue
+    # if (right <= left) continue
+    out right
+    out left
     cmp right, left
-    jlt :for
+    jle :for
 
     mov i, left
     mov j, right
@@ -76,26 +82,30 @@ s = Simple.new do
 
     label :divide_by_pivot
 
-      # while (a[i] < pivot) i++
+      # while (i <= right && a[i] < pivot) i++
       label :larger_than_pivot
+        cmp right, i
+        jle :less_than_pivot
         ld r6, i, 0
         cmp pivot, r6
-        jlt :less_than_pivot
+        jle :less_than_pivot
         addi i, 1
         jmp :larger_than_pivot
 
-      # while (pivot < a[j]) j++
+      # while (left <= j && pivot < a[j]) j--
       label :less_than_pivot
+        cmp j, left
+        jle :check_position
         ld r6, j, 0
         cmp r6, pivot
-        jlt :check_position
+        jle :check_position
         addi j, -1
         jmp :less_than_pivot
 
-      # if (i >= j) break
+      # if (j <= i) break
       label :check_position
         cmp j, i
-        jlt :recursive_quicksort
+        jle :recursive_quicksort
 
       swap i, j
 
