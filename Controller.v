@@ -7,7 +7,7 @@ module Controller(
 	// registers
 	reg running = 0;
 	reg [15:0] registerFile [0:7];
-	reg [15:0] BR, AR, DR, MDR, result, stopAfterCurrentPhase;
+	reg [15:0] BR, AR, DR, result, stopAfterCurrentPhase;
 
 	integer i;
 	initial begin
@@ -19,7 +19,6 @@ module Controller(
 	wire P2 = phase == 5'b00010;
 	wire P3 = phase == 5'b00100;
 	wire P4 = phase == 5'b01000;
-	wire P5 = phase == 5'b10000;
 
 	// ProgramCounter
 	wire [15:0] PC;
@@ -105,7 +104,6 @@ module Controller(
 			BR <= 0;
 			AR <= 0;
 			DR <= 0;
-			MDR <= 0;
 			result <= 0;
 			S <= 0;
 			Z <= 0;
@@ -184,13 +182,6 @@ module Controller(
 			end
 
 			else if (P4) begin
-				// load
-				if (IRData[15:14] == 2'b00) MDR <= DMData;
-				// store
-				else if (IRData[15:14] == 2'b01) DMWren <= 0;
-			end
-
-			else if (P5) begin
 				if (stopAfterCurrentPhase) begin
 					stopAfterCurrentPhase <= 0;
 					PCNotUpdate <= 1;
@@ -212,10 +203,10 @@ module Controller(
 						IHALT: ;
 						default: registerFile[IRData[10:8]] <= DR;
 					endcase
-
-				// load (ignore if PC == 0)
-				else if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] <= MDR;
-
+				// load
+				else if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] <= DMData;
+				// store
+				else if (IRData[15:14] == 2'b01) DMWren <= 0;
 				// load immidiate, branch
 				else if (IRData[15:14] == 2'b10) begin
 					// load immidiate
