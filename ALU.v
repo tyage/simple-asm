@@ -12,6 +12,7 @@ module ALU (
    localparam IXOR = 4'b0100;
    localparam ICMP = 4'b0101;
    localparam IMOV = 4'b0110;
+   localparam IMUL = 4'b0111;
    localparam ISLL = 4'b1000;
    localparam ISLR = 4'b1001;
    localparam ISRL = 4'b1010;
@@ -33,6 +34,7 @@ module ALU (
          IXOR : amux = {1'b0, A ^ B};
          ICMP : amux = {1'b0, A} - {1'b0, B};
          IMOV : amux = {1'b0, B};
+         IMUL : amux = {1'b0, A} * {1'b0, B};
          ISLL : amux = {1'b0, A} << B[3:0];
          ISLR : amux = ({1'b0, A} << B[3:0]) | (A >> 16 - B[3:0]);
          ISRL : amux = {B[3:0] > 0 ? A[B[3:0] - 1] : 1'b0, A >> B[3:0]};

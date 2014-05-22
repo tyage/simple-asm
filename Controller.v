@@ -60,6 +60,7 @@ module Controller(
 	localparam IXOR = 4'b0100;
 	localparam ICMP = 4'b0101;
 	localparam IMOV = 4'b0110;
+	localparam IMUL = 4'b0111;
 	localparam ISLL = 4'b1000;
 	localparam ISLR = 4'b1001;
 	localparam ISRL = 4'b1010;
@@ -231,7 +232,9 @@ module Controller(
 		end
 	end
 
-	assign outResult = counter[31:16];
-	assign outDebug = counter[15:0];
+	assign outResult = result;
+	assign outDebug = IRData;
+//	assign outResult = counter[31:16];
+//	assign outDebug = counter[15:0];
 	assign outPhase = phase;
 endmodule
