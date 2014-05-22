@@ -120,6 +120,15 @@ module Controller(
 		end else if (running || stopAfterCurrentPhase) begin
 			if (P1) begin
 				PCLoad <= 0;
+
+				// calc, input, output
+				if (IRData[15:14] == 2'b11)
+					case (IRData[7:4])
+						ICMP: ;
+						IOUT: ;
+						IHALT: ;
+						default: registerFile[IRData[10:8]] <= DR;
+					endcase
 			end
 			else if (P2) begin
 				// calc, input, output
@@ -199,16 +208,8 @@ module Controller(
 					V <= ALUFlags[0];
 				end
 
-				// calc, input, output
-				if (IRData[15:14] == 2'b11)
-					case (IRData[7:4])
-						ICMP: ;
-						IOUT: ;
-						IHALT: ;
-						default: registerFile[IRData[10:8]] <= DR;
-					endcase
 				// load
-				else if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] <= DMData;
+				if (IRData[15:14] == 2'b00) registerFile[IRData[13:11]] <= DMData;
 				// store
 				else if (IRData[15:14] == 2'b01) DMWren <= 0;
 				// load immidiate, branch
