@@ -74,7 +74,7 @@ applicable agreement for further details.
 	(input)
 	(rect 224 272 392 288)
 	(text "INPUT" (rect 125 0 154 10)(font "Arial" (font_size 6)))
-	(text "input[3..0]" (rect 5 0 54 11)(font "Arial" ))
+	(text "input[3..0]" (rect 5 0 53 11)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -1107,23 +1107,6 @@ applicable agreement for further details.
 	)
 	(annotation_block (location)(rect 1416 224 1488 240))
 )
-(pin
-	(output)
-	(rect 800 272 976 288)
-	(text "OUTPUT" (rect 1 0 41 10)(font "Arial" (font_size 6)))
-	(text "led4" (rect 90 0 112 11)(font "Arial" ))
-	(pt 0 8)
-	(drawing
-		(line (pt 0 8)(pt 52 8))
-		(line (pt 52 4)(pt 78 4))
-		(line (pt 52 12)(pt 78 12))
-		(line (pt 52 12)(pt 52 4))
-		(line (pt 78 4)(pt 82 8))
-		(line (pt 82 8)(pt 78 12))
-		(line (pt 78 12)(pt 82 8))
-	)
-	(annotation_block (location)(rect 1560 256 1632 272))
-)
 (symbol
 	(rect 224 344 360 504)
 	(text "segled" (rect 5 0 43 13)(font "Arial" (font_size 8)))
@@ -1903,8 +1886,8 @@ applicable agreement for further details.
 	(port
 		(pt 192 64)
 		(output)
-		(text "outPhase[4..0]" (rect 0 0 71 11)(font "Arial" ))
-		(text "outPhase[4..0]" (rect 111 59 182 70)(font "Arial" ))
+		(text "outPhase[3..0]" (rect 0 0 71 11)(font "Arial" ))
+		(text "outPhase[3..0]" (rect 111 59 182 70)(font "Arial" ))
 		(line (pt 192 64)(pt 176 64)(line_width 3))
 	)
 	(drawing
@@ -2012,11 +1995,6 @@ applicable agreement for further details.
 	(pt 800 264)
 )
 (connector
-	(text "phase[4]" (rect 762 264 804 275)(font "Arial" ))
-	(pt 752 280)
-	(pt 800 280)
-)
-(connector
 	(text "debug[12]" (rect 200 736 249 747)(font "Arial" ))
 	(pt 240 752)
 	(pt 200 752)
@@ -2109,12 +2087,6 @@ applicable agreement for further details.
 	(bus)
 )
 (connector
-	(text "phase[4..0]" (rect 656 224 711 235)(font "Arial" ))
-	(pt 640 240)
-	(pt 680 240)
-	(bus)
-)
-(connector
 	(pt 448 224)
 	(pt 392 224)
 )
@@ -2159,5 +2131,11 @@ applicable agreement for further details.
 (connector
 	(pt 424 280)
 	(pt 392 280)
+	(bus)
+)
+(connector
+	(text "phase[3..0]" (rect 656 224 711 235)(font "Arial" ))
+	(pt 640 240)
+	(pt 680 240)
 	(bus)
 )

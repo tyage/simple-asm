@@ -2,7 +2,7 @@ module Controller(
 	input clock, exec, reset,
 	input [3:0] in,
 	output [15:0] outResult, outDebug,
-	output [4:0] outPhase);
+	output [3:0] outPhase);
 
 	// registers
 	reg running = 0;
@@ -15,10 +15,10 @@ module Controller(
 	end
 
 	// PhaseCounter
-	wire P1 = phase == 5'b00001;
-	wire P2 = phase == 5'b00010;
-	wire P3 = phase == 5'b00100;
-	wire P4 = phase == 5'b01000;
+	wire P1 = phase == 4'b0001;
+	wire P2 = phase == 4'b0010;
+	wire P3 = phase == 4'b0100;
+	wire P4 = phase == 4'b1000;
 
 	// ProgramCounter
 	wire [15:0] PC;
@@ -82,7 +82,7 @@ module Controller(
 	);
 
 	// PhaseCounter
-	wire [4:0] phase;
+	wire [3:0] phase;
 	reg phaseReset = 0;
 	reg phaseNotUpdate = 1;
 	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .reset(phaseReset), .notUpdate(phaseNotUpdate));

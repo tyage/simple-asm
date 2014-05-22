@@ -68,8 +68,8 @@ applicable agreement for further details.
 	(port
 		(pt 192 64)
 		(output)
-		(text "outPhase[4..0]" (rect 0 0 57 12)(font "Arial" ))
-		(text "outPhase[4..0]" (rect 114 59 171 71)(font "Arial" ))
+		(text "outPhase[3..0]" (rect 0 0 56 12)(font "Arial" ))
+		(text "outPhase[3..0]" (rect 115 59 171 71)(font "Arial" ))
 		(line (pt 192 64)(pt 176 64)(line_width 3))
 	)
 	(drawing
