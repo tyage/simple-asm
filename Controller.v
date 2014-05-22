@@ -167,6 +167,7 @@ module Controller(
 						IHALT: begin
 							PCNotUpdate <= 1;
 							running <= 0;
+							phaseNotUpdate <= 1;
 						end
 						default: DR <= ALUOut;
 					endcase
