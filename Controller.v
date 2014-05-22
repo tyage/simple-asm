@@ -115,7 +115,6 @@ module Controller(
 			PCLoad <= 0;
 			PCNotUpdate <= 0;
 			phaseNotUpdate <= 0;
-			// TODO: reset DM
 		end else if (running || stopAfterCurrentPhase) begin
 			if (P1) begin
 				PCLoad <= 0;
