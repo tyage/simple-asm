@@ -67,8 +67,6 @@ s = Simple.new do
     addi stack_pos, -1
 
     # if (right <= left) continue
-    out right
-    out left
     cmp right, left
     jle :for
 

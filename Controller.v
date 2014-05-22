@@ -86,6 +86,10 @@ module Controller(
 	reg phaseNotUpdate = 1;
 	PhaseCounter phaseCounterModule (.clock(clock), .phase(phase), .reset(phaseReset), .notUpdate(phaseNotUpdate));
 
+	// Counter
+	wire [31:0] counter;
+	Counter counterModule (.clock(clock), .notUpdate(!running), .out(counter));
+
 	always @ (posedge clock) begin
 		phaseReset <= reset;
 		PCReset <= reset;
@@ -226,7 +230,7 @@ module Controller(
 		end
 	end
 
-	assign outResult = result;
-	assign outDebug = IRData;
+	assign outResult = counter[31:16];
+	assign outDebug = counter[15:0];
 	assign outPhase = phase;
 endmodule
