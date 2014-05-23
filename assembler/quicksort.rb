@@ -70,6 +70,7 @@ s = Simple.new do
     cmp right, left
     jle :for
 
+    # pivot = left
     mov i, left
     mov j, right
     ld pivot, i, 0
@@ -79,7 +80,7 @@ s = Simple.new do
       # while (i <= right && a[i] < pivot) i++
       label :larger_than_pivot
         cmp right, i
-        jle :less_than_pivot
+        jlt :less_than_pivot
         ld r6, i, 0
         cmp pivot, r6
         jle :less_than_pivot
@@ -89,7 +90,7 @@ s = Simple.new do
       # while (left <= j && pivot < a[j]) j--
       label :less_than_pivot
         cmp j, left
-        jle :check_position
+        jlt :check_position
         ld r6, j, 0
         cmp r6, pivot
         jle :check_position
